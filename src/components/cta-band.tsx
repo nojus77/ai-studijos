@@ -24,7 +24,7 @@ export function CTABand({
         className={buttonVariants({
           size: "lg",
           className:
-            "h-14 w-full justify-between rounded-2xl text-sm font-semibold uppercase tracking-wider sm:text-base",
+            "cta-glow h-14 w-full justify-between rounded-xl bg-primary px-6 text-sm font-semibold uppercase tracking-wider text-primary-foreground hover:bg-primary/90 sm:text-base",
         })}
       >
         <span>{label}</span>

@@ -1,21 +1,32 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import {
+  IBM_Plex_Sans,
+  Playfair_Display,
+  Plus_Jakarta_Sans,
+} from "next/font/google";
 
 import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-sans",
+const ibm = IBM_Plex_Sans({
+  variable: "--font-ibm",
   subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-serif",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin", "latin-ext"],
-  weight: "400",
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin", "latin-ext"],
+  weight: ["700", "800", "900"],
   display: "swap",
 });
 
@@ -28,14 +39,13 @@ export const metadata: Metadata = {
     template: "%s · AI Studijos",
   },
   description:
-    "AI mokymai lietuviams. Greitas video kursas, savaitiniai webinarai, mokymai komandai. Sutaupyk valandas kasdien su praktiniais AI įrankiais.",
+    "AI mokymai lietuviams. Greitas video kursas, mėnesinis bootcamp, mokymai komandai. Sutaupyk valandas kasdien su praktiniais AI įrankiais.",
   openGraph: {
     type: "website",
     locale: "lt_LT",
     siteName: "AI Studijos",
     title: "AI Studijos — Mokykis dirbtinio intelekto Lietuvoje",
-    description:
-      "Greitas video kursas, savaitiniai webinarai, mokymai komandai.",
+    description: "Greitas video kursas, mėnesinis bootcamp, mokymai komandai.",
   },
 };
 
@@ -43,7 +53,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#0a0a0a",
+  themeColor: "#fcfaf4",
 };
 
 export default function RootLayout({
@@ -54,7 +64,7 @@ export default function RootLayout({
   return (
     <html
       lang="lt"
-      className={`${inter.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${ibm.variable} ${jakarta.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-background text-foreground flex flex-col">
         {children}

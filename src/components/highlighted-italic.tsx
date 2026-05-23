@@ -5,19 +5,20 @@ interface HighlightedItalicProps {
   className?: string;
 }
 
+/**
+ * Headline accent word — inline yellow color on dark ink text.
+ * Mirrors the learninai "Done-for-you <yellow>AI guides</yellow>" pattern.
+ * Despite the legacy name, this is no longer italic — kept name for backwards
+ * compatibility across existing pages.
+ */
 export function HighlightedItalic({
   children,
   className,
 }: HighlightedItalicProps) {
   return (
     <span
-      className={cn("relative inline-block italic", className)}
-      style={{ fontFamily: "var(--font-serif)" }}
+      className={cn("relative inline-block font-bold text-primary", className)}
     >
-      <span
-        aria-hidden
-        className="absolute -inset-x-1 bottom-1 -z-10 h-[0.45em] -skew-y-2 rounded-sm bg-primary/20"
-      />
       {children}
     </span>
   );

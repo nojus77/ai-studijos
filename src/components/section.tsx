@@ -39,7 +39,7 @@ export function SectionLabel({
   return (
     <p
       className={cn(
-        "mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary",
+        "mb-3 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground",
         className,
       )}
     >
@@ -58,7 +58,7 @@ export function SectionHeading({
   return (
     <h2
       className={cn(
-        "text-balance text-3xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-4xl md:text-[44px]",
+        "text-balance text-3xl font-extrabold leading-[1.1] tracking-tight text-foreground sm:text-4xl md:text-[44px]",
         className,
       )}
       style={{ fontFamily: "var(--font-serif)" }}
