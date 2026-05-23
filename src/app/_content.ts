@@ -6,11 +6,6 @@ export const homeContent = {
     originalPrice: 97,
     discountLabel: "-51%",
   },
-  // TODO: wire to Supabase count of completed checkouts
-  scarcity: {
-    taken: 83,
-    total: 100,
-  },
   checkoutHref: "/checkout?tier=kursas",
   contactEmail: "labas@aistudijos.lt",
   community: {

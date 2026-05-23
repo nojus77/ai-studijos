@@ -336,48 +336,13 @@ function FounderLetterSection() {
           Labas 👋
         </h2>
         <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-foreground/90 sm:text-base">
-          <p>
-            <span
-              className="float-left mr-2 text-5xl leading-[0.85] text-primary sm:text-6xl"
-              style={serifStyle}
-            >
-              A
-            </span>
-            š Nojus. Smagu, kad esi čia, ir ačiū, kad skiri laiko paskaityti,
-            kas tai per kursai. Jei skaitai šitą laišką, tikriausiai svarstai,
-            ar tikrai gali turėti savo AI asistentą, kuris realiai padėtų tavo
-            darbe ir dirbtų prie tavo kompiuterio.
-          </p>
-          <p>Atsakymas trumpas: gali. Leisk papasakoti, kaip.</p>
-          <p>
-            Pats susikūriau šitą AI asistentą, nes man reikėjo pagalbininko,
-            kuris nuimtų pasikartojantį darbą nuo pečių. Tai, ką jis daro
-            šiandien, tikrai pranoko mano lūkesčius.
-          </p>
-          <p>
-            Jis paruošia rinkodaros strategijas mano klientams, analizuoja
-            auditoriją, rašo briefus kūrybininkams, rašo mėnesio ataskaitas,
-            siūlo naujas reklamų iteracijas, dirba su Exceliu ir net tvarko mano
-            buhalteriją. Realiai 80 % mano darbo dabar yra tiesiog užduočių
-            delegavimas AI asistentui — o jis padaro.
-          </p>
-          <p>
-            Būtent dėl to vienu metu galiu vystyti kelias įmones: AI Studijos,
-            kurioje esi dabar, ir kelis kitus verslus, kurių užkulisius mielai
-            parodysiu sesijų metu.
-          </p>
-          <p>
-            Tą patį asistentą per 4 sekmadienio vakarus susikursi ir tu. Savo
-            kompiuteryje, su savo kontekstu, savo realiems darbams. Tai ne video
-            kursas, kurį peržiūri ir pamiršti. Tai keturi online susitikimai,
-            kuriuose dirbame drauge: aš rodau ekrane, tu darai savo
-            kompiuteryje, o jei kažkas užtrunka — padedu iš karto.
-          </p>
-          <p>
-            Mano didžiausias noras, kad po šių keturių savaičių turėtum{" "}
-            <HighlightedItalic>daugiau laiko sau</HighlightedItalic>, šeimai,
-            draugams arba pomėgiui, kurį atidėjai metų metus. Tad kviečiu
-            prisijungti :)
+          {/* TODO: parašyk savo autentišką laišką — kas tu, kodėl statai šitą bootcamp'ą,
+              ką pats sukūrei naudodamas AI, ką gauna studentas po 4 sesijų. Pavyzdinė
+              struktūra: 1) prisistatymas, 2) kodėl pradedi, 3) ką pats jau padarei su AI,
+              4) ko studentas išmoks, 5) kvietimas prisijungti, 6) kontaktinis paragrafas. */}
+          <p className="text-muted-foreground italic">
+            [Placeholder — pakeisk su autentišku laišku savo balsu. Žiūrėk TODO
+            komentarą šaltinio kode dėl rekomenduojamos struktūros.]
           </p>
           <p className="text-muted-foreground">
             Iki {c.startDateFull.toLowerCase()}. Jei iki tol turėsi klausimų —
@@ -1168,37 +1133,22 @@ function TestimonialsSection() {
           Mokiniai <HighlightedItalic>sako.</HighlightedItalic>
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          01 laida tik startuoja. Tuo tarpu — atsiliepimai iš tų, kurie jau
-          pradėjo dirbti su AI komanda. Pirmos laidos absolventų atsiliepimus
-          pridėsime liepą.
+          01 laida tik startuoja. Pirmų absolventų atsiliepimus įdėsime, vos tik
+          juos gausime — be aktorių, be išgalvotų istorijų.
         </p>
 
-        <p className="mt-6 text-xs italic text-muted-foreground">
-          (Placeholder — pakeisk su tikrais studentų atsiliepimais kai turėsi.)
-        </p>
-
-        <Card className="mt-4 rounded-2xl border-border/60 p-5 sm:p-6">
-          <div className="flex items-center gap-3">
-            <div
-              className="size-10 shrink-0 rounded-full bg-muted"
-              aria-hidden
-            />
-            <p className="text-sm font-semibold">Tomas Z.</p>
-          </div>
+        {/* TODO: kai surinksi pirmų studentų atsiliepimus — pakeisk šitą placeholder'į
+            su realių žmonių vardais, foto ir citatomis. */}
+        <Card className="mt-6 rounded-2xl border-dashed border-border/60 bg-muted/30 p-8 text-center">
           <p
-            className="mt-4 text-sm leading-relaxed text-foreground/85 sm:text-base"
+            className="text-lg leading-snug text-muted-foreground sm:text-xl"
             style={serifStyle}
           >
-            „Iš pradžių žiūrėjau skeptiškai — investicijų srityje sprendimai
-            priimami iš duomenų ir konteksto, ne iš šūkių. Per Bootcamp&apos;ą
-            įsitikinau, kad asistentas iš tiesų supranta mano darbo logiką:
-            paruošia skambučių santraukas, peržiūri sutarties punktus, suvienija
-            savaitės ataskaitą iš trijų skirtingų šaltinių per kelias minutes.
-            Rekomenduoju visiems, kurie nori nusimesti Excel ir prezentacijų
-            kūrimo naštą.“
+            Tavo istorija — gali tapti pirmąja.
           </p>
-          <p className="mt-3 text-xs text-muted-foreground">
-            NT investicijų projektų vadovas
+          <p className="mt-2 text-sm text-muted-foreground">
+            Prisijunk prie 01 laidos, ir tavo atsiliepimas pirmas atsiras šiame
+            puslapyje.
           </p>
         </Card>
       </div>
@@ -1400,24 +1350,8 @@ function FinalCTASection() {
           </Link>
         </div>
 
-        <div className="mt-12 border-t border-background/20 pt-8">
-          <p
-            className="text-balance text-lg leading-snug text-background/85 sm:text-xl"
-            style={serifStyle}
-          >
-            Mūsų tikslas: iki 2026 m. pabaigos išmokyti 50 000 lietuvių
-            išnaudoti AI iki paties didžiausio jo potencialo, ne tik ChatGPT.
-          </p>
-          <p
-            className="mt-6 bg-gradient-to-r from-primary to-foreground bg-clip-text text-5xl font-medium text-transparent sm:text-7xl"
-            style={serifStyle}
-          >
-            500+
-          </p>
-          <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-background/70">
-            jau pradėjo išnaudoti AI potencialą su mumis.
-          </p>
-        </div>
+        {/* TODO: jei norėsi misijos + skaitiklio sekcijos — užpildyk savo tikrais
+            duomenimis (kiek lietuvių iki kada nori išmokyti, tikras pirkėjų skaičius). */}
       </div>
     </section>
   );

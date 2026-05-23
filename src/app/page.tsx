@@ -13,7 +13,6 @@ import {
   Shield,
   ShieldCheck,
   Sparkles,
-  Star,
   TrendingUp,
   Users,
   Zap,
@@ -116,33 +115,8 @@ function HeroSection() {
           </div>
         </div>
 
-        {/* Social proof avatar row */}
-        <div className="mt-7 flex items-center gap-4">
-          <div className="flex -space-x-2">
-            {[0, 1, 2, 3, 4].map((i) => (
-              // TODO: replace with real student avatars
-              <div
-                key={i}
-                aria-hidden
-                className="size-9 rounded-full border-2 border-background bg-muted"
-              />
-            ))}
-          </div>
-          <div>
-            <div className="flex items-center gap-1">
-              {[0, 1, 2, 3, 4].map((i) => (
-                <Star
-                  key={i}
-                  className="size-3.5 fill-primary text-primary"
-                  aria-hidden
-                />
-              ))}
-            </div>
-            <p className="mt-0.5 text-xs text-muted-foreground">
-              500+ lietuvių jau pradėjo
-            </p>
-          </div>
-        </div>
+        {/* Social proof row — fill once you have real numbers + photos */}
+        {/* TODO: pridėk realius pirkėjų avatarus + skaičių kai jį turėsi */}
 
         {/* Primary CTA */}
         <div className="mt-7">
@@ -316,25 +290,9 @@ function PricingTeaserSection() {
 }
 
 function ScarcityBar() {
-  const pct = Math.round((c.scarcity.taken / c.scarcity.total) * 100);
-  return (
-    <div className="mt-6 rounded-2xl bg-muted p-4">
-      <div className="flex items-center justify-between text-xs font-semibold">
-        <span className="uppercase tracking-[0.14em] text-foreground">
-          {/* TODO: wire to Supabase count */}
-          {c.scarcity.taken}/{c.scarcity.total} vietų užimta
-        </span>
-        <span className="text-primary">{pct}%</span>
-      </div>
-      <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-background">
-        <div
-          className="h-full rounded-full bg-primary transition-all"
-          style={{ width: `${pct}%` }}
-          aria-hidden
-        />
-      </div>
-    </div>
-  );
+  // TODO: jei norėsi tikrą scarcity counterį — wire'ink į Supabase pirkėjų skaičių
+  // ir grąžink šitą komponentą su realiais duomenimis. Kol tokio nėra — nerodom nieko.
+  return null;
 }
 
 /* ───────────────────── 4. Stats Grid (2×2) ───────────────────── */
@@ -386,33 +344,15 @@ function FounderStorySection() {
           className="mt-4 text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl md:text-[44px]"
           style={serifStyle}
         >
-          Kol tu galvoji, <HighlightedItalic>kiti jau daro.</HighlightedItalic>
+          Trumpai apie <HighlightedItalic>AI Studijas</HighlightedItalic>.
         </h2>
 
         <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-foreground/90 sm:text-base">
-          <p>
-            <span
-              className="float-left mr-2 text-5xl leading-[0.85] text-primary sm:text-6xl"
-              style={serifStyle}
-            >
-              P
-            </span>
-            rieš metus ir mes patys nežinojom, kur viskas eina. Stebėjom, kaip
-            kolegos sėdi po 12 valandų prie ekrano ir vis tiek nespėja. Tada
-            pradėjom statyti savo AI asistentus — vieną darbą po kito,
-            paprastai, be programavimo.
-          </p>
-          <p>
-            Šiandien tas pats AI mums paruošia rinkodaros strategijas, rašo
-            klientų laiškus, daro mėnesių ataskaitas, sutvarko buhalterijos
-            dokumentus ir net atsakymus į komentarus po socialinių tinklų
-            įrašais. Realiai 80 % rutinos atlieka jis, o mes susitelkiame į
-            strategiją.
-          </p>
-          <p>
-            Šiame gide surinkome viską, ką pasimokėme per pastaruosius metus —
-            be jokio fluff. Tik konkrečios komandos, paruošti promptai ir video,
-            kuriame parodome viską nuo nulio.
+          {/* TODO: parašyk savo autentišką istoriją — kas esat, kodėl pradėjot, kaip naudojate AI patys */}
+          <p className="text-muted-foreground italic">
+            [Placeholder — pakeisk su tikra komandos istorija. Aprašyk, kas
+            esate, kodėl pradėjote AI Studijas ir ką patys padarėte su AI prieš
+            mokant kitus. Trumpai, žmogiškai, 2–3 pastraipos.]
           </p>
           <p className="text-muted-foreground">
             Jei turi klausimų — rašyk{" "}
@@ -456,34 +396,6 @@ function FounderStorySection() {
 /* ───────────────────── 6. Video testimonials stack ───────────────────── */
 
 function VideoTestimonialsSection() {
-  const testimonials = [
-    {
-      name: "Tomas Z.",
-      role: "NT investicijų vadovas",
-      excerpt: "Per savaitę atsigavau 12 valandų. Daugiau nesvarstau.",
-    },
-    {
-      name: "Greta M.",
-      role: "Freelance copywriter",
-      excerpt: "Klientams atsakymai dabar paruošti per 5 minutes.",
-    },
-    {
-      name: "Mantas P.",
-      role: "Smulkaus verslo savininkas",
-      excerpt: "Mėnesio ataskaita pati susikuria. Anksčiau — pusė dienos.",
-    },
-    {
-      name: "Akvilė R.",
-      role: "Marketingo vadovė",
-      excerpt: "Kampanijų briefai per 10 min., ne 2 valandas.",
-    },
-    {
-      name: "Dovydas K.",
-      role: "Projektų vadovas",
-      excerpt: "AI dabar tvarko mano kalendorių geriau nei aš pats.",
-    },
-  ];
-
   return (
     <section className="px-4 py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-2xl">
@@ -494,59 +406,22 @@ function VideoTestimonialsSection() {
           Tikri žmonės, <HighlightedItalic>tikri rezultatai.</HighlightedItalic>
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          Pažiūrėk, kaip lietuviai naudoja gidą jau šiandien. Visi vaizdo
-          atsiliepimai — iš realių pirkėjų, be aktorių.
+          Pirmieji pirkėjai jau pradeda dirbti su gidu. Atsiliepimus pridėsime,
+          kai turėsime tikrų — be aktorių, be išgalvotų istorijų.
         </p>
 
-        <p className="mt-6 text-xs italic text-muted-foreground">
-          (Placeholder — pakeisk su tikrais vaizdo atsiliepimais kai turėsi.)
-        </p>
-
-        <div className="mt-4 space-y-4">
-          {testimonials.map((t) => (
-            <Card
-              key={t.name}
-              className="overflow-hidden rounded-2xl border-border/60 p-0"
-            >
-              {/* TODO: replace with real portrait video thumbnail */}
-              <div
-                className="relative aspect-[4/5] bg-foreground sm:aspect-video"
-                aria-hidden
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/60 to-transparent" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <button
-                    type="button"
-                    aria-label={`Paleisti ${t.name} atsiliepimą`}
-                    className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:scale-105"
-                  >
-                    <Play className="ml-0.5 size-6 fill-current" aria-hidden />
-                  </button>
-                </div>
-                <div className="absolute bottom-4 left-4 right-4 text-background">
-                  <p
-                    className="text-base font-medium leading-snug sm:text-lg"
-                    style={serifStyle}
-                  >
-                    „{t.excerpt}“
-                  </p>
-                  <div className="mt-3 flex items-center gap-2">
-                    <div
-                      className="size-8 rounded-full bg-background/20"
-                      aria-hidden
-                    />
-                    <div>
-                      <p className="text-sm font-semibold">{t.name}</p>
-                      <p className="text-[10px] uppercase tracking-wider text-background/70">
-                        {t.role}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
+        {/* TODO: kai turėsi realius vaizdo atsiliepimus — pakeisk šitą placeholder'į */}
+        <Card className="mt-6 rounded-2xl border-dashed border-border/60 bg-muted/30 p-8 text-center">
+          <p
+            className="text-lg leading-snug text-muted-foreground sm:text-xl"
+            style={serifStyle}
+          >
+            Tavo atsiliepimas — galimai pirmasis.
+          </p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Įsigyk gidą, išbandyk, ir mes mielai įdėsim tavo istoriją čia.
+          </p>
+        </Card>
       </div>
     </section>
   );
@@ -693,40 +568,6 @@ function ProductivityStatsSection() {
 /* ───────────────────── 9. Skool community proof ───────────────────── */
 
 function CommunityProofSection() {
-  // TODO: replace with real Skool reviews
-  const reviews = [
-    {
-      name: "Lina V.",
-      role: "Buhalterė",
-      stars: 5,
-      text: "Visi mano ataskaitų šablonai jau dirba. Pirmas pirkimas, kurio negailiu.",
-    },
-    {
-      name: "Edvinas T.",
-      role: "Startuolio CTO",
-      stars: 5,
-      text: "Praktikoje pritaikoma akimirksniu. Bendruomenė padeda, kai užstringi.",
-    },
-    {
-      name: "Rasa B.",
-      role: "Personalo vadovė",
-      stars: 5,
-      text: "Per 2 dienas išsprendžiau problemą, kurią vilkau pusmetį.",
-    },
-    {
-      name: "Gintaras J.",
-      role: "Konsultantas",
-      stars: 5,
-      text: "Promptų biblioteka verta dvigubai daugiau už visą gidą.",
-    },
-    {
-      name: "Karolis D.",
-      role: "Project Manager",
-      stars: 5,
-      text: "Aiškiausias AI vadovas, kurį esu skaitęs lietuviškai.",
-    },
-  ];
-
   return (
     <section className="bg-muted/40 px-4 py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-2xl">
@@ -737,54 +578,27 @@ function CommunityProofSection() {
           className="mt-4 text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl md:text-[44px]"
           style={serifStyle}
         >
-          500+ lietuvių jau{" "}
-          <HighlightedItalic>dirba kartu su AI.</HighlightedItalic>
+          Pradedam <HighlightedItalic>kartu.</HighlightedItalic>
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
           Įsigijęs gidą automatiškai gauni prieigą prie privačios{" "}
-          {c.community.platform} bendruomenės — kur dalinamės naujais promptais,
-          pavyzdžiais ir pagalba.
+          {c.community.platform} bendruomenės — vieta, kur dalinamės naujais
+          promptais, pavyzdžiais ir padedam vieni kitiems.
         </p>
 
-        <div className="mt-8 space-y-3">
-          {reviews.map((r) => (
-            <Card
-              key={r.name}
-              className="rounded-2xl border-border/60 p-5 sm:p-6"
-            >
-              <div className="flex items-center gap-1">
-                {Array.from({ length: r.stars }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="size-3.5 fill-primary text-primary"
-                    aria-hidden
-                  />
-                ))}
-              </div>
-              <p
-                className="mt-3 text-sm leading-relaxed text-foreground/85 sm:text-base"
-                style={serifStyle}
-              >
-                „{r.text}“
-              </p>
-              <div className="mt-4 flex items-center gap-3">
-                {/* TODO: replace with real user avatar */}
-                <div
-                  className="size-9 shrink-0 rounded-full bg-muted"
-                  aria-hidden
-                />
-                <div>
-                  <p className="text-sm font-semibold leading-tight">
-                    {r.name}
-                  </p>
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground">
-                    {r.role}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
+        {/* TODO: kai turėsi realius bendruomenės atsiliepimus — užpildyk čia.
+            Pavyzdys: { name, role, stars, text } objektų masyvas + map() į Card. */}
+        <Card className="mt-6 rounded-2xl border-dashed border-border/60 bg-background p-8 text-center">
+          <p
+            className="text-lg leading-snug text-muted-foreground sm:text-xl"
+            style={serifStyle}
+          >
+            Bendruomenė ką tik startuoja.
+          </p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Prisijunk pirmas — ir tavo vardas atsiras šioje vietoje.
+          </p>
+        </Card>
       </div>
     </section>
   );
@@ -973,29 +787,7 @@ function PrimaryPricingSection() {
             </div>
           </div>
 
-          {/* Scarcity bar (dark variant) */}
-          <div className="mt-6 rounded-2xl bg-background/10 p-4">
-            <div className="flex items-center justify-between text-xs font-semibold">
-              <span className="uppercase tracking-[0.14em] text-background">
-                {/* TODO: wire to Supabase count */}
-                {c.scarcity.taken}/{c.scarcity.total} vietų užimta
-              </span>
-              <span className="text-primary">
-                {Math.round((c.scarcity.taken / c.scarcity.total) * 100)}%
-              </span>
-            </div>
-            <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-background/15">
-              <div
-                className="h-full rounded-full bg-primary"
-                style={{
-                  width: `${Math.round(
-                    (c.scarcity.taken / c.scarcity.total) * 100,
-                  )}%`,
-                }}
-                aria-hidden
-              />
-            </div>
-          </div>
+          {/* TODO: scarcity bar — wire'ink į Supabase pirkėjų skaičių prieš įjungiant */}
 
           <Link
             href={c.checkoutHref}
@@ -1296,24 +1088,8 @@ function FinalCTASection() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-background/20 pt-8">
-          <p
-            className="text-balance text-lg leading-snug text-background/85 sm:text-xl"
-            style={serifStyle}
-          >
-            Mūsų tikslas: iki 2026 m. pabaigos išmokyti 50 000 lietuvių
-            išnaudoti AI iki paties didžiausio jo potencialo, ne tik ChatGPT.
-          </p>
-          <p
-            className="mt-6 bg-gradient-to-r from-primary to-background bg-clip-text text-5xl font-medium text-transparent sm:text-7xl"
-            style={serifStyle}
-          >
-            500+
-          </p>
-          <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-background/70">
-            jau pradėjo. Ar tu prisijungsi?
-          </p>
-        </div>
+        {/* TODO: jei norėsi misiją + skaitiklį — užpildyk tikrais duomenimis.
+            Pavyzdys: „Iki 2027 m. pabaigos išmokyti X lietuvių...“ + tikras pirkėjų skaičius. */}
       </div>
     </section>
   );

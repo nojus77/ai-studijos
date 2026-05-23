@@ -87,11 +87,11 @@ function StorySection() {
           paprastas — žmonėms reikia ne paskaitos apie technologijas, o
           konkretaus pavyzdžio, kaip pradėti.
         </p>
+        {/* TODO: pridėk savo komandos misiją su tikru tikslu ir tikru laikotarpiu */}
         <p>
-          Mūsų misija — per 12 mėnesių išmokyti 50 000 lietuvių praktiškai
-          naudoti AI savo darbe. Be techninių terminų, be priežasties pirma
-          mokytis Python ar API kvietimų. Tiesiai prie kompiuterio, su realiais
-          darbais, lietuviškai.
+          Mokom praktiškai naudoti AI darbe — be techninių terminų, be
+          reikalavimo pirma mokytis Python ar API kvietimų. Tiesiai prie
+          kompiuterio, su realiais darbais, lietuviškai.
         </p>
         <p>
           Tikime, kad AI nėra apie tai, kas pakeis tave. AI yra apie tai, kas{" "}
