@@ -21,6 +21,7 @@ export const env = {
   stripePriceWebinaras: () => optional("STRIPE_PRICE_WEBINARAS"),
   stripePriceBootcampStandard: () => required("STRIPE_PRICE_BOOTCAMP_STANDARD"),
   stripePriceBootcampPremium: () => required("STRIPE_PRICE_BOOTCAMP_PREMIUM"),
+  stripePriceOneOnOne: () => required("STRIPE_PRICE_ONE_ON_ONE"),
 
   resendApiKey: () => required("RESEND_API_KEY"),
   resendFromEmail: () => process.env.RESEND_FROM_EMAIL ?? "labas@aistudijos.lt",

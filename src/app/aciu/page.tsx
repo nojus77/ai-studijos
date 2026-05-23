@@ -8,7 +8,14 @@ import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { env } from "@/lib/env";
 import { stripe } from "@/lib/stripe";
-import { getTier, isTierSlug, type TierSlug } from "@/lib/tiers";
+import {
+  BUMPS,
+  getTier,
+  isBumpId,
+  isTierSlug,
+  type BumpId,
+  type TierSlug,
+} from "@/lib/tiers";
 
 export const metadata: Metadata = {
   title: "Ačiū! Užsakymas patvirtintas",
@@ -25,10 +32,18 @@ interface AciuPageProps {
   }>;
 }
 
+interface PurchasedItem {
+  id: string;
+  label: string;
+  amountCents: number;
+}
+
 interface SessionData {
   email: string | null;
   amountTotal: number | null;
   tier: TierSlug | null;
+  bumps: BumpId[];
+  items: PurchasedItem[];
 }
 
 export default async function AciuPage({ searchParams }: AciuPageProps) {
@@ -44,7 +59,7 @@ export default async function AciuPage({ searchParams }: AciuPageProps) {
       <SiteHeader />
       <main className="flex-1">
         <SuccessSection data={data} />
-        <NextStepsSection tier={data.tier} />
+        <NextStepsSection tier={data.tier} bumps={data.bumps} />
       </main>
       <SiteFooter />
     </>
@@ -55,19 +70,73 @@ async function loadSession(
   sessionId: string | undefined,
 ): Promise<SessionData> {
   if (!sessionId) {
-    return { email: null, amountTotal: null, tier: null };
+    return {
+      email: null,
+      amountTotal: null,
+      tier: null,
+      bumps: [],
+      items: [],
+    };
   }
   try {
-    const session = await stripe().checkout.sessions.retrieve(sessionId);
+    const session = await stripe().checkout.sessions.retrieve(sessionId, {
+      expand: ["line_items"],
+    });
     const tierRaw = session.metadata?.tier;
+    const tier: TierSlug | null = isTierSlug(tierRaw) ? tierRaw : null;
+    const bumpsMeta = session.metadata?.bumps ?? "";
+    const bumps: BumpId[] = bumpsMeta
+      .split(",")
+      .map((s) => s.trim())
+      .filter(isBumpId);
+
+    // Build items list. Prefer Stripe-side line_items for authoritative amounts;
+    // fall back to metadata-derived list otherwise.
+    const items: PurchasedItem[] = [];
+    const lineItems = session.line_items?.data ?? [];
+
+    if (tier) {
+      const tierInfo = getTier(tier);
+      items.push({
+        id: tier,
+        label: tierInfo.label,
+        amountCents: tierInfo.priceEur * 100,
+      });
+    }
+    for (const bumpId of bumps) {
+      const bump = BUMPS[bumpId];
+      items.push({
+        id: bumpId,
+        label: bump.label,
+        amountCents: bump.priceEur * 100,
+      });
+    }
+
+    if (lineItems.length === items.length && lineItems.length > 0) {
+      for (let i = 0; i < lineItems.length; i++) {
+        const amount = lineItems[i].amount_total;
+        if (typeof amount === "number") {
+          items[i].amountCents = amount;
+        }
+      }
+    }
+
     return {
       email: session.customer_details?.email ?? session.customer_email ?? null,
       amountTotal: session.amount_total ?? null,
-      tier: isTierSlug(tierRaw) ? tierRaw : null,
+      tier,
+      bumps,
+      items,
     };
   } catch (error) {
     console.error("[aciu] failed to retrieve session", error);
-    return { email: null, amountTotal: null, tier: null };
+    return {
+      email: null,
+      amountTotal: null,
+      tier: null,
+      bumps: [],
+      items: [],
+    };
   }
 }
 
@@ -83,7 +152,6 @@ function formatAmount(amountCents: number | null): string {
 }
 
 function SuccessSection({ data }: { data: SessionData }) {
-  const tierInfo = data.tier ? getTier(data.tier) : null;
   return (
     <section className="px-4 pb-10 pt-12 sm:px-6 sm:pt-16">
       <div className="mx-auto max-w-2xl">
@@ -117,11 +185,44 @@ function SuccessSection({ data }: { data: SessionData }) {
           )}
         </p>
 
-        <Card className="mt-8 grid gap-4 rounded-2xl border-border/60 p-5 sm:grid-cols-3 sm:p-6">
-          <SummaryItem
-            label="Pirktas pasiūlymas"
-            value={tierInfo?.label ?? "—"}
-          />
+        {/* Itemized order */}
+        {data.items.length > 0 ? (
+          <Card className="mt-8 rounded-2xl border-border/60 p-5 sm:p-6">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Pirkti pasiūlymai
+            </p>
+            <ul className="mt-3 space-y-2">
+              {data.items.map((item) => (
+                <li
+                  key={item.id}
+                  className="flex items-baseline justify-between gap-3 border-b border-border/40 pb-2 last:border-0 last:pb-0"
+                >
+                  <span className="text-sm font-medium sm:text-[15px]">
+                    {item.label}
+                  </span>
+                  <span className="shrink-0 text-sm font-semibold text-foreground sm:text-[15px]">
+                    {formatAmount(item.amountCents)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            {data.amountTotal != null ? (
+              <div className="mt-4 flex items-baseline justify-between border-t border-border/60 pt-3">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                  Iš viso
+                </span>
+                <span
+                  className="text-2xl font-medium italic"
+                  style={serifStyle}
+                >
+                  {formatAmount(data.amountTotal)}
+                </span>
+              </div>
+            ) : null}
+          </Card>
+        ) : null}
+
+        <Card className="mt-6 grid gap-4 rounded-2xl border-border/60 p-5 sm:grid-cols-2 sm:p-6">
           <SummaryItem
             label="Suma"
             value={formatAmount(data.amountTotal) || "—"}
@@ -163,20 +264,24 @@ function SummaryItem({
   );
 }
 
-function NextStepsSection({ tier }: { tier: TierSlug | null }) {
-  if (tier === "kursas") {
-    return <KursasSteps />;
+function NextStepsSection({
+  tier,
+  bumps,
+}: {
+  tier: TierSlug | null;
+  bumps: BumpId[];
+}) {
+  if (!tier) {
+    return <UnknownSteps />;
   }
-  if (tier === "standard" || tier === "premium") {
-    return <BootcampSteps />;
-  }
-  return <UnknownSteps />;
-}
 
-function KursasSteps() {
-  const videoUrl = optionalEnv(() => env.kursasVideoUrl());
-  const pdfUrl = optionalEnv(() => env.kursasPdfUrl());
-  const skoolUrl = optionalEnv(() => env.skoolInviteUrl());
+  const hasKursas = tier === "kursas";
+  const hasBootcamp =
+    tier === "standard" ||
+    tier === "premium" ||
+    bumps.includes("bootcampStandard") ||
+    bumps.includes("bootcampPremium");
+  const hasOneOnOne = bumps.includes("oneOnOne");
 
   return (
     <section className="bg-muted/40 px-4 py-12 sm:px-6 sm:py-16">
@@ -188,91 +293,97 @@ function KursasSteps() {
           Ką dabar darai?
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          Trys nuorodos žemiau — viskas, ko tau reikia, kad pradėtum šiandien.
+          Žemiau — visi tavo žingsniai, pagal tai ką pirkai.
         </p>
 
         <div className="mt-8 space-y-4">
-          <StepCard
-            n="01"
-            title="Žiūrėk video kursą"
-            body="Pilnas video gidas — pradėk nuo pirmos pamokos ir eik savo tempu."
-            ctaLabel={videoUrl ? "Atidaryti video" : "Bus atsiųsta el. paštu"}
-            ctaHref={videoUrl}
-          />
-          <StepCard
-            n="02"
-            title="Atsisiųsk PDF"
-            body="Spausdintinas šablonas su visomis komandomis ir prompto pavyzdžiais."
-            ctaLabel={pdfUrl ? "Atsisiųsti PDF" : "Bus atsiųsta el. paštu"}
-            ctaHref={pdfUrl}
-          />
-          <StepCard
-            n="03"
-            title="Prisijunk prie bendruomenės"
-            body="Skool grupė, kurioje matai, kaip kiti naudoja AI ir gauni atsakymus į klausimus."
-            ctaLabel={
-              skoolUrl ? "Prisijungti į Skool" : "Bus atsiųsta el. paštu"
-            }
-            ctaHref={skoolUrl}
-          />
+          {hasKursas ? <KursasSteps /> : null}
+          {hasBootcamp ? <BootcampSteps /> : null}
+          {hasOneOnOne ? <OneOnOneSteps /> : null}
+          <CommunityStep />
         </div>
+
+        {hasBootcamp ? (
+          <div className="mt-8 text-center">
+            <Link
+              href="/bootcamp"
+              className={buttonVariants({
+                size: "lg",
+                variant: "outline",
+                className:
+                  "h-12 rounded-full px-6 text-sm font-semibold uppercase tracking-wider",
+              })}
+            >
+              Pamatyti bootcamp programą
+            </Link>
+          </div>
+        ) : null}
       </div>
     </section>
   );
 }
 
+function KursasSteps() {
+  const videoUrl = optionalEnv(() => env.kursasVideoUrl());
+  const pdfUrl = optionalEnv(() => env.kursasPdfUrl());
+
+  return (
+    <>
+      <StepCard
+        n="01"
+        title="Žiūrėk video kursą"
+        body="Pilnas video gidas — pradėk nuo pirmos pamokos ir eik savo tempu."
+        ctaLabel={videoUrl ? "Atidaryti video" : "Bus atsiųsta el. paštu"}
+        ctaHref={videoUrl}
+      />
+      <StepCard
+        n="02"
+        title="Atsisiųsk PDF"
+        body="Spausdintinas šablonas su visomis komandomis ir prompto pavyzdžiais."
+        ctaLabel={pdfUrl ? "Atsisiųsti PDF" : "Bus atsiųsta el. paštu"}
+        ctaHref={pdfUrl}
+      />
+    </>
+  );
+}
+
 function BootcampSteps() {
+  return (
+    <>
+      <StepCard
+        n="B1"
+        title="Zoom nuoroda — likus 24 val."
+        body="Likus dienai iki pirmos sesijos gausi atskirą laišką su Zoom nuoroda, kalendoriaus įvykiu ir paruošimo gidu."
+      />
+      <StepCard
+        n="B2"
+        title="Prieš sesiją — paruošimas"
+        body="Vilius padės įsitikinti, kad tavo kompiuteryje viskas veikia. Jei iškils klausimų, jis pasieks tave el. paštu."
+      />
+    </>
+  );
+}
+
+function OneOnOneSteps() {
+  return (
+    <StepCard
+      n="1:1"
+      title="Mokytojas susisieks per 48 val."
+      body="Suderinsime tau patogų laiką 2 val. Zoom sesijai, per kurią asmeniškai sukonfigūruosime tavo AI asistentą pagal verslo specifiką."
+    />
+  );
+}
+
+function CommunityStep() {
   const skoolUrl = optionalEnv(() => env.skoolInviteUrl());
   return (
-    <section className="bg-muted/40 px-4 py-12 sm:px-6 sm:py-16">
-      <div className="mx-auto max-w-2xl">
-        <h2
-          className="text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-[40px]"
-          style={serifStyle}
-        >
-          Ką toliau?
-        </h2>
-        <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          Tavo vieta rezervuota. Žemiau — ko tikėtis artimiausiomis savaitėmis.
-        </p>
-
-        <div className="mt-8 space-y-4">
-          <StepCard
-            n="01"
-            title="Zoom nuoroda — likus 24 val."
-            body="Likus dienai iki pirmos sesijos gausi atskirą laišką su Zoom nuoroda, kalendoriaus įvykiu ir paruošimo gidu."
-          />
-          <StepCard
-            n="02"
-            title="Prieš sesiją — paruošimas"
-            body="Vilius padės įsitikinti, kad tavo kompiuteryje viskas veikia. Jei iškils klausimų, jis pasieks tave el. paštu."
-          />
-          <StepCard
-            n="03"
-            title="Bendruomenė laukia"
-            body="Prisijunk prie AI Studijos Skool ir susipažink su grupe dar prieš startą."
-            ctaLabel={
-              skoolUrl ? "Prisijungti į Skool" : "Bus atsiųsta el. paštu"
-            }
-            ctaHref={skoolUrl}
-          />
-        </div>
-
-        <div className="mt-8 text-center">
-          <Link
-            href="/bootcamp"
-            className={buttonVariants({
-              size: "lg",
-              variant: "outline",
-              className:
-                "h-12 rounded-full px-6 text-sm font-semibold uppercase tracking-wider",
-            })}
-          >
-            Pamatyti bootcamp programą
-          </Link>
-        </div>
-      </div>
-    </section>
+    <StepCard
+      n="C"
+      title="Prisijunk prie bendruomenės"
+      body="Skool grupė, kurioje matai, kaip kiti naudoja AI ir gauni atsakymus į klausimus."
+      ctaLabel={skoolUrl ? "Prisijungti į Skool" : "Bus atsiųsta el. paštu"}
+      ctaHref={skoolUrl}
+    />
   );
 }
 
