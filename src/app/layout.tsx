@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Instrument_Serif } from "next/font/google";
 
 import { Toaster } from "@/components/ui/sonner";
 
@@ -8,6 +8,14 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin", "latin-ext"],
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-serif",
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -44,7 +52,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="lt" className={`${inter.variable} h-full antialiased`}>
+    <html
+      lang="lt"
+      className={`${inter.variable} ${instrumentSerif.variable} h-full antialiased`}
+    >
       <body className="min-h-full bg-background text-foreground flex flex-col">
         {children}
         <Toaster richColors position="top-center" />
