@@ -137,19 +137,3 @@
 @utility serif {
   font-family: var(--font-serif);
 }
-
-@utility highlight-marker {
-  position: relative;
-  display: inline-block;
-}
-@utility highlight-marker::before {
-  content: "";
-  position: absolute;
-  inset-inline: -0.1em;
-  bottom: 0.05em;
-  height: 0.55em;
-  background-color: var(--color-brand-soft);
-  transform: skew(-6deg);
-  z-index: -1;
-  border-radius: 2px;
-}
