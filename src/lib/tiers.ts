@@ -65,6 +65,7 @@ export const BUMPS: Record<BumpId, BumpInfo> = {
     label: "AI Studijos Bootcamp",
     description: "4 sesijos online + paruošti workflow'ai + 1 mėn. bendruomenė",
     priceEur: 97,
+    popular: true,
     getPriceId: () => env.stripePriceBootcampStandard(),
   },
   bootcampPremium: {
@@ -73,7 +74,6 @@ export const BUMPS: Record<BumpId, BumpInfo> = {
     description:
       "Viskas iš Standard + 2 val. asmeninė konsultacija su komanda + 6 paruošti įgūdžiai",
     priceEur: 347,
-    popular: true,
     getPriceId: () => env.stripePriceBootcampPremium(),
   },
   aiSpecialists: {

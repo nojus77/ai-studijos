@@ -198,10 +198,9 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
               priceLabel={`+ ${BUMPS.aiSpecialists.priceEur} €`}
               title={BUMPS.aiSpecialists.label}
               description={BUMPS.aiSpecialists.description}
-              image="/upsell-5skills.png"
             />
 
-            {/* 2. Bootcamp + 3. Bootcamp Premium (only on /checkout?tier=kursas) */}
+            {/* 2. Bootcamp (POPULIARIAUSIAS) + 3. Bootcamp Premium (only on /checkout?tier=kursas) */}
             {showBootcampBump ? (
               <>
                 <BumpCard
@@ -216,7 +215,7 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
                   priceLabel={`+ ${BUMPS.bootcampStandard.priceEur} €`}
                   title={BUMPS.bootcampStandard.label}
                   description={BUMPS.bootcampStandard.description}
-                  image="/upsell-bootcamp.png"
+                  popular
                 />
                 <BumpCard
                   selected={bumps.bootcamp === "premium"}
@@ -229,8 +228,6 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
                   priceLabel={`+ ${BUMPS.bootcampPremium.priceEur} €`}
                   title={BUMPS.bootcampPremium.label}
                   description={BUMPS.bootcampPremium.description}
-                  image="/upsell-bootcamp.png"
-                  popular
                 />
               </>
             ) : null}
