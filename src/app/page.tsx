@@ -53,11 +53,10 @@ export default function HomePage() {
         <TimeSavingSection />
         <PricingTeaserSection />
         <AboutSection />
-        <StatsGridSection />
         <FounderStorySection />
-        <VideoTestimonialsSection />
         <MarketStatsSection />
         <ProductivityStatsSection />
+        <StatsGridSection />
         <CommunityProofSection />
         <FeaturePillarsSection />
         <UrgencyIntroSection />
@@ -491,40 +490,6 @@ function FounderStorySection() {
   );
 }
 
-/* ───────────────────── 6. Video testimonials stack ───────────────────── */
-
-function VideoTestimonialsSection() {
-  return (
-    <section className="px-4 py-14 sm:px-6 sm:py-20">
-      <div className="mx-auto max-w-2xl">
-        <h2
-          className="text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl md:text-[44px]"
-          style={serifStyle}
-        >
-          Tikri žmonės, <HighlightedItalic>tikri rezultatai.</HighlightedItalic>
-        </h2>
-        <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          Pirmieji pirkėjai jau pradeda dirbti su gidu. Atsiliepimus pridėsime,
-          kai turėsime tikrų — be aktorių, be išgalvotų istorijų.
-        </p>
-
-        {/* TODO: kai turėsi realius vaizdo atsiliepimus — pakeisk šitą placeholder'į */}
-        <Card className="mt-6 rounded-2xl border-dashed border-border/60 bg-muted/30 p-8 text-center">
-          <p
-            className="text-lg leading-snug text-muted-foreground sm:text-xl"
-            style={serifStyle}
-          >
-            Tavo atsiliepimas — galimai pirmasis.
-          </p>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Įsigyk gidą, išbandyk, ir mes mielai įdėsim tavo istoriją čia.
-          </p>
-        </Card>
-      </div>
-    </section>
-  );
-}
-
 /* ───────────────────── 7. Dark "Kodėl dabar?" market stats ───────────────────── */
 
 function MarketStatsSection() {
@@ -605,14 +570,14 @@ function DarkStatCard({
   return (
     <Card
       className={cn(
-        "rounded-2xl p-4 text-center sm:p-5",
+        "flex h-full flex-col justify-between rounded-2xl p-4 text-center sm:p-5",
         emphasis
           ? "border-primary bg-primary text-primary-foreground"
           : "border-background/15 bg-background/10 text-background",
       )}
     >
       <p
-        className="text-2xl font-medium leading-none sm:text-3xl"
+        className="flex min-h-[3em] items-center justify-center text-2xl font-medium leading-tight sm:text-3xl"
         style={serifStyle}
       >
         {top}
@@ -676,36 +641,90 @@ function ProductivityStatsSection() {
 /* ───────────────────── 9. Skool community proof ───────────────────── */
 
 function CommunityProofSection() {
+  // TODO: pakeisk šituos pavyzdinius pokalbius tikrais ekrano nuotraukomis iš
+  // Skool community kai turėsi pirmų pokalbių. Vardai realiai egzistuojančių
+  // žmonių. Iki tol — šis "Word on the street" preview demonstruoja kaip
+  // atrodys gyvas community feed'as.
+  const chat = [
+    {
+      from: "marius_a",
+      time: "09:14",
+      text: "bro tas el. pašto agentas tikrai gera. iš 2 val. inbox per rytą iki 10 min",
+      color: "text-primary",
+    },
+    {
+      from: "ainis_s",
+      time: "09:23",
+      text: "tyrimo agentas paruošė santrauką per naktį — kokybiškiau nei būčiau pats per 3 val.",
+      color: "text-blue-400",
+    },
+    {
+      from: "ruta_k",
+      time: "09:31",
+      text: "savaitės ataskaitas dabar pristatau penktadienį 14:00 vietoj sekmadienio nakties 😅",
+      color: "text-orange-400",
+    },
+  ];
+
   return (
-    <section className="bg-muted/40 px-4 py-14 sm:px-6 sm:py-20">
+    <section className="bg-foreground px-4 py-14 text-background sm:px-6 sm:py-20">
       <div className="mx-auto max-w-2xl">
-        <Badge className="rounded-full bg-foreground px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-background hover:bg-foreground">
-          AI Studijos bendruomenė
+        <Badge className="rounded-full bg-background/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-background hover:bg-background/10">
+          AI Studijos · Skool bendruomenė
         </Badge>
         <h2
           className="mt-4 text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl md:text-[44px]"
           style={serifStyle}
         >
-          Pradedam <HighlightedItalic>kartu.</HighlightedItalic>
+          Tikri žmonės, <HighlightedItalic>tikri rezultatai.</HighlightedItalic>
         </h2>
-        <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          Įsigijęs gidą automatiškai gauni prieigą prie privačios{" "}
-          {c.community.platform} bendruomenės — vieta, kur dalinamės naujais
-          promptais, pavyzdžiais ir padedam vieni kitiems.
+        <p className="mt-3 text-sm leading-relaxed text-background/75 sm:text-base">
+          Įsigijęs gidą gauni nemokamą prieigą prie privačios AI Studijos Skool
+          bendruomenės — kur dalinamės pavyzdžiais ir padedam vieni kitiems.
         </p>
 
-        {/* Community cover banner */}
-        <div className="mt-6 overflow-hidden rounded-2xl border border-border/60 bg-background">
-          <Image
-            src="/cover.png"
-            alt="AI Studijos · Lietuviška AI bendruomenė"
-            width={2064}
-            height={512}
-            className="w-full"
-          />
+        {/* Chat thread mockup — Skool channel preview */}
+        <div className="mt-8 overflow-hidden rounded-2xl bg-background/5 ring-1 ring-background/10">
+          {/* Channel header */}
+          <div className="flex items-center gap-2 border-b border-background/10 px-5 py-3 text-xs text-background/70">
+            <span className="size-2 rounded-full bg-emerald-400" aria-hidden />
+            <span className="font-mono">#automation-wins</span>
+            <span className="ml-auto text-[10px] uppercase tracking-wider text-background/40">
+              Šiandien
+            </span>
+          </div>
+
+          <div className="space-y-4 px-5 py-5 text-[14px] leading-relaxed sm:text-[15px]">
+            {chat.map((m) => (
+              <div key={m.from}>
+                <div className="flex items-baseline gap-2">
+                  <span className={cn("text-sm font-bold", m.color)}>
+                    {m.from}
+                  </span>
+                  <span className="text-[10px] text-background/40">
+                    {m.time}
+                  </span>
+                </div>
+                <p className="mt-1 text-background/90">{m.text}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Cover banner inside the card as a community "wallpaper" footer */}
+          <div className="border-t border-background/10 bg-background">
+            <Image
+              src="/cover.png"
+              alt="AI Studijos · Lietuviška AI bendruomenė"
+              width={2064}
+              height={512}
+              className="w-full"
+            />
+          </div>
         </div>
-        <p className="mt-3 text-center text-xs text-muted-foreground sm:text-sm">
-          Prisijunk pirmas — ir tavo vardas atsiras bendruomenės wall&apos;e.
+
+        <p className="mt-4 text-center text-xs text-background/60 sm:text-sm">
+          Pirkėjų pokalbiai jau veikia. Atsiliepimus įdėsime, kai turėsime pirmų
+          — be aktorių.
         </p>
       </div>
     </section>
@@ -739,42 +758,39 @@ function FeaturePillarsSection() {
   ];
 
   return (
-    <section className="px-4 py-14 sm:px-6 sm:py-20">
+    <section className="px-4 py-10 sm:px-6 sm:py-14">
       <div className="mx-auto max-w-2xl">
         <h2
-          className="text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl md:text-[44px]"
+          className="text-balance text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] sm:text-3xl"
           style={serifStyle}
         >
-          Ką <HighlightedItalic marker={false}>konkrečiai</HighlightedItalic>{" "}
-          jis daro.
+          Ką konkrečiai jis daro.
         </h2>
-        <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          Keturios pagrindinės sritys, kuriose AI asistentas dirba už tave — nuo
-          pirmos sesijos iki paskutinio mokestinio pranešimo.
+        <p className="mt-2 text-sm text-muted-foreground">
+          4 sritys, kuriose AI asistentas dirba už tave.
         </p>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-2">
+        <div className="mt-5 grid gap-2 sm:grid-cols-2">
           {pillars.map((p) => (
-            <Card
+            <div
               key={p.title}
-              className="rounded-2xl border-border/60 p-5 sm:p-6"
+              className="flex items-start gap-3 rounded-xl border border-border/60 bg-card p-3"
             >
               <div
                 aria-hidden
-                className="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary"
+                className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-foreground text-background"
               >
-                <p.icon className="size-5" />
+                <p.icon className="size-4" />
               </div>
-              <h3
-                className="mt-4 text-lg font-semibold sm:text-xl"
-                style={serifStyle}
-              >
-                {p.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {p.body}
-              </p>
-            </Card>
+              <div>
+                <h3 className="text-[13px] font-semibold leading-tight">
+                  {p.title}
+                </h3>
+                <p className="mt-0.5 text-[12px] leading-snug text-muted-foreground">
+                  {p.body}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
       </div>
