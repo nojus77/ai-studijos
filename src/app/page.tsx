@@ -89,8 +89,8 @@ function HeroSection() {
 
         {/* Smooth low-attention subtitle */}
         <p className="mx-auto mt-5 max-w-lg text-[15px] leading-[1.6] text-muted-foreground sm:text-base">
-          Vienas video, viena PDF biblioteka, prieiga visam gyvenimui. Atneša 2
-          valandas atgal kiekvieną dieną — be programavimo.
+          30 min video + 5 paruošti AI darbo workflow&apos;ai. Atneša 2 valandas
+          atgal kiekvieną dieną — be programavimo.
         </p>
 
         {/* Primary CTA */}
@@ -220,7 +220,7 @@ function TimeSavingSection() {
 function PricingTeaserSection() {
   const features = [
     "Video pamoka (~30 min.) su pavyzdžiais",
-    "PDF promptų biblioteka (50+ paruoštų)",
+    "5 paruošti AI darbo workflow'ai (ne tik promptai — pilni scenarijai)",
     "Nemokama prieiga prie AI Studijos bendruomenės",
     "Atnaujinimai amžinai — be papildomų mokesčių",
   ];
@@ -758,7 +758,7 @@ function UrgencyIntroSection() {
 function PrimaryPricingSection() {
   const valueStack = [
     { item: "Video pamoka „AI nuo nulio“ (~30 min.)", worth: "97 €" },
-    { item: "PDF promptų biblioteka (50+ paruoštų)", worth: "67 €" },
+    { item: "5 paruošti AI darbo workflow'ai", worth: "97 €" },
     { item: "AI Studijos bendruomenė (Skool)", worth: "47 €" },
     { item: "Email naujienlaiškis · savaitiniai patarimai", worth: "29 €" },
     { item: "Atnaujinimai amžinai", worth: "30 €" },
@@ -1019,7 +1019,7 @@ function FAQSection() {
   const faqs = [
     {
       q: "Ką tiksliai gausiu už 47 €?",
-      a: "Vieną video pamoką (~30 min.), PDF promptų biblioteką su 50+ paruoštų komandų, nemokamą prieigą prie AI Studijos Skool bendruomenės ir savaitinį naujienlaiškį su naujais patarimais. Viskas — vienkartinė kaina, prieiga visam gyvenimui.",
+      a: "Video pamoką (~30 min.) su realiais pavyzdžiais, PDF setup'o gidą (žingsnis po žingsnio), 5 paruoštus AI darbo workflow'us (klientų el. paštai, savaitės ataskaitos, idėjos į planą, klientų pasiūlymai, pasikartojančių darbų automatizavimas), nemokamą prieigą prie AI Studijos Skool bendruomenės ir atnaujinimus amžinai. Vienkartinė kaina.",
     },
     {
       q: "Ar reikia programavimo žinių?",
@@ -1118,8 +1118,9 @@ function FinalCTASection() {
         </h2>
         <p className="mt-4 text-sm leading-relaxed text-background/80 sm:text-base">
           Vienkartinė kaina. Jokių mėnesinių mokesčių, jokių paslėptų sąlygų.
-          Vienas video, viena PDF biblioteka, bendruomenė, atnaujinimai — viskas
-          tavo, kol naudosi AI. Pradėk šiandien, sutaupyk 2 valandas jau rytoj.
+          Video, PDF gidas, 5 darbo workflow&apos;ai, bendruomenė, atnaujinimai
+          — viskas tavo, kol naudosi AI. Pradėk šiandien, sutaupyk 2 valandas
+          jau rytoj.
         </p>
 
         <div className="mt-8 flex flex-col gap-3">
