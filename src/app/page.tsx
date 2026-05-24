@@ -315,18 +315,8 @@ function ScarcityBar() {
 
 function AboutSection() {
   const team = [
-    {
-      name: "Nojus",
-      role: "Įkūrėjas · AI agentūra",
-      photo: "/team-nojus.jpg",
-      bio: "AI automatizacijų agentūros įkūrėjas. Kasdien dirbu B2B padėdamas verslams sutaupyti laiką ir kaštus per custom automatizacijas. AI naudoju visur: nuo klientų atsakymų ir marketing'o iki pilnų platformų kūrimo. Pradėjau prieš kelis metus paprastais dalykais — laiškais, dokumentais — paskui pradėjau giliau exploring kiek toliau viskas gali nueiti.",
-    },
-    {
-      name: "Simas",
-      role: "Įkūrėjas · Agentūra JAV",
-      photo: "/team-simas.jpg",
-      bio: "Kuria AI įrankį, transformuojantį logistiką Europoje, ir dirba vienoje didžiausių AI agentūrų JAV. AI naudoja kasdien — tiek savo verslui, tiek klientų projektams.",
-    },
+    { name: "Nojus", photo: "/team-nojus.jpg" },
+    { name: "Simas", photo: "/team-simas.jpg" },
   ];
 
   return (
@@ -342,38 +332,45 @@ function AboutSection() {
           Trumpai <HighlightedItalic>apie mus</HighlightedItalic>.
         </h2>
 
-        <div className="mt-8 space-y-4">
-          {team.map((m) => (
-            <Card
-              key={m.name}
-              className="flex items-start gap-4 rounded-2xl border-border/60 bg-card p-4 sm:gap-5 sm:p-5"
-            >
+        <div className="mt-5 inline-flex items-center gap-4 rounded-2xl border border-border bg-card px-5 py-3 shadow-sm">
+          <div className="flex -space-x-3">
+            {team.map((m) => (
               <Image
+                key={m.name}
                 src={m.photo}
                 alt={m.name}
                 width={400}
                 height={400}
-                className="size-14 shrink-0 rounded-full border-2 border-card object-cover shadow-sm sm:size-16"
+                className="size-12 shrink-0 rounded-full border-2 border-card object-cover"
               />
-              <div className="min-w-0 flex-1">
-                <p
-                  className="text-xl font-bold leading-tight sm:text-2xl"
-                  style={serifStyle}
-                >
-                  {m.name}
-                </p>
-                <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
-                  {m.role}
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/85 sm:text-[15px]">
-                  {m.bio}
-                </p>
-              </div>
-            </Card>
-          ))}
+            ))}
+          </div>
+          <div>
+            <p className="text-base font-bold leading-tight">
+              Nojus &amp; Simas
+            </p>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              AI Studijos įkūrėjai
+            </p>
+          </div>
         </div>
 
         <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-foreground/90 sm:text-base">
+          <p>
+            Aš <strong className="font-semibold">Nojus</strong> — AI
+            automatizacijų agentūros įkūrėjas. Kasdien dirbu B2B padėdamas
+            verslams sutaupyti laiką ir kaštus per custom automatizacijas. AI
+            naudoju visur: nuo klientų atsakymų ir marketing&apos;o iki pilnų
+            platformų kūrimo. Pradėjau prieš kelis metus paprastais dalykais —
+            laiškais, dokumentais — paskui pradėjau giliau exploring kiek toliau
+            viskas gali nueiti.
+          </p>
+          <p>
+            <strong className="font-semibold">Simas</strong> kuria AI įrankį,
+            transformuojantį logistiką Europoje, ir dirba vienoje didžiausių AI
+            agentūrų JAV. AI naudoja kasdien — tiek savo verslui, tiek klientų
+            projektams.
+          </p>
           <p>
             AI Studijas pradėjome todėl, kad pastebėjom: dauguma girdėjo apie
             AI, bet nežino kaip rimtai pradėti. Surinkome viską, ką patys per
@@ -388,6 +385,32 @@ function AboutSection() {
             . Atsakome per parą.
           </p>
         </div>
+
+        {/* Two-founder byline — full-body cutouts floating on card */}
+        <Card className="relative mt-12 flex h-32 items-center justify-center overflow-visible rounded-2xl border-border/60 px-5 sm:mt-14 sm:h-36 sm:px-6">
+          <Image
+            src="/nojus-full.png"
+            alt="Nojus"
+            width={698}
+            height={2002}
+            className="pointer-events-none absolute bottom-0 left-2 h-[140%] w-auto object-contain object-bottom sm:left-4 sm:h-[150%]"
+          />
+          <div className="text-center">
+            <p className="text-base font-semibold leading-tight">
+              AI Studijos komanda
+            </p>
+            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Nojus &amp; Simas
+            </p>
+          </div>
+          <Image
+            src="/simas-full.png"
+            alt="Simas"
+            width={503}
+            height={1135}
+            className="pointer-events-none absolute bottom-0 right-2 h-[140%] w-auto object-contain object-bottom sm:right-4 sm:h-[150%]"
+          />
+        </Card>
       </div>
     </section>
   );
