@@ -90,8 +90,12 @@ function HeroSection() {
 
         {/* Smooth low-attention subtitle */}
         <p className="mx-auto mt-5 max-w-lg text-[15px] leading-[1.6] text-muted-foreground sm:text-base">
-          30 min video + 5 paruošti AI darbo workflow&apos;ai. Atneša 2 valandas
-          atgal kiekvieną dieną — be programavimo.
+          Rašo el. paštus, daro ataskaitas iš Excel, atlieka tyrimus, planuoja
+          savaitę — ir tai tik pradžia. Grąžina{" "}
+          <strong className="font-semibold text-foreground">
+            15+ valandų per savaitę
+          </strong>
+          .
         </p>
 
         {/* Autoplay muted video with tap-to-unmute */}
@@ -227,15 +231,24 @@ function PricingTeaserSection() {
   return (
     <section id="kaina-teaser" className="px-4 py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-2xl">
-        <Card className="overflow-hidden rounded-3xl border-border/60 p-6 sm:p-8">
-          <div className="flex items-center gap-2">
-            <Badge className="rounded-full bg-primary px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary-foreground hover:bg-primary">
-              {c.product.discountLabel}
-            </Badge>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Ribotas pasiūlymas
-            </p>
+        <Card className="relative overflow-hidden rounded-3xl border-2 border-red-500 p-6 shadow-[0_0_0_4px_rgba(239,68,68,0.12)] sm:p-8">
+          {/* Corner ribbon: jumbo -51% */}
+          <div className="absolute right-0 top-0">
+            <div className="flex items-center gap-2 rounded-bl-2xl bg-red-500 px-4 py-2 text-background shadow-lg">
+              <span className="text-2xl font-black leading-none">
+                {c.product.discountLabel}
+              </span>
+              <span className="hidden text-[10px] font-bold uppercase leading-tight tracking-wider sm:inline">
+                Sutaupai
+                <br />
+                50 €
+              </span>
+            </div>
           </div>
+
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-red-600">
+            Ribotas laiko pasiūlymas
+          </p>
 
           <div className="mt-5 flex items-baseline gap-3">
             <p
@@ -252,7 +265,8 @@ function PricingTeaserSection() {
             </p>
           </div>
           <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-            Vienkartinis mokėjimas
+            Vienkartinis mokėjimas · po akcijos kaina kils iki{" "}
+            {c.product.originalPrice} €
           </p>
 
           <ul className="mt-6 space-y-2.5">
