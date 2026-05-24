@@ -377,40 +377,7 @@ function AboutSection() {
             metus išmokome darbe, į vieną gidą — be teorijos, be Python&apos;o,
             tik tai, kas veikia praktikoje.
           </p>
-          <p className="text-muted-foreground">
-            Jei turi klausimų — užpildyk{" "}
-            <Link href="/kontaktai" className="underline underline-offset-2">
-              kontaktinę formą
-            </Link>
-            . Atsakome per parą.
-          </p>
         </div>
-
-        {/* Two-founder byline — full-body cutouts floating on card */}
-        <Card className="relative mt-12 flex h-32 items-center justify-center overflow-visible rounded-2xl border-border/60 px-5 sm:mt-14 sm:h-36 sm:px-6">
-          <Image
-            src="/nojus-full.png"
-            alt="Nojus"
-            width={698}
-            height={2002}
-            className="pointer-events-none absolute bottom-0 left-2 h-[140%] w-auto object-contain object-bottom sm:left-4 sm:h-[150%]"
-          />
-          <div className="text-center">
-            <p className="text-base font-semibold leading-tight">
-              AI Studijos komanda
-            </p>
-            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Nojus &amp; Simas
-            </p>
-          </div>
-          <Image
-            src="/simas-full.png"
-            alt="Simas"
-            width={503}
-            height={1135}
-            className="pointer-events-none absolute bottom-0 right-2 h-[140%] w-auto object-contain object-bottom sm:right-4 sm:h-[150%]"
-          />
-        </Card>
       </div>
     </section>
   );
