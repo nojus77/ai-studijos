@@ -74,11 +74,26 @@ export async function POST(request: Request): Promise<Response> {
     const session = await stripe().checkout.sessions.create({
       ui_mode: "embedded_page",
       mode: "payment",
-      payment_method_types: ["card"],
+      // automatic_payment_methods auto-includes every method the user enabled
+      // in Stripe dashboard (card + Revolut Pay + Apple/Google Pay + Link etc.)
+      automatic_payment_methods: { enabled: true },
       line_items: lineItems,
       return_url: `${env.siteUrl}/aciu?session_id={CHECKOUT_SESSION_ID}`,
       locale: "lt",
       allow_promotion_codes: true,
+      // VAT / PVM collection — buyers can enter LT or any EU VAT id, used to
+      // generate a proper PVM saskaita-faktura via Stripe invoice automation
+      tax_id_collection: { enabled: true },
+      customer_creation: "always",
+      invoice_creation: {
+        enabled: true,
+        invoice_data: {
+          description: tierInfo.label,
+          metadata: { tier: baseTier, bumps: bumpsMeta },
+          footer:
+            "Sąskaita-faktūra automatiškai sugeneruota Stripe. Jei reikia keisti — atsakyk į patvirtinimo el. laišką.",
+        },
+      },
       metadata: {
         tier: baseTier,
         tier_label: tierInfo.label,
