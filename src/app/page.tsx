@@ -493,29 +493,27 @@ function MarketStatsSection() {
           <DarkStatCard top="15×" bottom="Augimo tempas" emphasis />
         </div>
 
-        {/* Line chart placeholder */}
-        <Card className="mt-6 overflow-hidden rounded-2xl border-background/15 bg-background/10 p-5 sm:p-6">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-background/70">
-            AI naudotojai · 2023 → 2026
+        {/* Real Statista chart — AI enterprise revenue 2016–2025 */}
+        <Card className="mt-6 overflow-hidden rounded-2xl border-background/15 bg-background/10 p-3 sm:p-4">
+          <p className="px-2 pt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-background/70 sm:text-[11px]">
+            AI verslo programų pajamos · 2016 → 2025 (mln. USD)
           </p>
-          {/* TODO: replace with real chart */}
-          <div className="mt-4 flex h-32 items-end gap-2 sm:h-40" aria-hidden>
-            {[8, 14, 22, 35, 52, 70, 88, 100].map((h, i) => (
-              <div
-                key={i}
-                className="flex-1 rounded-t-md bg-primary/40"
-                style={{ height: `${h}%` }}
-              />
-            ))}
+          <div className="mt-3 overflow-hidden rounded-xl bg-background">
+            <Image
+              src="/ai-usage-chart.png"
+              alt="AI verslo programų rinkos pajamos pasaulyje 2016–2025, mln. USD — Statista"
+              width={1408}
+              height={832}
+              className="w-full"
+            />
           </div>
-          <div className="mt-3 flex items-center justify-between text-[10px] uppercase tracking-wider text-background/60">
-            <span>2023</span>
+          <p className="mt-2 flex items-center justify-between px-2 text-[10px] text-background/55 sm:text-[11px]">
             <span className="flex items-center gap-1 text-primary">
               <TrendingUp className="size-3" aria-hidden />
-              +1400 %
+              ~87× per 9 metus
             </span>
-            <span>2026</span>
-          </div>
+            <span className="text-background/45">Šaltinis: Statista</span>
+          </p>
         </Card>
       </div>
     </section>
