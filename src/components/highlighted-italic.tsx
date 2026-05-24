@@ -3,17 +3,14 @@ import { cn } from "@/lib/utils";
 interface HighlightedItalicProps {
   children: React.ReactNode;
   className?: string;
-  /** When false, renders just the colored word without the marker ellipse. Default true. */
+  /** When false, renders just the colored word without the marker underline. Default true. */
   marker?: boolean;
 }
 
 /**
- * Headline accent word — bold yellow text, optionally circled with a
- * hand-drawn red marker pen ellipse (aievoliucija "savo" pattern).
- *
- * Marker uses translucent red so it accents the yellow word without
- * overpowering it; vertical inset is generous so the ellipse sits
- * around the word rather than cutting through letters.
+ * Headline accent word — bold yellow text with a hand-drawn double
+ * red marker pen underline. Two slightly-offset curved strokes give
+ * the sketchy "scribbled twice" look.
  *
  * Component name kept for back-compat across existing pages.
  */
@@ -29,25 +26,32 @@ export function HighlightedItalic({
         className,
       )}
     >
+      {children}
       {marker ? (
         <svg
           aria-hidden
-          viewBox="0 0 200 60"
+          viewBox="0 0 200 30"
           preserveAspectRatio="none"
-          style={{ mixBlendMode: "multiply" }}
-          className="pointer-events-none absolute left-[-0.55em] top-[-0.45em] -z-10 h-[calc(100%+0.9em)] w-[calc(100%+1.1em)] -rotate-[1.5deg] text-red-600"
+          className="pointer-events-none absolute bottom-[-0.4em] left-[-0.1em] h-[0.55em] w-[calc(100%+0.2em)] text-red-600"
         >
+          {/* Top sweep — long single curve */}
           <path
-            d="M 14,32 Q 18,7 102,5 Q 188,9 185,30 Q 188,53 100,55 Q 12,51 14,32 Z"
+            d="M 4,10 Q 100,3 196,12"
             fill="none"
             stroke="currentColor"
             strokeWidth="4"
             strokeLinecap="round"
-            strokeLinejoin="round"
+          />
+          {/* Bottom scribble — slight wave offset below */}
+          <path
+            d="M 8,22 Q 60,26 120,21 Q 170,18 192,24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="4"
+            strokeLinecap="round"
           />
         </svg>
       ) : null}
-      {children}
     </span>
   );
 }
