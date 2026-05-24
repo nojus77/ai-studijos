@@ -130,7 +130,7 @@ function HeroSection() {
           <p className="text-xs font-medium text-foreground sm:text-sm">
             <span className="font-bold">78 naudoja</span>
             <span className="mx-2 text-muted-foreground">·</span>
-            <span className="text-foreground/60">liko 22 vietos</span>
+            <span className="font-bold text-red-600">liko 22 vietos</span>
           </p>
         </div>
 
