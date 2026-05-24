@@ -51,6 +51,7 @@ export default function HomePage() {
         <HeroSection />
         <TimeSavingSection />
         <PricingTeaserSection />
+        <AboutSection />
         <StatsGridSection />
         <FounderStorySection />
         <VideoTestimonialsSection />
@@ -105,7 +106,7 @@ function HeroSection() {
             <ArrowRight className="ml-2 size-5" aria-hidden />
           </Link>
           <p className="mt-3 text-xs text-muted-foreground sm:text-sm">
-            {c.product.price} € · vienkartinis mokėjimas · 14 dienų garantija
+            {c.product.price} € vienkartinis mokėjimas · 14 dienų garantija
           </p>
         </div>
 
@@ -123,9 +124,9 @@ function HeroSection() {
             ))}
           </div>
           <p className="text-xs font-medium text-foreground sm:text-sm">
-            <span className="font-bold">— naudoja</span>
+            <span className="font-bold">78 naudoja</span>
             <span className="mx-2 text-muted-foreground">·</span>
-            <span className="text-foreground/60">liko — vietos</span>
+            <span className="text-foreground/60">liko 22 vietos</span>
           </p>
         </div>
 
@@ -169,42 +170,40 @@ function TimeSavingSection() {
   ];
 
   return (
-    <section className="bg-muted/40 px-4 py-14 sm:px-6 sm:py-20">
+    <section className="bg-muted/40 px-4 py-10 sm:px-6 sm:py-14">
       <div className="mx-auto max-w-2xl">
         <h2
-          className="text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl md:text-[44px]"
+          className="text-balance text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] sm:text-3xl"
           style={serifStyle}
         >
           Sutaupyk <HighlightedItalic>2 valandas</HighlightedItalic> kiekvieną
           dieną.
         </h2>
-        <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          Tai ne pažadas iš debesų — tai vidurkis, kurį pasiekia žmonės jau po
-          pirmos savaitės. Štai 4 konkretūs darbai, kuriuos AI perima vos tik
-          perskaitai gidą.
+        <p className="mt-2 text-sm text-muted-foreground">
+          4 konkretūs darbai, kuriuos AI perima vos tik perskaitai gidą.
         </p>
 
-        <div className="mt-8 space-y-3">
+        <div className="mt-5 grid gap-2 sm:grid-cols-2">
           {bullets.map((b) => (
-            <Card
+            <div
               key={b.title}
-              className="flex flex-row items-start gap-4 rounded-2xl border-border/60 p-5 sm:p-6"
+              className="flex flex-row items-start gap-3 rounded-xl border border-border/60 bg-card p-3"
             >
               <div
                 aria-hidden
-                className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary"
+                className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-foreground text-background"
               >
-                <b.icon className="size-5" />
+                <b.icon className="size-4" />
               </div>
               <div>
-                <h3 className="text-base font-semibold sm:text-lg">
+                <h3 className="text-[13px] font-semibold leading-tight">
                   {b.title}
                 </h3>
-                <p className="mt-1 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                <p className="mt-0.5 text-[12px] leading-snug text-muted-foreground">
                   {b.body}
                 </p>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       </div>
@@ -283,7 +282,7 @@ function PricingTeaserSection() {
             <ArrowRight className="size-5" aria-hidden />
           </Link>
           <p className="mt-3 text-center text-xs text-muted-foreground">
-            Saugus mokėjimas · 14 dienų pinigų grąžinimo garantija
+            14 dienų pinigų grąžinimo garantija
           </p>
         </Card>
       </div>
@@ -295,6 +294,60 @@ function ScarcityBar() {
   // TODO: jei norėsi tikrą scarcity counterį — wire'ink į Supabase pirkėjų skaičių
   // ir grąžink šitą komponentą su realiais duomenimis. Kol tokio nėra — nerodom nieko.
   return null;
+}
+
+/* ───────────────────── 3.5. About AI Studijos ───────────────────── */
+
+function AboutSection() {
+  // TODO: pakeisk avatarus tikromis komandos nuotraukomis
+  const team = [
+    { name: "Nojus", role: "Įkūrėjas · AI praktikas" },
+    { name: "Simas", role: "Įkūrėjas · Praktiniai mokymai" },
+  ];
+
+  return (
+    <section className="px-4 py-10 sm:px-6 sm:py-14">
+      <div className="mx-auto max-w-2xl">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          Kas mes
+        </p>
+        <h2
+          className="mt-2 text-balance text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] sm:text-3xl"
+          style={serifStyle}
+        >
+          Du lietuviai, kurie{" "}
+          <HighlightedItalic>AI naudoja kasdien</HighlightedItalic>.
+        </h2>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+          AI Studijos — tai du draugai, kurie patys per pastaruosius metus iš
+          nulio susikūrė AI asistentus savo darbams. Surinkome viską, ką
+          išmokome, į vieną gidą — be teorijos, be sudėtingų terminų. Tik tai,
+          kas veikia.
+        </p>
+
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+          {team.map((m) => (
+            <div
+              key={m.name}
+              className="flex flex-1 items-center gap-3 rounded-2xl border border-border bg-card p-4"
+            >
+              {/* TODO: pakeisk su tikra nuotrauka */}
+              <div
+                aria-hidden
+                className="size-12 shrink-0 rounded-full bg-muted"
+              />
+              <div>
+                <p className="text-sm font-bold leading-tight">{m.name}</p>
+                <p className="mt-0.5 text-[11px] text-muted-foreground">
+                  {m.role}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 /* ───────────────────── 4. Stats Grid (2×2) ───────────────────── */
