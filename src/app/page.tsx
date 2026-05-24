@@ -8,7 +8,6 @@ import {
   Clock,
   Lock,
   MessageSquare,
-  Play,
   Settings2,
   Shield,
   ShieldCheck,
@@ -19,6 +18,7 @@ import {
 } from "lucide-react";
 
 import { CTABand } from "@/components/cta-band";
+import { HeroVideo } from "@/components/hero-video";
 import { HighlightedItalic } from "@/components/highlighted-italic";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -74,49 +74,22 @@ export default function HomePage() {
 
 function HeroSection() {
   return (
-    <section className="px-4 pb-14 pt-10 sm:px-6 sm:pt-14">
-      <div className="mx-auto max-w-2xl">
-        <Badge className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary hover:bg-primary/10">
-          AI Studijos · {c.product.price} €
-        </Badge>
-
+    <section className="px-4 pb-12 pt-10 sm:px-6 sm:pt-14">
+      <div className="mx-auto max-w-2xl text-center">
+        {/* Strong short headline */}
         <h1
-          className="mt-5 text-balance text-[36px] font-medium leading-[1.05] tracking-tight sm:text-[48px] md:text-[56px]"
+          className="text-balance text-[40px] font-extrabold leading-[1.05] tracking-[-0.02em] text-foreground sm:text-[56px] md:text-[64px]"
           style={serifStyle}
         >
-          Tavo asmeninis <HighlightedItalic>AI asistentas</HighlightedItalic>{" "}
-          per 30 minučių.
+          Tavo <HighlightedItalic>AI asistentas</HighlightedItalic> per 30
+          minučių.
         </h1>
 
-        <p className="mt-5 text-[15px] leading-relaxed text-muted-foreground sm:text-base">
-          Vienas video. Viena PDF biblioteka. Visam gyvenimui. Sužinosi, kaip
-          pradėti naudoti AI taip, kad jis tau atneštų bent 2 valandas kiekvieną
-          dieną — be programavimo, be sudėtingų įrankių, be tuščių teorijų. Tik
-          tai, kas veikia šiandien.
+        {/* Smooth low-attention subtitle */}
+        <p className="mx-auto mt-5 max-w-lg text-[15px] leading-[1.6] text-muted-foreground sm:text-base">
+          Vienas video, viena PDF biblioteka, prieiga visam gyvenimui. Atneša 2
+          valandas atgal kiekvieną dieną — be programavimo.
         </p>
-
-        {/* Video thumbnail with play button */}
-        <div className="mt-7 overflow-hidden rounded-2xl border border-border/60">
-          {/* TODO: replace with real video thumbnail */}
-          <div className="relative aspect-video bg-foreground" aria-hidden>
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <button
-                type="button"
-                aria-label="Paleisti įvadinį video"
-                className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:scale-105"
-              >
-                <Play className="ml-1 size-7 fill-current" aria-hidden />
-              </button>
-            </div>
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-background/90 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-foreground">
-              Pažiūrėk 90 sek.
-            </div>
-          </div>
-        </div>
-
-        {/* Social proof row — fill once you have real numbers + photos */}
-        {/* TODO: pridėk realius pirkėjų avatarus + skaičių kai jį turėsi */}
 
         {/* Primary CTA */}
         <div className="mt-7">
@@ -125,15 +98,44 @@ function HeroSection() {
             className={buttonVariants({
               size: "lg",
               className:
-                "h-14 w-full justify-between rounded-2xl text-sm font-semibold uppercase tracking-wider sm:text-base",
+                "cta-glow h-14 w-full justify-center rounded-xl bg-primary px-6 text-sm font-semibold uppercase tracking-wider text-primary-foreground hover:bg-primary/90 sm:w-auto sm:text-base",
             })}
           >
-            <span>Gauti gidą · {c.product.price} €</span>
-            <ArrowRight className="size-5" aria-hidden />
+            <span>Gauti AI asistentą</span>
+            <ArrowRight className="ml-2 size-5" aria-hidden />
           </Link>
-          <p className="mt-2 text-center text-xs text-muted-foreground">
-            Vienkartinis mokėjimas · prieiga akimirksniu
+          <p className="mt-3 text-xs text-muted-foreground sm:text-sm">
+            {c.product.price} € · vienkartinis mokėjimas · 14 dienų garantija
           </p>
+        </div>
+
+        {/* Social proof row — avatars + counter */}
+        {/* TODO: pakeisk avatarus tikromis pirkėjų nuotraukomis ir skaičių
+            wire'ink į Supabase pirkimų counter'į */}
+        <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-border bg-card px-4 py-2 shadow-sm">
+          <div className="flex -space-x-2">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                aria-hidden
+                className="size-7 rounded-full border-2 border-card bg-muted"
+              />
+            ))}
+          </div>
+          <p className="text-xs font-medium text-foreground sm:text-sm">
+            <span className="font-bold">— naudoja</span>
+            <span className="mx-2 text-muted-foreground">·</span>
+            <span className="text-foreground/60">liko — vietos</span>
+          </p>
+        </div>
+
+        {/* Autoplay muted video with tap-to-unmute */}
+        <div className="mt-8">
+          <HeroVideo
+          // TODO: pridėk realų src kai turėsi promo video, pvz "/hero-promo.mp4"
+          // src="/hero-promo.mp4"
+          // poster="/hero-promo-poster.jpg"
+          />
         </div>
       </div>
     </section>
@@ -337,7 +339,7 @@ function FounderStorySection() {
   return (
     <section className="bg-muted/40 px-4 py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-2xl">
-        <Badge className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary hover:bg-primary/10">
+        <Badge className="rounded-full bg-foreground px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-background hover:bg-foreground">
           Kelionės pradžia
         </Badge>
         <h2
@@ -433,7 +435,7 @@ function MarketStatsSection() {
   return (
     <section className="bg-foreground px-4 py-14 text-background sm:px-6 sm:py-20">
       <div className="mx-auto max-w-2xl">
-        <Badge className="rounded-full bg-primary/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary hover:bg-primary/20">
+        <Badge className="rounded-full bg-foreground px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-background hover:bg-foreground">
           Kodėl dabar?
         </Badge>
 
@@ -571,7 +573,7 @@ function CommunityProofSection() {
   return (
     <section className="bg-muted/40 px-4 py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-2xl">
-        <Badge className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary hover:bg-primary/10">
+        <Badge className="rounded-full bg-foreground px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-background hover:bg-foreground">
           AI Studijos bendruomenė
         </Badge>
         <h2
@@ -711,7 +713,7 @@ function PrimaryPricingSection() {
       className="bg-foreground px-4 py-14 text-background sm:px-6 sm:py-20"
     >
       <div className="mx-auto max-w-2xl">
-        <Badge className="rounded-full bg-primary/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary hover:bg-primary/20">
+        <Badge className="rounded-full bg-foreground px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-background hover:bg-foreground">
           Pilnas paketas
         </Badge>
         <h2
