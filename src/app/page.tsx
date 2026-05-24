@@ -224,7 +224,7 @@ function PricingTeaserSection() {
   const features = [
     "Video pamoka (~30 min.) su pavyzdžiais",
     "5 paruošti AI darbo workflow'ai (ne tik promptai — pilni scenarijai)",
-    "Nemokama prieiga prie AI Studijos bendruomenės",
+    "Nemokama prieiga prie AI Studijos Skool bendruomenės",
     "Atnaujinimai amžinai — be papildomų mokesčių",
   ];
 
@@ -429,11 +429,26 @@ function FounderStorySection() {
         </h2>
 
         <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-foreground/90 sm:text-base">
-          {/* TODO: parašyk savo autentišką istoriją — kas esat, kodėl pradėjot, kaip naudojate AI patys */}
-          <p className="text-muted-foreground italic">
-            [Placeholder — pakeisk su tikra komandos istorija. Aprašyk, kas
-            esate, kodėl pradėjote AI Studijas ir ką patys padarėte su AI prieš
-            mokant kitus. Trumpai, žmogiškai, 2–3 pastraipos.]
+          <p>
+            Aš <strong className="font-semibold">Nojus</strong> — AI
+            automatizacijų agentūros įkūrėjas. Kasdien dirbu B2B padėdamas
+            verslams sutaupyti laiką ir kaštus per custom automatizacijas. AI
+            naudoju visur: nuo klientų atsakymų ir marketing&apos;o iki pilnų
+            platformų kūrimo. Pradėjau prieš kelis metus paprastais dalykais —
+            laiškais, dokumentais — paskui pradėjau giliau exploring kiek toliau
+            viskas gali nueiti.
+          </p>
+          <p>
+            <strong className="font-semibold">Simas</strong> kuria AI įrankį,
+            transformuojantį logistiką Europoje, ir dirba vienoje didžiausių AI
+            agentūrų JAV. AI naudoja kasdien — tiek savo verslui, tiek klientų
+            projektams.
+          </p>
+          <p>
+            AI Studijas pradėjome todėl, kad pastebėjom: dauguma girdėjo apie
+            AI, bet nežino kaip rimtai pradėti. Surinkome viską, ką patys per
+            metus išmokome darbe, į vieną gidą — be teorijos, be Python&apos;o,
+            tik tai, kas veikia praktikoje.
           </p>
           <p className="text-muted-foreground">
             Jei turi klausimų — užpildyk{" "}
