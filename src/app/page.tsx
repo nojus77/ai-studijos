@@ -683,7 +683,8 @@ function CommunityProofSection() {
           bendruomenės — kur dalinamės pavyzdžiais ir padedam vieni kitiems.
         </p>
 
-        {/* Chat thread mockup — Skool channel preview */}
+        {/* Chat thread mockup — Skool channel preview.
+            TODO: pakeisti į realių Skool screenshot'ų stack'ą kai turėsi pirmų pokalbių. */}
         <div className="mt-8 overflow-hidden rounded-2xl bg-background/5 ring-1 ring-background/10">
           {/* Channel header */}
           <div className="flex items-center gap-2 border-b border-background/10 px-5 py-3 text-xs text-background/70">
@@ -709,23 +710,36 @@ function CommunityProofSection() {
               </div>
             ))}
           </div>
-
-          {/* Cover banner inside the card as a community "wallpaper" footer */}
-          <div className="border-t border-background/10 bg-background">
-            <Image
-              src="/cover.png"
-              alt="AI Studijos · Lietuviška AI bendruomenė"
-              width={2064}
-              height={512}
-              className="w-full"
-            />
-          </div>
         </div>
 
         <p className="mt-4 text-center text-xs text-background/60 sm:text-sm">
           Pirkėjų pokalbiai jau veikia. Atsiliepimus įdėsime, kai turėsime pirmų
           — be aktorių.
         </p>
+
+        {/* Cover banner + Skool join CTA — separate from chat above */}
+        <div className="mt-10 overflow-hidden rounded-2xl border border-background/10 bg-background">
+          <Image
+            src="/cover.png"
+            alt="AI Studijos · Lietuviška AI bendruomenė"
+            width={2064}
+            height={512}
+            className="w-full"
+          />
+        </div>
+        <div className="mt-5">
+          {/* TODO: pakeisk href į SKOOL_INVITE_URL env arba tikrą skool linką */}
+          <Link
+            href="#"
+            className={buttonVariants({
+              size: "lg",
+              className:
+                "h-12 w-full rounded-xl bg-primary text-sm font-semibold uppercase tracking-wider text-primary-foreground hover:bg-primary/90",
+            })}
+          >
+            Prisijungti į AI Studijos Skool
+          </Link>
+        </div>
       </div>
     </section>
   );
@@ -847,17 +861,6 @@ function PrimaryPricingSection() {
           <HighlightedItalic>vienoje vietoje.</HighlightedItalic>
         </h2>
 
-        {/* Product mockup — the actual box buyer gets */}
-        <div className="mt-6 overflow-hidden rounded-2xl bg-background/5">
-          <Image
-            src="/product.png"
-            alt="AI Asistento gido produkto vaizdas"
-            width={1536}
-            height={1024}
-            className="w-full"
-          />
-        </div>
-
         <Card className="mt-8 overflow-hidden rounded-3xl border-background/15 bg-background/10 p-6 text-background sm:p-8">
           <div className="flex items-center gap-2">
             <Badge className="rounded-full bg-primary px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary-foreground hover:bg-primary">
@@ -868,19 +871,29 @@ function PrimaryPricingSection() {
             </p>
           </div>
 
-          <div className="mt-5 flex items-baseline gap-3">
-            <p
-              className="text-5xl font-medium leading-none text-background sm:text-6xl"
-              style={serifStyle}
-            >
-              {c.product.price} €
-            </p>
-            <p
-              className="text-2xl text-background/50 line-through sm:text-3xl"
-              style={serifStyle}
-            >
-              {c.product.originalPrice} €
-            </p>
+          {/* Price + small product mockup side-by-side */}
+          <div className="mt-5 flex items-center justify-between gap-4">
+            <div className="flex items-baseline gap-3">
+              <p
+                className="text-5xl font-medium leading-none text-background sm:text-6xl"
+                style={serifStyle}
+              >
+                {c.product.price} €
+              </p>
+              <p
+                className="text-2xl text-background/50 line-through sm:text-3xl"
+                style={serifStyle}
+              >
+                {c.product.originalPrice} €
+              </p>
+            </div>
+            <Image
+              src="/product.png"
+              alt="AI Asistento gidas"
+              width={1536}
+              height={1024}
+              className="h-20 w-auto shrink-0 rounded-lg sm:h-24"
+            />
           </div>
           <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-background/70">
             Vienkartinis mokėjimas
