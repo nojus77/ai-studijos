@@ -52,6 +52,7 @@ export interface BumpInfo {
   id: BumpId;
   label: string;
   description: string;
+  details: string[];
   priceEur: number;
   popular?: boolean;
   getPriceId: () => string;
@@ -64,6 +65,13 @@ export const BUMPS: Record<BumpId, BumpInfo> = {
     id: "bootcampStandard",
     label: "AI Studijos Bootcamp",
     description: "2 sesijos online + paruošti workflow'ai + 1 mėn. bendruomenė",
+    details: [
+      "2 gyvos online sesijos su Nojum (2 sekmadienio vakarai, 19:00)",
+      "Visi sesijų įrašai — žiūrėk kada nori",
+      "Paruošti AI darbo workflow'ai tavo verslui",
+      "Asmeninė pagalba Skool bendruomenėje 1 mėn.",
+      "Praktinis namų darbas tarp sesijų",
+    ],
     priceEur: 97,
     popular: true,
     getPriceId: () => env.stripePriceBootcampStandard(),
@@ -72,15 +80,28 @@ export const BUMPS: Record<BumpId, BumpInfo> = {
     id: "bootcampPremium",
     label: "AI Studijos Bootcamp + 2 val. konsultacija",
     description:
-      "Viskas iš Standard + 2 val. asmeninė konsultacija su komanda + 6 paruošti įgūdžiai",
+      "Viskas iš Standard + 2 val. asmeninė konsultacija + 6 paruošti įgūdžiai",
+    details: [
+      "Viskas, kas yra Bootcamp Standard pakete",
+      "2 val. asmeninė Zoom konsultacija su komanda",
+      "6 paruošti AI įgūdžiai (verta 500+ €)",
+      "Pirmenybinis dėmesys grupėje — tavo klausimai matomi pirmiausi",
+      "3 mėn. Skool bendruomenės access (vietoj 1 mėn.)",
+    ],
     priceEur: 347,
     getPriceId: () => env.stripePriceBootcampPremium(),
   },
   aiSpecialists: {
     id: "aiSpecialists",
     label: "5 AI Specialistai",
-    description:
-      "5 paruošti Claude įgūdžiai: el. paštas, ataskaitos, tyrimai, klientų atsakymai, planavimas — copy-paste ir veikia",
+    description: "5 paruošti Claude įgūdžiai — copy-paste ir veikia",
+    details: [
+      "✉️ El. paštai — atsakymai tavo stiliumi per sekundes",
+      "📊 Ataskaitos — automatiškai iš Excel/Google Sheets",
+      "🔍 Tyrimai — perskaitytas šimtai šaltinių, santrauka su nuorodom",
+      "💬 Klientų atsakymai — paruošti pasiūlymai pagal tavo verslą",
+      "📅 Planavimas — savaitės planas iš tavo balso įrašo",
+    ],
     priceEur: 27,
     getPriceId: () => env.stripePriceAiSpecialists(),
   },
