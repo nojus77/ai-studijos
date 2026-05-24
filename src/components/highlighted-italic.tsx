@@ -34,7 +34,8 @@ export function HighlightedItalic({
           aria-hidden
           viewBox="0 0 200 60"
           preserveAspectRatio="none"
-          className="pointer-events-none absolute left-[-0.5em] top-[-0.32em] -z-10 h-[calc(100%+0.64em)] w-[calc(100%+1em)] -rotate-[1.5deg] text-red-500/70"
+          style={{ mixBlendMode: "multiply" }}
+          className="pointer-events-none absolute left-[-0.55em] top-[-0.45em] -z-10 h-[calc(100%+0.9em)] w-[calc(100%+1.1em)] -rotate-[1.5deg] text-red-600"
         >
           <path
             d="M 14,32 Q 18,7 102,5 Q 188,9 185,30 Q 188,53 100,55 Q 12,51 14,32 Z"
