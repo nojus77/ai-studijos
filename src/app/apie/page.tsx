@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Kas mes · AI Studijos",
@@ -20,7 +21,8 @@ interface TeamMember {
   name: string;
   role: string;
   bio: string;
-  photo?: string;
+  photo: string;
+  align: "right" | "left";
 }
 
 const team: TeamMember[] = [
@@ -28,13 +30,15 @@ const team: TeamMember[] = [
     name: "Nojus",
     role: "Įkūrėjas · AI automatizacijų agentūra",
     bio: "AI automatizacijų agentūros įkūrėjas. Kasdien kuriu klientams AI sprendimus — nuo el. pašto auto-atsakymų iki sudėtingų darbo workflow'ų. Tą patį setup'ą, kurį dirbu su verslo klientais, mokau pasidaryti tave.",
-    photo: "/team-nojus.jpg",
+    photo: "/nojus-full.png",
+    align: "right",
   },
   {
     name: "Simas",
     role: "Įkūrėjas · Agentūra JAV",
     bio: "Marketing agentūros JAV įkūrėjas. AI naudoju kasdien savo versle — turinio kūrimui, klientų valdymui, ataskaitoms. Praktinė patirtis ne iš teorinių kursų, o iš realių kliento projektų.",
-    photo: "/team-simas.jpg",
+    photo: "/simas-full.png",
+    align: "left",
   },
 ];
 
@@ -117,40 +121,47 @@ function TeamSection() {
           Maža komanda. Aiškus pasidalijimas. Atsakomybė konkrečiam veidui.
         </p>
 
-        <div className="mt-8 space-y-4">
+        <div className="mt-12 space-y-16 sm:space-y-20">
           {team.map((member) => (
             <Card
               key={member.name}
-              className="flex flex-col gap-4 rounded-2xl border-border/60 p-5 sm:flex-row sm:p-6"
-            >
-              {member.photo ? (
-                <Image
-                  src={member.photo}
-                  alt={member.name}
-                  width={400}
-                  height={400}
-                  className="size-20 shrink-0 rounded-2xl object-cover"
-                />
-              ) : (
-                <div
-                  className="size-20 shrink-0 rounded-2xl bg-muted"
-                  aria-hidden
-                />
+              className={cn(
+                "relative flex items-center overflow-visible rounded-2xl border-border/60 px-5 py-6 sm:px-6 sm:py-7",
+                member.align === "right" ? "justify-start" : "justify-end",
               )}
-              <div>
+            >
+              <div
+                className={cn(
+                  "max-w-[58%]",
+                  member.align === "left" && "text-right",
+                )}
+              >
                 <p
                   className="text-xl font-medium leading-tight"
                   style={serifStyle}
                 >
                   {member.name}
                 </p>
-                <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
                   {member.role}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
                   {member.bio}
                 </p>
               </div>
+              {/* Floating full-body cutout — extends above card */}
+              <Image
+                src={member.photo}
+                alt={member.name}
+                width={698}
+                height={2002}
+                className={cn(
+                  "pointer-events-none absolute bottom-0 h-[125%] w-auto object-contain object-bottom sm:h-[135%]",
+                  member.align === "right"
+                    ? "right-2 sm:right-4"
+                    : "left-2 sm:left-4",
+                )}
+              />
             </Card>
           ))}
         </div>

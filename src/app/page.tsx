@@ -319,13 +319,15 @@ function AboutSection() {
   const team = [
     {
       name: "Nojus",
-      role: "Įkūrėjas · AI praktikas",
-      photo: "/team-nojus.jpg",
+      role: "Įkūrėjas · AI automatizacijų agentūra",
+      photo: "/nojus-full.png",
+      align: "right" as const,
     },
     {
       name: "Simas",
-      role: "Įkūrėjas · Praktiniai mokymai",
-      photo: "/team-simas.jpg",
+      role: "Įkūrėjas · Agentūra JAV",
+      photo: "/simas-full.png",
+      align: "left" as const,
     },
   ];
 
@@ -349,25 +351,42 @@ function AboutSection() {
           kas veikia.
         </p>
 
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-8 space-y-12 sm:space-y-14">
           {team.map((m) => (
             <div
               key={m.name}
-              className="flex flex-1 items-center gap-3 rounded-2xl border border-border bg-card p-4"
+              className={cn(
+                "relative flex items-center rounded-2xl border border-border bg-card px-5 py-4 sm:px-6",
+                m.align === "right" ? "justify-start" : "justify-end",
+              )}
             >
-              <Image
-                src={m.photo}
-                alt={m.name}
-                width={400}
-                height={400}
-                className="size-12 shrink-0 rounded-full object-cover"
-              />
-              <div>
-                <p className="text-sm font-bold leading-tight">{m.name}</p>
-                <p className="mt-0.5 text-[11px] text-muted-foreground">
+              <div
+                className={cn(
+                  "max-w-[55%]",
+                  m.align === "left" && "text-right",
+                )}
+              >
+                <p className="text-lg font-bold leading-tight sm:text-xl">
+                  {m.name}
+                </p>
+                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                   {m.role}
                 </p>
               </div>
+              {/* Floating full-body cutout — extends above card top */}
+              <Image
+                src={m.photo}
+                alt={m.name}
+                width={698}
+                height={2002}
+                className={cn(
+                  "absolute bottom-0 h-[150%] w-auto object-contain object-bottom sm:h-[160%]",
+                  m.align === "right"
+                    ? "right-2 sm:right-4"
+                    : "left-2 sm:left-4",
+                )}
+                priority={false}
+              />
             </div>
           ))}
         </div>
@@ -444,17 +463,22 @@ function FounderStorySection() {
           </p>
         </div>
 
-        {/* Two-founder photo placeholder */}
+        {/* Two-founder byline with real headshots */}
         <Card className="mt-8 flex flex-row items-center gap-4 rounded-2xl border-border/60 p-4 sm:p-5">
           <div className="flex -space-x-3">
-            {/* TODO: replace with real founder photos */}
-            <div
-              className="size-14 shrink-0 rounded-full border-2 border-background bg-muted"
-              aria-hidden
+            <Image
+              src="/team-nojus.jpg"
+              alt="Nojus"
+              width={400}
+              height={400}
+              className="size-14 shrink-0 rounded-full border-2 border-background object-cover"
             />
-            <div
-              className="size-14 shrink-0 rounded-full border-2 border-background bg-muted"
-              aria-hidden
+            <Image
+              src="/team-simas.jpg"
+              alt="Simas"
+              width={400}
+              height={400}
+              className="size-14 shrink-0 rounded-full border-2 border-background object-cover"
             />
           </div>
           <div>
@@ -462,7 +486,7 @@ function FounderStorySection() {
               AI Studijos komanda
             </p>
             <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Nojus &amp; Vilius · Vilnius
+              Nojus &amp; Simas
             </p>
           </div>
         </Card>
