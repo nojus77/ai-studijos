@@ -25,7 +25,10 @@ export function HighlightedItalic({
         "relative inline-block whitespace-nowrap font-extrabold tracking-[-0.025em] text-primary",
         className,
       )}
-      style={{ textShadow: "0 0 0.4px currentColor, 0 0 1px currentColor" }}
+      style={{
+        textShadow:
+          "0 0 1px rgba(11, 11, 11, 0.45), 0 1px 2px rgba(11, 11, 11, 0.2), 0 2px 5px rgba(11, 11, 11, 0.1)",
+      }}
     >
       {children}
       {marker ? (
