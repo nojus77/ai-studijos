@@ -181,7 +181,7 @@ function CTASection() {
           Pradėk nuo <HighlightedItalic>Bootcamp&apos;o</HighlightedItalic>.
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          Per 4 sekmadienio vakarus susikursi savo AI asistentą. 100 % online,
+          Per 2 sekmadienio vakarus susikursi savo AI asistentą. 100 % online,
           jokio programavimo.
         </p>
         <Link

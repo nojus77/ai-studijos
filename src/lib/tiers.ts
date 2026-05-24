@@ -63,7 +63,7 @@ export const BUMPS: Record<BumpId, BumpInfo> = {
   bootcampStandard: {
     id: "bootcampStandard",
     label: "AI Studijos Bootcamp",
-    description: "4 sesijos online + paruošti workflow'ai + 1 mėn. bendruomenė",
+    description: "2 sesijos online + paruošti workflow'ai + 1 mėn. bendruomenė",
     priceEur: 97,
     popular: true,
     getPriceId: () => env.stripePriceBootcampStandard(),

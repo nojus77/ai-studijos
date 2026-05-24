@@ -50,7 +50,7 @@ export default function SalygosPage() {
 
           <Section title="3. Prieiga prie turinio">
             Įsigijus video kursą gauni prieigą prie video ir PDF medžiagos visam
-            gyvenimui. Bootcamp&apos;ą sudaro 4 online sesijos su gyvu vedimu
+            gyvenimui. Bootcamp&apos;ą sudaro 2 online sesijos su gyvu vedimu
             plus visi įrašai, kurie lieka tau visam laikui. Įmonių mokymai
             vyksta pagal atskirą susitarimą.
           </Section>

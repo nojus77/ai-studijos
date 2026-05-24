@@ -23,7 +23,7 @@ import { bootcampContent as c } from "./_content";
 export const metadata: Metadata = {
   title: "Mėnesinis AI Bootcamp",
   description:
-    "Per 4 sekmadienio vakarus susikursi savo AI asistentą, kuris atgaus 15+ valandų per savaitę. 100 % online, jokio programavimo.",
+    "Per 2 sekmadienio vakarus susikursi savo AI asistentą, kuris atgaus 15+ valandų per savaitę. 100 % online, jokio programavimo.",
 };
 
 const serifStyle = { fontFamily: "var(--font-serif)" } as const;
@@ -66,13 +66,13 @@ function HeroSection() {
           className="text-balance text-[36px] font-medium leading-[1.05] tracking-tight sm:text-[48px] md:text-[56px]"
           style={serifStyle}
         >
-          Per 4 sekmadienio vakarus susikursi{" "}
+          Per 2 sekmadienio vakarus susikursi{" "}
           <HighlightedItalic>savo</HighlightedItalic> AI asistentą.
         </h1>
         <p className="mt-5 text-[15px] leading-relaxed text-muted-foreground sm:text-base">
           Bandei ChatGPT. Užduodi klausimą, gauni atsakymą. Bet realių darbų jis
           už tave nedaro: nesutvarko el. pašto, neparuošia ataskaitos,
-          nesujungia Excelio. Bootcamp&apos;as yra būtent apie tai. 4 online
+          nesujungia Excelio. Bootcamp&apos;as yra būtent apie tai. 2 online
           susitikimai iš namų, biuro ar bet kurio Lietuvos kampelio. Kartu
           paruošiame AI asistentą tavo kompiuteryje, prijungiame jį prie el.
           pašto bei kitų programų, ir mokome jį dirbti būtent tavo darbus. Po
@@ -216,7 +216,7 @@ function LaunchDateSection() {
           <HighlightedItalic>{c.startDateHuman}</HighlightedItalic>
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          4 sekmadienio vakarai. Online. Kartu su Nojum susikursi savo AI
+          2 sekmadienio vakarai. Online. Kartu su Nojum susikursi savo AI
           asistentą, kuris dirbs didžiąją dalį tavo darbų.
         </p>
         <div className="mt-6">
@@ -260,7 +260,7 @@ function AudienceFitSection() {
             items={[
               "esi programuotojas — tau pačiam viskas seniai aišku, o šis kursas pradedantiesiems.",
               "tikiesi pasyvių pajamų — tai kursas, ne stebuklas. Sistema sutaupys laiko, bet ją susikurti reikia tau.",
-              "neturi 8 valandų per mėnesį — čia 4 sekmadieniai po 2 valandas plius nedidelė praktika tarp sesijų.",
+              "neturi 4 valandų per mėnesį — čia 2 sekmadieniai po 2 valandas plius nedidelė praktika tarp sesijų.",
             ]}
           />
         </div>
@@ -337,7 +337,7 @@ function FounderLetterSection() {
         </h2>
         <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-foreground/90 sm:text-base">
           {/* TODO: parašyk savo autentišką laišką — kas tu, kodėl statai šitą bootcamp'ą,
-              ką pats sukūrei naudodamas AI, ką gauna studentas po 4 sesijų. Pavyzdinė
+              ką pats sukūrei naudodamas AI, ką gauna studentas po 2 sesijų. Pavyzdinė
               struktūra: 1) prisistatymas, 2) kodėl pradedi, 3) ką pats jau padarei su AI,
               4) ko studentas išmoks, 5) kvietimas prisijungti, 6) kontaktinis paragrafas. */}
           <p className="text-muted-foreground italic">
@@ -728,7 +728,7 @@ function CurriculumDetailSection() {
             vietą.
           </h3>
           <p className="mt-2 text-sm text-muted-foreground sm:text-base">
-            4 sesijos su Nojum. Pradžia {c.startDateHuman}. Vietų ribota.
+            2 sesijos su Nojum. Pradžia {c.startDateHuman}. Vietų ribota.
           </p>
           <div className="mt-5">
             <CTABand
@@ -858,7 +858,7 @@ function PoweredByTeachersSection() {
           <TeacherBlock
             role="Mokytojas"
             name={c.founder.name}
-            body="Veda visas 4 online sesijas ir yra atsakingas už turinį, praktinius pavyzdžius bei kartu kuriamą sistemą. Per pastaruosius metus iš nulio pastatė savo asistentą bei savo verslo procesus aplink jį — be programavimo žinių. Lygiai taip pat mokys ir tave."
+            body="Veda visas 2 online sesijas ir yra atsakingas už turinį, praktinius pavyzdžius bei kartu kuriamą sistemą. Per pastaruosius metus iš nulio pastatė savo asistentą bei savo verslo procesus aplink jį — be programavimo žinių. Lygiai taip pat mokys ir tave."
           />
           <TeacherBlock
             role="Pagalbos komandoje"
@@ -921,7 +921,7 @@ function PricingSection() {
             tagline="Tiems, kurie nori mokytis darant ir kuriems pakanka grupinio dėmesio."
             features={[
               "Tavo paruoštas AI asistentas",
-              "4 online sesijos · 8 val.",
+              "2 online sesijos · 4 val.",
               "Visi sesijų įrašai",
               "4 paruoštų komandų rinkiniai",
               "Sertifikatas (PDF)",
@@ -1109,7 +1109,7 @@ function GuaranteeSection() {
           <HighlightedItalic>grąžiname visus pinigus.</HighlightedItalic>
         </h2>
         <p className="mt-4 text-sm leading-relaxed text-background/80 sm:text-base">
-          Jei po 4 sesijų nepajauti, kad atgavai bent 15 valandų per savaitę,
+          Jei po 2 sesijų nepajauti, kad atgavai bent 15 valandų per savaitę,
           grąžiname visus pinigus — be klausimų ir be smulkaus šrifto.
         </p>
       </div>
@@ -1312,7 +1312,7 @@ function FinalCTASection() {
         </h2>
         <p className="mt-4 text-sm leading-relaxed text-background/80 sm:text-base">
           {c.startDateFull}. Pradedam kartu kurti tavo AI asistentą. Paprastai,
-          žmogiškai, iš bet kurio Lietuvos kampelio. Per 4 sekmadienius gauni 15
+          žmogiškai, iš bet kurio Lietuvos kampelio. Per 2 sekmadienius gauni 15
           valandų per savaitę atgal į savo gyvenimą.
         </p>
 
