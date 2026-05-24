@@ -19,13 +19,13 @@ const TIERS: Record<TierSlug, TierInfo> = {
   standard: {
     slug: "standard",
     label: "Bootcamp 01 — Standard",
-    priceEur: 147,
+    priceEur: 97,
     shortName: "Bootcamp Standard",
   },
   premium: {
     slug: "premium",
     label: "Bootcamp 01 — Premium",
-    priceEur: 397,
+    priceEur: 347,
     shortName: "Bootcamp Premium",
   },
 };
@@ -64,7 +64,7 @@ export const BUMPS: Record<BumpId, BumpInfo> = {
     id: "bootcampStandard",
     label: "AI Studijos Bootcamp",
     description: "4 sesijos online + paruošti workflow'ai + 1 mėn. bendruomenė",
-    priceEur: 147,
+    priceEur: 97,
     getPriceId: () => env.stripePriceBootcampStandard(),
   },
   bootcampPremium: {
@@ -72,7 +72,7 @@ export const BUMPS: Record<BumpId, BumpInfo> = {
     label: "AI Studijos Bootcamp + 2 val. konsultacija",
     description:
       "Viskas iš Standard + 2 val. asmeninė konsultacija su komanda + 6 paruošti įgūdžiai",
-    priceEur: 397,
+    priceEur: 347,
     popular: true,
     getPriceId: () => env.stripePriceBootcampPremium(),
   },
@@ -81,8 +81,7 @@ export const BUMPS: Record<BumpId, BumpInfo> = {
     label: "5 AI Specialistai",
     description:
       "5 paruošti Claude įgūdžiai: el. paštas, ataskaitos, tyrimai, klientų atsakymai, planavimas — copy-paste ir veikia",
-    // TODO: patikslink kainą jei Stripe price ne 97 €
-    priceEur: 97,
+    priceEur: 27,
     getPriceId: () => env.stripePriceAiSpecialists(),
   },
 };

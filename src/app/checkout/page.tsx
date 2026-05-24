@@ -186,6 +186,22 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
             Pridėk prie užsakymo
           </p>
           <div className="mt-2 space-y-2">
+            {/* 1. 5 AI Specialistai (small upsell first) */}
+            <BumpCard
+              selected={bumps.aiSpecialists}
+              onToggle={() =>
+                setBumps((prev) => ({
+                  ...prev,
+                  aiSpecialists: !prev.aiSpecialists,
+                }))
+              }
+              priceLabel={`+ ${BUMPS.aiSpecialists.priceEur} €`}
+              title={BUMPS.aiSpecialists.label}
+              description={BUMPS.aiSpecialists.description}
+              image="/upsell-5skills.png"
+            />
+
+            {/* 2. Bootcamp + 3. Bootcamp Premium (only on /checkout?tier=kursas) */}
             {showBootcampBump ? (
               <>
                 <BumpCard
@@ -200,6 +216,7 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
                   priceLabel={`+ ${BUMPS.bootcampStandard.priceEur} €`}
                   title={BUMPS.bootcampStandard.label}
                   description={BUMPS.bootcampStandard.description}
+                  image="/upsell-bootcamp.png"
                 />
                 <BumpCard
                   selected={bumps.bootcamp === "premium"}
@@ -212,23 +229,11 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
                   priceLabel={`+ ${BUMPS.bootcampPremium.priceEur} €`}
                   title={BUMPS.bootcampPremium.label}
                   description={BUMPS.bootcampPremium.description}
+                  image="/upsell-bootcamp.png"
                   popular
                 />
               </>
             ) : null}
-
-            <BumpCard
-              selected={bumps.aiSpecialists}
-              onToggle={() =>
-                setBumps((prev) => ({
-                  ...prev,
-                  aiSpecialists: !prev.aiSpecialists,
-                }))
-              }
-              priceLabel={`+ ${BUMPS.aiSpecialists.priceEur} €`}
-              title={BUMPS.aiSpecialists.label}
-              description={BUMPS.aiSpecialists.description}
-            />
           </div>
         </div>
 
@@ -328,6 +333,7 @@ interface BumpCardProps {
   title: string;
   description: string;
   popular?: boolean;
+  image?: string;
 }
 
 function BumpCard({
@@ -337,6 +343,7 @@ function BumpCard({
   title,
   description,
   popular,
+  image,
 }: BumpCardProps) {
   return (
     <button
@@ -347,8 +354,9 @@ function BumpCard({
         "group/bump relative flex w-full items-center gap-3 rounded-xl border bg-card px-3 py-2.5 text-left transition-all",
         selected
           ? "border-primary ring-2 ring-primary/40"
-          : "border-border/60 hover:border-foreground/30",
-        popular && !selected ? "border-primary/40" : "",
+          : popular
+            ? "border-primary/60 ring-1 ring-primary/30"
+            : "border-border/60 hover:border-foreground/30",
       )}
     >
       <span
@@ -362,6 +370,17 @@ function BumpCard({
       >
         {selected ? <Check className="size-3" /> : null}
       </span>
+      {image ? (
+        <div className="size-12 shrink-0 overflow-hidden rounded-md bg-foreground">
+          <Image
+            src={image}
+            alt=""
+            width={1440}
+            height={736}
+            className="h-full w-full object-cover"
+          />
+        </div>
+      ) : null}
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-1.5">
           <p className="text-[13px] font-semibold leading-tight sm:text-sm">

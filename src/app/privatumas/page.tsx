@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { LegalBackBar } from "@/components/legal-back-bar";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -16,8 +17,9 @@ export default function PrivatumasPage() {
   return (
     <>
       <SiteHeader />
-      <main className="flex-1 px-4 py-14 sm:px-6 sm:py-20">
+      <main className="flex-1 px-4 py-6 sm:px-6 sm:py-8">
         <article className="mx-auto max-w-2xl space-y-8 text-sm leading-relaxed text-foreground/90 sm:text-base">
+          <LegalBackBar />
           <header>
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
               Teisinė informacija

@@ -8,12 +8,12 @@ export const bootcampContent = {
   pricing: {
     standard: {
       label: "Standard",
-      price: 147,
+      price: 97,
       slug: "standard",
     },
     premium: {
       label: "Premium",
-      price: 397,
+      price: 347,
       slug: "premium",
     },
   },
