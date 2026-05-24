@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -110,16 +111,19 @@ function HeroSection() {
           </p>
         </div>
 
-        {/* Social proof row — avatars + counter */}
-        {/* TODO: pakeisk avatarus tikromis pirkėjų nuotraukomis ir skaičių
-            wire'ink į Supabase pirkimų counter'į */}
+        {/* Social proof row — 5 buyer avatars + counter */}
+        {/* TODO: wire'ink "naudoja / liko vietos" skaičius į Supabase realių pirkimų count */}
         <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-border bg-card px-4 py-2 shadow-sm">
           <div className="flex -space-x-2">
-            {[0, 1, 2, 3, 4].map((i) => (
-              <div
+            {[1, 2, 3, 4, 5].map((i) => (
+              <Image
                 key={i}
-                aria-hidden
-                className="size-7 rounded-full border-2 border-card bg-muted"
+                src={`/avatars/avatar${i}.png`}
+                alt=""
+                width={28}
+                height={28}
+                className="size-7 rounded-full border-2 border-card object-cover"
+                priority={i === 1}
               />
             ))}
           </div>
