@@ -444,25 +444,17 @@ function FounderStorySection() {
           </p>
         </div>
 
-        {/* Two-founder byline with real headshots */}
-        <Card className="mt-8 flex flex-row items-center gap-4 rounded-2xl border-border/60 p-4 sm:p-5">
-          <div className="flex -space-x-3">
-            <Image
-              src="/team-nojus.jpg"
-              alt="Nojus"
-              width={400}
-              height={400}
-              className="size-14 shrink-0 rounded-full border-2 border-background object-cover"
-            />
-            <Image
-              src="/team-simas.jpg"
-              alt="Simas"
-              width={400}
-              height={400}
-              className="size-14 shrink-0 rounded-full border-2 border-background object-cover"
-            />
-          </div>
-          <div>
+        {/* Two-founder byline — full-body cutouts floating on card */}
+        <Card className="relative mt-12 flex h-32 items-center justify-center overflow-visible rounded-2xl border-border/60 px-5 sm:mt-14 sm:h-36 sm:px-6">
+          {/* Nojus floats on the left */}
+          <Image
+            src="/nojus-full.png"
+            alt="Nojus"
+            width={698}
+            height={2002}
+            className="pointer-events-none absolute bottom-0 left-2 h-[140%] w-auto object-contain object-bottom sm:left-4 sm:h-[150%]"
+          />
+          <div className="text-center">
             <p className="text-base font-semibold leading-tight">
               AI Studijos komanda
             </p>
@@ -470,6 +462,14 @@ function FounderStorySection() {
               Nojus &amp; Simas
             </p>
           </div>
+          {/* Simas floats on the right */}
+          <Image
+            src="/simas-full.png"
+            alt="Simas"
+            width={503}
+            height={1135}
+            className="pointer-events-none absolute bottom-0 right-2 h-[140%] w-auto object-contain object-bottom sm:right-4 sm:h-[150%]"
+          />
         </Card>
       </div>
     </section>
