@@ -25,6 +25,7 @@ export function HighlightedItalic({
         "relative inline-block whitespace-nowrap font-extrabold tracking-[-0.025em] text-primary",
         className,
       )}
+      style={{ textShadow: "0 0 0.4px currentColor, 0 0 1px currentColor" }}
     >
       {children}
       {marker ? (
@@ -32,7 +33,7 @@ export function HighlightedItalic({
           aria-hidden
           viewBox="0 0 200 16"
           preserveAspectRatio="none"
-          className="pointer-events-none absolute bottom-[-0.28em] left-[-0.08em] h-[0.45em] w-[calc(100%+0.16em)] text-red-600"
+          className="pointer-events-none absolute bottom-[-0.5em] left-[-0.08em] h-[0.45em] w-[calc(100%+0.16em)] text-red-600"
         >
           {/* Two brush passes very close together — slight asymmetry so
               it reads "drawn twice with marker" rather than parallel lines */}
