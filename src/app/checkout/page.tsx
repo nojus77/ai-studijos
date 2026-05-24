@@ -134,75 +134,58 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
   );
 
   return (
-    <section className="px-4 py-8 sm:px-6 sm:py-12">
+    <section className="px-4 py-6 sm:px-6 sm:py-8">
       <div className="mx-auto max-w-2xl">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
-          Užsakymas
-        </p>
         <h1
-          className="mt-3 text-balance text-[34px] font-medium leading-[1.05] tracking-tight sm:text-[44px]"
+          className="text-balance text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl"
           style={serifStyle}
         >
-          Užbaik užsakymą.
+          Užbaik užsakymą
         </h1>
-        <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground sm:text-base">
+        <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
           Saugus mokėjimas per Stripe. Apmokėjus iškart gausi el. laišką su
           prieiga.
         </p>
 
-        {/* Product summary card */}
-        <Card className="mt-8 rounded-2xl border-border/60 p-5 sm:p-6">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex items-start gap-4">
-              {tier === "kursas" ? (
-                <div className="size-14 shrink-0 overflow-hidden rounded-xl bg-muted">
-                  <Image
-                    src="/product.png"
-                    alt=""
-                    width={1536}
-                    height={1024}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              ) : (
-                <span
-                  aria-hidden
-                  className="inline-flex size-14 shrink-0 items-center justify-center rounded-xl bg-primary text-[13px] font-bold text-primary-foreground"
-                >
-                  AI
-                </span>
-              )}
-              <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                  Tavo pasirinkimas
-                </p>
-                <p className="mt-1 text-lg font-semibold sm:text-xl">
-                  {tierInfo.label}
-                </p>
+        {/* Compact product summary row */}
+        <div className="mt-6 flex items-center justify-between gap-3 rounded-xl border border-border/60 bg-card px-4 py-3">
+          <div className="flex items-center gap-3">
+            {tier === "kursas" ? (
+              <div className="size-10 shrink-0 overflow-hidden rounded-lg bg-muted">
+                <Image
+                  src="/product.png"
+                  alt=""
+                  width={1536}
+                  height={1024}
+                  className="h-full w-full object-cover"
+                />
               </div>
-            </div>
-            <span
-              className="shrink-0 text-2xl font-medium leading-none text-foreground sm:text-3xl"
-              style={serifStyle}
-            >
-              {tierInfo.priceEur} €
-            </span>
+            ) : (
+              <span
+                aria-hidden
+                className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary text-[11px] font-bold text-primary-foreground"
+              >
+                AI
+              </span>
+            )}
+            <p className="text-sm font-semibold sm:text-base">
+              {tierInfo.label}
+            </p>
           </div>
-        </Card>
+          <span
+            className="shrink-0 text-xl font-medium leading-none text-foreground sm:text-2xl"
+            style={serifStyle}
+          >
+            {tierInfo.priceEur} €
+          </span>
+        </div>
 
-        {/* Order bumps */}
-        <div className="mt-8">
+        {/* Order bumps — compact */}
+        <div className="mt-5">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
             Pridėk prie užsakymo
           </p>
-          <h2
-            className="mt-2 text-2xl font-medium leading-tight sm:text-3xl"
-            style={serifStyle}
-          >
-            Padaryk pirkimą dar vertingesnį.
-          </h2>
-
-          <div className="mt-5 space-y-3">
+          <div className="mt-2 space-y-2">
             {showBootcampBump ? (
               <>
                 <BumpCard
@@ -237,7 +220,10 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
             <BumpCard
               selected={bumps.aiSpecialists}
               onToggle={() =>
-                setBumps((prev) => ({ ...prev, aiSpecialists: !prev.aiSpecialists }))
+                setBumps((prev) => ({
+                  ...prev,
+                  aiSpecialists: !prev.aiSpecialists,
+                }))
               }
               priceLabel={`+ ${BUMPS.aiSpecialists.priceEur} €`}
               title={BUMPS.aiSpecialists.label}
@@ -246,13 +232,13 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
           </div>
         </div>
 
-        {/* Total */}
-        <div className="mt-8 flex items-baseline justify-between border-t border-border/60 pt-6">
+        {/* Total — compact single row */}
+        <div className="mt-5 flex items-baseline justify-between border-t border-border/60 pt-4">
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
             Iš viso
           </p>
           <p
-            className="text-4xl font-medium italic leading-none sm:text-5xl"
+            className="text-2xl font-medium italic leading-none sm:text-3xl"
             style={serifStyle}
           >
             {total} €
@@ -260,7 +246,7 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
         </div>
 
         {/* Stripe Embedded Checkout */}
-        <div className="mt-8">
+        <div className="mt-5">
           {error ? (
             <Card className="rounded-2xl border-destructive/40 bg-destructive/5 p-6 text-center">
               <p
@@ -358,7 +344,7 @@ function BumpCard({
       onClick={onToggle}
       aria-pressed={selected}
       className={cn(
-        "group/bump relative flex w-full items-start gap-4 rounded-2xl border bg-card p-4 text-left transition-all sm:p-5",
+        "group/bump relative flex w-full items-center gap-3 rounded-xl border bg-card px-3 py-2.5 text-left transition-all",
         selected
           ? "border-primary ring-2 ring-primary/40"
           : "border-border/60 hover:border-foreground/30",
@@ -368,32 +354,32 @@ function BumpCard({
       <span
         aria-hidden
         className={cn(
-          "mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-md border transition-colors",
+          "inline-flex size-4 shrink-0 items-center justify-center rounded border transition-colors",
           selected
             ? "border-primary bg-primary text-primary-foreground"
             : "border-border bg-background",
         )}
       >
-        {selected ? <Check className="size-3.5" /> : null}
+        {selected ? <Check className="size-3" /> : null}
       </span>
       <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-2">
-          <p className="text-base font-semibold leading-tight sm:text-lg">
+        <div className="flex flex-wrap items-center gap-1.5">
+          <p className="text-[13px] font-semibold leading-tight sm:text-sm">
             {title}
           </p>
           {popular ? (
-            <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
+            <span className="rounded-full bg-primary/15 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-primary">
               Populiariausias
             </span>
           ) : null}
         </div>
-        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-0.5 line-clamp-1 text-[11px] leading-snug text-muted-foreground">
           {description}
         </p>
       </div>
       <span
         className={cn(
-          "shrink-0 self-center text-base font-semibold sm:text-lg",
+          "shrink-0 text-sm font-semibold sm:text-base",
           selected ? "text-primary" : "text-foreground",
         )}
       >
