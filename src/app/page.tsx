@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 
 import { CTABand } from "@/components/cta-band";
+import { HeroVideo } from "@/components/hero-video";
 import { HighlightedItalic } from "@/components/highlighted-italic";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -134,15 +135,12 @@ function HeroSection() {
           </p>
         </div>
 
-        {/* Product mockup hero visual. Swap to <HeroVideo src="..." /> when promo video is ready. */}
+        {/* Autoplay muted video with tap-to-unmute */}
         <div className="mt-8">
-          <Image
-            src="/product.png"
-            alt="AI Asistento gido produkto vaizdas"
-            width={1536}
-            height={1024}
-            priority
-            className="w-full rounded-2xl"
+          <HeroVideo
+          // TODO: pridėk realų src kai turėsi promo video, pvz "/hero-promo.mp4"
+          // src="/hero-promo.mp4"
+          // poster="/hero-promo-poster.jpg"
           />
         </div>
       </div>
@@ -794,6 +792,17 @@ function PrimaryPricingSection() {
           Viskas, ko reikia,{" "}
           <HighlightedItalic>vienoje vietoje.</HighlightedItalic>
         </h2>
+
+        {/* Product mockup — the actual box buyer gets */}
+        <div className="mt-6 overflow-hidden rounded-2xl bg-background/5">
+          <Image
+            src="/product.png"
+            alt="AI Asistento gido produkto vaizdas"
+            width={1536}
+            height={1024}
+            className="w-full"
+          />
+        </div>
 
         <Card className="mt-8 overflow-hidden rounded-3xl border-background/15 bg-background/10 p-6 text-background sm:p-8">
           <div className="flex items-center gap-2">
