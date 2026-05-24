@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
@@ -153,12 +154,24 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
         <Card className="mt-8 rounded-2xl border-border/60 p-5 sm:p-6">
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-start gap-4">
-              <span
-                aria-hidden
-                className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary text-[13px] font-bold text-primary-foreground"
-              >
-                AI
-              </span>
+              {tier === "kursas" ? (
+                <div className="size-14 shrink-0 overflow-hidden rounded-xl bg-muted">
+                  <Image
+                    src="/product.png"
+                    alt=""
+                    width={1536}
+                    height={1024}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              ) : (
+                <span
+                  aria-hidden
+                  className="inline-flex size-14 shrink-0 items-center justify-center rounded-xl bg-primary text-[13px] font-bold text-primary-foreground"
+                >
+                  AI
+                </span>
+              )}
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                   Tavo pasirinkimas
