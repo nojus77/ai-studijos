@@ -71,12 +71,8 @@ export async function POST(request: Request): Promise<Response> {
       .map((id) => BUMPS[id].label)
       .join(" + ");
 
-    // Note: Stripe SDK v22's TS types incorrectly label the request value as
-    // `'embedded_page'`; the actual API accepts the documented `'embedded'`.
-    // Cast keeps us aligned with current Stripe docs without changing runtime.
     const session = await stripe().checkout.sessions.create({
-      ui_mode:
-        "embedded" as unknown as Stripe.Checkout.SessionCreateParams["ui_mode"],
+      ui_mode: "embedded_page",
       mode: "payment",
       payment_method_types: ["card"],
       line_items: lineItems,
