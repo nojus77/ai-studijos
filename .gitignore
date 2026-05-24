@@ -43,3 +43,4 @@ next-env.d.ts
 # Research / scratch
 .research/
 *.local.md
+public/hero-video.mp4

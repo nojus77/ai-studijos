@@ -152,23 +152,23 @@ function TimeSavingSection() {
   const bullets = [
     {
       icon: MessageSquare,
-      title: "El. paštai per 5 min., ne 45.",
-      body: "AI atsako į rutininius laiškus tavo stiliumi, o tu tik patvirtini.",
+      title: "El. pašto atsakymai per sekundes, ne valandas.",
+      body: "AI atsako į laiškus tavo stiliumi, o tu tik patvirtini.",
     },
     {
       icon: BarChart3,
-      title: "Ataskaitos pačios susidėlioja.",
-      body: "Mėnesio ataskaita iš Excel ar Google Sheets — be kopijavimo rankomis.",
+      title: "Ataskaitos, kurios susikuria pačios.",
+      body: "Iš Excel ar Google Sheets — be rankinio kopijavimo.",
     },
     {
       icon: Brain,
-      title: "Mintys į planą per minutę.",
-      body: "Pasakai idėją balsu, AI paverčia ją struktūruotu žingsnių sąrašu.",
+      title: "Tyrimai per minutes, ne dienas.",
+      body: "AI peržiūri šimtus šaltinių ir paruošia santrauką su nuorodom.",
     },
     {
       icon: Zap,
-      title: "Įprastos užduotys — automatiškai.",
-      body: "Pasikartojančius darbus AI atlieka fone, kol tu užsiimi svarbiausiais.",
+      title: "Pasikartojančios užduotys — autopilotu.",
+      body: "Rutiną daro AI, tu — pelningiausius darbus.",
     },
   ];
 
