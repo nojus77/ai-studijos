@@ -46,6 +46,20 @@ export const metadata: Metadata = {
     siteName: "AI Studijos",
     title: "AI Studijos — Mokykis dirbtinio intelekto Lietuvoje",
     description: "Greitas video kursas, mėnesinis bootcamp, mokymai komandai.",
+    images: [
+      {
+        url: "/product.png",
+        width: 1536,
+        height: 1024,
+        alt: "AI Asistento gidas — 47 €",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Studijos — Mokykis dirbtinio intelekto Lietuvoje",
+    description: "Greitas video kursas, mėnesinis bootcamp, mokymai komandai.",
+    images: ["/product.png"],
   },
 };
 
