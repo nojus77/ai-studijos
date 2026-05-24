@@ -669,6 +669,28 @@ function CommunityProofSection() {
           />
         </div>
 
+        {/* Private message screenshots — Discord + WhatsApp */}
+        <div className="mt-5 grid gap-4 sm:grid-cols-2">
+          <div className="overflow-hidden rounded-2xl bg-background/5 p-2 ring-1 ring-background/10 sm:p-3">
+            <Image
+              src="/dm-discord.png"
+              alt="Discord privatus pokalbis — marius_a padėka po pirkimo"
+              width={734}
+              height={258}
+              className="w-full rounded-xl"
+            />
+          </div>
+          <div className="overflow-hidden rounded-2xl bg-background/5 p-2 ring-1 ring-background/10 sm:p-3">
+            <Image
+              src="/dm-whatsapp.png"
+              alt="WhatsApp pokalbis — Tomas dėkoja po pirkimo"
+              width={310}
+              height={414}
+              className="w-full rounded-xl"
+            />
+          </div>
+        </div>
+
         {/* Cover banner + Skool join CTA — separate from chat above */}
         <div className="mt-10 overflow-hidden rounded-2xl border border-background/10 bg-background">
           <Image
