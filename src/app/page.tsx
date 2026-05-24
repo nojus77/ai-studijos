@@ -349,27 +349,27 @@ function AboutSection() {
           kas veikia.
         </p>
 
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          {team.map((m) => (
-            <div
-              key={m.name}
-              className="flex flex-1 items-center gap-3 rounded-2xl border border-border bg-card p-4"
-            >
+        <div className="mt-6 inline-flex items-center gap-4 rounded-2xl border border-border bg-card px-5 py-3 shadow-sm">
+          <div className="flex -space-x-3">
+            {team.map((m) => (
               <Image
+                key={m.name}
                 src={m.photo}
                 alt={m.name}
                 width={400}
                 height={400}
-                className="size-12 shrink-0 rounded-full object-cover"
+                className="size-12 shrink-0 rounded-full border-2 border-card object-cover"
               />
-              <div>
-                <p className="text-sm font-bold leading-tight">{m.name}</p>
-                <p className="mt-0.5 text-[11px] text-muted-foreground">
-                  {m.role}
-                </p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <div>
+            <p className="text-base font-bold leading-tight">
+              Nojus &amp; Simas
+            </p>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              AI Studijos įkūrėjai
+            </p>
+          </div>
         </div>
       </div>
     </section>
