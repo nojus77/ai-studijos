@@ -95,12 +95,10 @@ function HeroSection() {
         </p>
 
         {/* Autoplay muted video with tap-to-unmute */}
+        {/* TODO: dabartinis hero-video.mp4 yra 68MB test file (iPhone MOV
+            renamed) — produkcijai transkoduok į ~5-10MB H.264 + WebM */}
         <div className="mt-8">
-          <HeroVideo
-          // TODO: pridėk realų src kai turėsi promo video, pvz "/hero-promo.mp4"
-          // src="/hero-promo.mp4"
-          // poster="/hero-promo-poster.jpg"
-          />
+          <HeroVideo src="/hero-video.mp4" />
         </div>
 
         {/* Primary CTA */}
@@ -653,19 +651,19 @@ function CommunityProofSection() {
           promptais, pavyzdžiais ir padedam vieni kitiems.
         </p>
 
-        {/* TODO: kai turėsi realius bendruomenės atsiliepimus — užpildyk čia.
-            Pavyzdys: { name, role, stars, text } objektų masyvas + map() į Card. */}
-        <Card className="mt-6 rounded-2xl border-dashed border-border/60 bg-background p-8 text-center">
-          <p
-            className="text-lg leading-snug text-muted-foreground sm:text-xl"
-            style={serifStyle}
-          >
-            Bendruomenė ką tik startuoja.
-          </p>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Prisijunk pirmas — ir tavo vardas atsiras šioje vietoje.
-          </p>
-        </Card>
+        {/* Community cover banner */}
+        <div className="mt-6 overflow-hidden rounded-2xl border border-border/60 bg-background">
+          <Image
+            src="/cover.png"
+            alt="AI Studijos · Lietuviška AI bendruomenė"
+            width={2064}
+            height={512}
+            className="w-full"
+          />
+        </div>
+        <p className="mt-3 text-center text-xs text-muted-foreground sm:text-sm">
+          Prisijunk pirmas — ir tavo vardas atsiras bendruomenės wall&apos;e.
+        </p>
       </div>
     </section>
   );
