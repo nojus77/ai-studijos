@@ -178,7 +178,7 @@ function TimeSavingSection() {
     <section className="bg-muted/40 px-4 py-10 sm:px-6 sm:py-14">
       <div className="mx-auto max-w-2xl">
         <h2
-          className="text-balance text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] sm:text-3xl"
+          className="text-balance text-2xl font-extrabold leading-[1.4] tracking-[-0.02em] sm:text-3xl"
           style={serifStyle}
         >
           Sutaupyk <HighlightedItalic>2 valandas</HighlightedItalic> kiekvieną
@@ -491,7 +491,16 @@ function VideoTestimonialsSection() {
 
 function MarketStatsSection() {
   return (
-    <section className="bg-foreground px-4 py-14 text-background sm:px-6 sm:py-20">
+    <section className="relative bg-foreground px-4 py-14 text-background sm:px-6 sm:py-20">
+      {/* Decorative !! in the empty top-right corner */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute right-5 top-8 select-none text-5xl font-black leading-none text-red-500 sm:right-10 sm:top-12 sm:text-6xl"
+        style={{ transform: "rotate(8deg)" }}
+      >
+        !!
+      </span>
+
       <div className="mx-auto max-w-2xl">
         <Badge className="rounded-full bg-foreground px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-background hover:bg-foreground">
           Kodėl dabar?
@@ -501,7 +510,8 @@ function MarketStatsSection() {
           className="mt-4 text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl md:text-[44px]"
           style={serifStyle}
         >
-          AI rinka auga <HighlightedItalic>15 kartų</HighlightedItalic> per 2
+          AI rinka auga{" "}
+          <HighlightedItalic marker={false}>15 kartų</HighlightedItalic> per 2
           metus.
         </h2>
         <p className="mt-3 text-sm leading-relaxed text-background/80 sm:text-base">
@@ -697,7 +707,8 @@ function FeaturePillarsSection() {
           className="text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl md:text-[44px]"
           style={serifStyle}
         >
-          Ką <HighlightedItalic>konkrečiai</HighlightedItalic> jis daro.
+          Ką <HighlightedItalic marker={false}>konkrečiai</HighlightedItalic>{" "}
+          jis daro.
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
           Keturios pagrindinės sritys, kuriose AI asistentas dirba už tave — nuo
@@ -931,7 +942,8 @@ function PersonaSection() {
           className="text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl md:text-[44px]"
           style={serifStyle}
         >
-          Ar <HighlightedItalic>atpažįsti</HighlightedItalic> save?
+          Ar <HighlightedItalic marker={false}>atpažįsti</HighlightedItalic>{" "}
+          save?
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
           Gidas pritaikytas 8 skirtingoms situacijoms — visi pavyzdžiai
@@ -987,7 +999,8 @@ function GuaranteeSection() {
           className="mt-6 text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl md:text-[44px]"
           style={serifStyle}
         >
-          14 dienų <HighlightedItalic>pinigų grąžinimo</HighlightedItalic>{" "}
+          14 dienų{" "}
+          <HighlightedItalic marker={false}>pinigų grąžinimo</HighlightedItalic>{" "}
           garantija.
         </h2>
         <p className="mt-4 text-sm leading-relaxed text-foreground/80 sm:text-base">
@@ -1067,7 +1080,8 @@ function FAQSection() {
           className="text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl md:text-[44px]"
           style={serifStyle}
         >
-          Dažniausi <HighlightedItalic>klausimai.</HighlightedItalic>
+          Dažniausi{" "}
+          <HighlightedItalic marker={false}>klausimai.</HighlightedItalic>
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
           Jei neradai atsakymo — rašyk{" "}
@@ -1115,7 +1129,7 @@ function FinalCTASection() {
           style={serifStyle}
         >
           {c.product.price} € investicija. Asistentas{" "}
-          <HighlightedItalic>visam gyvenimui.</HighlightedItalic>
+          <HighlightedItalic marker={false}>visam gyvenimui.</HighlightedItalic>
         </h2>
         <p className="mt-4 text-sm leading-relaxed text-background/80 sm:text-base">
           Vienkartinė kaina. Jokių mėnesinių mokesčių, jokių paslėptų sąlygų.
