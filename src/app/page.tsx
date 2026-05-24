@@ -319,15 +319,13 @@ function AboutSection() {
   const team = [
     {
       name: "Nojus",
-      role: "Įkūrėjas · AI automatizacijų agentūra",
-      photo: "/nojus-full.png",
-      align: "right" as const,
+      role: "Įkūrėjas · AI praktikas",
+      photo: "/team-nojus.jpg",
     },
     {
       name: "Simas",
-      role: "Įkūrėjas · Agentūra JAV",
-      photo: "/simas-full.png",
-      align: "left" as const,
+      role: "Įkūrėjas · Praktiniai mokymai",
+      photo: "/team-simas.jpg",
     },
   ];
 
