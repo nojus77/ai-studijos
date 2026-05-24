@@ -217,8 +217,8 @@ function buildWelcomeHtml(summary: PurchaseSummary): string {
   ) {
     sections.push(buildBootcampSectionHtml());
   }
-  if (summary.bumps.includes("oneOnOne")) {
-    sections.push(buildOneOnOneSectionHtml());
+  if (summary.bumps.includes("aiSpecialists")) {
+    sections.push(buildAiSpecialistsSectionHtml());
   }
 
   const skoolUrl = optionalUrl(() => env.skoolInviteUrl());
@@ -265,10 +265,10 @@ function buildBootcampSectionHtml(): string {
   `;
 }
 
-function buildOneOnOneSectionHtml(): string {
+function buildAiSpecialistsSectionHtml(): string {
   return `
-    <h2 style="font-size:16px;margin:18px 0 6px 0;">1:1 Setup — kas toliau</h2>
-    <p>Mokytojas susisieks su tavimi per <strong>48 valandas</strong> ir suderins tau patogų laiką 2 val. Zoom sesijai.</p>
+    <h2 style="font-size:16px;margin:18px 0 6px 0;">5 AI Specialistai — kas toliau</h2>
+    <p>5 paruoštus Claude įgūdžius (el. paštas, ataskaitos, tyrimai, klientų atsakymai, planavimas) rasi atskirame el. laiške per artimiausias kelias minutes. Pakanka import'uoti vieną kartą — ir veikia.</p>
   `;
 }
 
@@ -309,10 +309,10 @@ function buildWelcomeText(summary: PurchaseSummary): string {
     );
   }
 
-  if (summary.bumps.includes("oneOnOne")) {
+  if (summary.bumps.includes("aiSpecialists")) {
     lines.push(
-      "1:1 Setup:",
-      "Mokytojas susisieks per 48 val. ir suderins tau patogų laiką.",
+      "5 AI Specialistai:",
+      "Paruoštus įgūdžius rasi atskirame el. laiške per kelias minutes.",
       "",
     );
   }

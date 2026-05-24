@@ -24,7 +24,7 @@ type BootcampBumpChoice = "standard" | "premium" | null;
 
 interface BumpState {
   bootcamp: BootcampBumpChoice;
-  oneOnOne: boolean;
+  aiSpecialists: boolean;
 }
 
 let stripePromise: Promise<Stripe | null> | null = null;
@@ -71,7 +71,7 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
 
   const [bumps, setBumps] = useState<BumpState>({
     bootcamp: null,
-    oneOnOne: false,
+    aiSpecialists: false,
   });
 
   const total = useMemo(() => {
@@ -81,8 +81,8 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
     } else if (showBootcampBump && bumps.bootcamp === "premium") {
       sum += BUMPS.bootcampPremium.priceEur;
     }
-    if (bumps.oneOnOne) {
-      sum += BUMPS.oneOnOne.priceEur;
+    if (bumps.aiSpecialists) {
+      sum += BUMPS.aiSpecialists.priceEur;
     }
     return sum;
   }, [tierInfo.priceEur, showBootcampBump, bumps]);
@@ -103,7 +103,7 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
           baseTier: tier,
           bumps: {
             bootcamp: showBootcampBump ? bumps.bootcamp : null,
-            oneOnOne: bumps.oneOnOne,
+            aiSpecialists: bumps.aiSpecialists,
           },
         }),
       });
@@ -235,13 +235,13 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
             ) : null}
 
             <BumpCard
-              selected={bumps.oneOnOne}
+              selected={bumps.aiSpecialists}
               onToggle={() =>
-                setBumps((prev) => ({ ...prev, oneOnOne: !prev.oneOnOne }))
+                setBumps((prev) => ({ ...prev, aiSpecialists: !prev.aiSpecialists }))
               }
-              priceLabel={`+ ${BUMPS.oneOnOne.priceEur} €`}
-              title={BUMPS.oneOnOne.label}
-              description={BUMPS.oneOnOne.description}
+              priceLabel={`+ ${BUMPS.aiSpecialists.priceEur} €`}
+              title={BUMPS.aiSpecialists.label}
+              description={BUMPS.aiSpecialists.description}
             />
           </div>
         </div>

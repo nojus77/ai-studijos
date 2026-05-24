@@ -281,7 +281,7 @@ function NextStepsSection({
     tier === "premium" ||
     bumps.includes("bootcampStandard") ||
     bumps.includes("bootcampPremium");
-  const hasOneOnOne = bumps.includes("oneOnOne");
+  const hasAiSpecialists = bumps.includes("aiSpecialists");
 
   return (
     <section className="bg-muted/40 px-4 py-12 sm:px-6 sm:py-16">
@@ -299,7 +299,7 @@ function NextStepsSection({
         <div className="mt-8 space-y-4">
           {hasKursas ? <KursasSteps /> : null}
           {hasBootcamp ? <BootcampSteps /> : null}
-          {hasOneOnOne ? <OneOnOneSteps /> : null}
+          {hasAiSpecialists ? <AiSpecialistsSteps /> : null}
           <CommunityStep />
         </div>
 
@@ -364,12 +364,12 @@ function BootcampSteps() {
   );
 }
 
-function OneOnOneSteps() {
+function AiSpecialistsSteps() {
   return (
     <StepCard
-      n="1:1"
-      title="Mokytojas susisieks per 48 val."
-      body="Suderinsime tau patogų laiką 2 val. Zoom sesijai, per kurią asmeniškai sukonfigūruosime tavo AI asistentą pagal verslo specifiką."
+      n="5"
+      title="5 AI Specialistai jau tavo"
+      body="Paruoštus Claude įgūdžius (el. paštas, ataskaitos, tyrimai, klientų atsakymai, planavimas) gausi atskirame el. laiške per kelias minutes. Import'uok vieną kartą — ir veikia."
     />
   );
 }

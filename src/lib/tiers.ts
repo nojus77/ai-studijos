@@ -57,38 +57,39 @@ export interface BumpInfo {
   getPriceId: () => string;
 }
 
-export type BumpId = "bootcampStandard" | "bootcampPremium" | "oneOnOne";
+export type BumpId = "bootcampStandard" | "bootcampPremium" | "aiSpecialists";
 
 export const BUMPS: Record<BumpId, BumpInfo> = {
   bootcampStandard: {
     id: "bootcampStandard",
-    label: "AI Bootcamp Standard",
-    description: "4 sesijos online + visi paruošti kit'ai + 1 mėn. bendruomenė",
+    label: "AI Studijos Bootcamp",
+    description: "4 sesijos online + paruošti workflow'ai + 1 mėn. bendruomenė",
     priceEur: 147,
     getPriceId: () => env.stripePriceBootcampStandard(),
   },
   bootcampPremium: {
     id: "bootcampPremium",
-    label: "AI Bootcamp Premium",
+    label: "AI Studijos Bootcamp + 2 val. konsultacija",
     description:
-      "2 val. asmeninė konsultacija su mokytoju + 6 paruošti įgūdžiai (verta 500+ €) + 3 mėn. bendruomenė",
+      "Viskas iš Standard + 2 val. asmeninė konsultacija su komanda + 6 paruošti įgūdžiai",
     priceEur: 397,
     popular: true,
     getPriceId: () => env.stripePriceBootcampPremium(),
   },
-  oneOnOne: {
-    id: "oneOnOne",
-    label: "1:1 Setup",
+  aiSpecialists: {
+    id: "aiSpecialists",
+    label: "5 AI Specialistai",
     description:
-      "2 val. asmeninė Zoom sesija — mokytojas sukonfigūruoja tavo AI asistentą pagal tavo verslą",
-    priceEur: 300,
-    getPriceId: () => env.stripePriceOneOnOne(),
+      "5 paruošti Claude įgūdžiai: el. paštas, ataskaitos, tyrimai, klientų atsakymai, planavimas — copy-paste ir veikia",
+    // TODO: patikslink kainą jei Stripe price ne 97 €
+    priceEur: 97,
+    getPriceId: () => env.stripePriceAiSpecialists(),
   },
 };
 
 export const isBumpId = (value: string | undefined): value is BumpId =>
   value === "bootcampStandard" ||
   value === "bootcampPremium" ||
-  value === "oneOnOne";
+  value === "aiSpecialists";
 
 export const getBump = (id: BumpId): BumpInfo => BUMPS[id];

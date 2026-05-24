@@ -17,7 +17,7 @@ const bodySchema = z.object({
   bumps: z
     .object({
       bootcamp: z.enum(["standard", "premium"]).nullable().optional(),
-      oneOnOne: z.boolean().optional(),
+      aiSpecialists: z.boolean().optional(),
     })
     .default({}),
 });
@@ -48,8 +48,8 @@ export async function POST(request: Request): Promise<Response> {
       }
     }
 
-    if (bumps.oneOnOne) {
-      activeBumpIds.push("oneOnOne");
+    if (bumps.aiSpecialists) {
+      activeBumpIds.push("aiSpecialists");
     }
 
     // Build line items.
