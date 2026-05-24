@@ -60,7 +60,7 @@ function HeroSection() {
           className="mt-3 text-balance text-[36px] font-medium leading-[1.05] tracking-tight sm:text-[48px]"
           style={serifStyle}
         >
-          Kas mes — <HighlightedItalic>AI Studijos</HighlightedItalic>.
+          Kas mes — AI Studijos.
         </h1>
         <p className="mt-5 text-[15px] leading-relaxed text-muted-foreground sm:text-base">
           Dviejų žmonių komanda iš Lietuvos. Mokome praktiškai naudoti dirbtinį
@@ -107,7 +107,7 @@ function TeamSection() {
           className="text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl"
           style={serifStyle}
         >
-          <HighlightedItalic>Trys žmonės</HighlightedItalic> už visko.
+          Du žmonės už visko.
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
           Maža komanda. Aiškus pasidalijimas. Atsakomybė konkrečiam veidui.
