@@ -105,12 +105,22 @@ async function handleCheckoutCompleted(
     }
   }
 
-  // Send welcome email.
+  // Send welcome email to customer.
   if (email && summary.tier) {
     try {
       await sendWelcomeEmail({ email, summary });
     } catch (error) {
       console.error("[stripe webhook] welcome email failed", error);
+    }
+  }
+
+  // Send admin notification — tells Nojus/Simas to manually invite the buyer
+  // on Skool (until Skool Pro + Zapier is wired for full automation).
+  if (email && summary.tier) {
+    try {
+      await sendAdminNotification({ email, summary, sessionId: session.id });
+    } catch (error) {
+      console.error("[stripe webhook] admin notification failed", error);
     }
   }
 }
@@ -199,6 +209,92 @@ async function sendWelcomeEmail({
   });
 }
 
+interface AdminNotificationArgs {
+  email: string;
+  summary: PurchaseSummary;
+  sessionId: string;
+}
+
+/**
+ * Notify admin (Nojus + Simas) on every successful purchase so they can
+ * manually grant Skool classroom access. Replace with Zapier automation
+ * once Skool Pro is enabled.
+ */
+async function sendAdminNotification({
+  email,
+  summary,
+  sessionId,
+}: AdminNotificationArgs): Promise<void> {
+  if (!summary.tier) return;
+
+  // Comma-separated list of admin recipients via env var (defaults to ai-studijos email).
+  const adminTo = (process.env.ADMIN_NOTIFICATION_EMAIL ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (adminTo.length === 0) {
+    console.warn(
+      "[stripe webhook] ADMIN_NOTIFICATION_EMAIL not set — skipping admin alert",
+    );
+    return;
+  }
+
+  const tierInfo = getTier(summary.tier);
+  const fromEmail = env.resendFromEmail();
+
+  // Determine which Skool classrooms to grant based on tier + bumps.
+  const classrooms: string[] = [];
+  if (
+    summary.tier === "kursas" ||
+    summary.tier === "standard" ||
+    summary.tier === "premium"
+  ) {
+    if (summary.tier === "kursas") {
+      classrooms.push("AI Asistentas: Pilnas Gidas");
+    }
+    if (
+      summary.tier === "standard" ||
+      summary.tier === "premium" ||
+      summary.bumps.includes("bootcampStandard") ||
+      summary.bumps.includes("bootcampPremium")
+    ) {
+      classrooms.push("AI Studijos Bootcamp");
+    }
+  }
+  if (summary.bumps.includes("aiSpecialists")) {
+    classrooms.push("5 AI Specialistai");
+  }
+
+  const itemsList = summary.items
+    .map(
+      (i) =>
+        `<li>${escapeHtml(i.label)} — ${(i.amount_cents / 100).toFixed(0)} €</li>`,
+    )
+    .join("");
+  const classroomsList = classrooms
+    .map((c) => `<li>${escapeHtml(c)}</li>`)
+    .join("");
+
+  const html = wrapHtml(`
+    <h1 style="font-size:20px;margin:0 0 12px 0;">🎉 Naujas pirkimas — ${escapeHtml(tierInfo.shortName)}</h1>
+    <p><strong>Klientas:</strong> ${escapeHtml(email)}</p>
+    <p><strong>Stripe sesija:</strong> <a href="https://dashboard.stripe.com/payments?query=${sessionId}">${sessionId}</a></p>
+    <h2 style="font-size:16px;margin:18px 0 6px 0;">Pirkti pasiūlymai</h2>
+    <ul style="line-height:1.7;">${itemsList}</ul>
+    <h2 style="font-size:16px;margin:18px 0 6px 0;">🎓 Skool — grant access</h2>
+    <p>Eik į <a href="https://www.skool.com/ai-studijos-6327/-/about?p=invite">AI Studijos Skool invite</a>, įvesk klientę email <strong>${escapeHtml(email)}</strong> ir suteik prieigą prie šių classroom'ų:</p>
+    <ul style="line-height:1.7;">${classroomsList}</ul>
+    <p style="color:#666;font-size:12px;">TODO: kai įjungsi Skool Pro + Zapier, šitas notification nebebus reikalingas — automatika perims.</p>
+  `);
+
+  await resend().emails.send({
+    from: `AI Studijos Webhook <${fromEmail}>`,
+    to: adminTo,
+    subject: `[Pirkimas] ${tierInfo.shortName} — ${email}`,
+    html,
+  });
+}
+
 function buildWelcomeHtml(summary: PurchaseSummary): string {
   if (!summary.tier) return "";
   const headline = `Ačiū! Tavo užsakymas patvirtintas.`;
@@ -223,9 +319,11 @@ function buildWelcomeHtml(summary: PurchaseSummary): string {
 
   const skoolUrl = optionalUrl(() => env.skoolInviteUrl());
   if (skoolUrl) {
-    sections.push(
-      `<p>Prisijunk prie bendruomenės: <a href="${skoolUrl}">AI Studijos Skool</a>.</p>`,
-    );
+    sections.push(`
+      <h2 style="font-size:16px;margin:18px 0 6px 0;">🎓 Skool prieiga prie pirkto turinio</h2>
+      <p>Per artimiausias <strong>1-2 valandas (darbo dienomis)</strong> gausi atskirą Skool kvietimą su tiesiogine prieiga prie pirkto classroom'o — be jokio papildomo mokėjimo Skool platformoje.</p>
+      <p>Kol lauki, gali apsilankyti bendruomenėje: <a href="${skoolUrl}">AI Studijos Skool</a>.</p>
+    `);
   }
 
   return wrapHtml(`
