@@ -316,10 +316,17 @@ function ScarcityBar() {
 /* ───────────────────── 3.5. About AI Studijos ───────────────────── */
 
 function AboutSection() {
-  // TODO: pakeisk avatarus tikromis komandos nuotraukomis
   const team = [
-    { name: "Nojus", role: "Įkūrėjas · AI praktikas" },
-    { name: "Simas", role: "Įkūrėjas · Praktiniai mokymai" },
+    {
+      name: "Nojus",
+      role: "Įkūrėjas · AI praktikas",
+      photo: "/team-nojus.jpg",
+    },
+    {
+      name: "Simas",
+      role: "Įkūrėjas · Praktiniai mokymai",
+      photo: "/team-simas.jpg",
+    },
   ];
 
   return (
@@ -348,10 +355,12 @@ function AboutSection() {
               key={m.name}
               className="flex flex-1 items-center gap-3 rounded-2xl border border-border bg-card p-4"
             >
-              {/* TODO: pakeisk su tikra nuotrauka */}
-              <div
-                aria-hidden
-                className="size-12 shrink-0 rounded-full bg-muted"
+              <Image
+                src={m.photo}
+                alt={m.name}
+                width={400}
+                height={400}
+                className="size-12 shrink-0 rounded-full object-cover"
               />
               <div>
                 <p className="text-sm font-bold leading-tight">{m.name}</p>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { HighlightedItalic } from "@/components/highlighted-italic";
@@ -19,6 +20,7 @@ interface TeamMember {
   name: string;
   role: string;
   bio: string;
+  photo?: string;
 }
 
 const team: TeamMember[] = [
@@ -26,11 +28,13 @@ const team: TeamMember[] = [
     name: "Nojus",
     role: "Įkūrėjas · AI automatizacijų agentūra",
     bio: "AI automatizacijų agentūros įkūrėjas. Kasdien kuriu klientams AI sprendimus — nuo el. pašto auto-atsakymų iki sudėtingų darbo workflow'ų. Tą patį setup'ą, kurį dirbu su verslo klientais, mokau pasidaryti tave.",
+    photo: "/team-nojus.jpg",
   },
   {
     name: "Simas",
     role: "Įkūrėjas · Agentūra JAV",
     bio: "Marketing agentūros JAV įkūrėjas. AI naudoju kasdien savo versle — turinio kūrimui, klientų valdymui, ataskaitoms. Praktinė patirtis ne iš teorinių kursų, o iš realių kliento projektų.",
+    photo: "/team-simas.jpg",
   },
 ];
 
@@ -119,11 +123,20 @@ function TeamSection() {
               key={member.name}
               className="flex flex-col gap-4 rounded-2xl border-border/60 p-5 sm:flex-row sm:p-6"
             >
-              {/* TODO: replace with real team photo */}
-              <div
-                className="size-20 shrink-0 rounded-2xl bg-muted"
-                aria-hidden
-              />
+              {member.photo ? (
+                <Image
+                  src={member.photo}
+                  alt={member.name}
+                  width={400}
+                  height={400}
+                  className="size-20 shrink-0 rounded-2xl object-cover"
+                />
+              ) : (
+                <div
+                  className="size-20 shrink-0 rounded-2xl bg-muted"
+                  aria-hidden
+                />
+              )}
               <div>
                 <p
                   className="text-xl font-medium leading-tight"
