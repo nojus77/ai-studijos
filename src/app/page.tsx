@@ -315,8 +315,8 @@ function ScarcityBar() {
 
 function AboutSection() {
   const team = [
-    { name: "Nojus", photo: "/team-nojus.jpg" },
     { name: "Simas", photo: "/team-simas.jpg" },
+    { name: "Nojus", photo: "/team-nojus.jpg" },
   ];
 
   return (
