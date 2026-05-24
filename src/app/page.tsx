@@ -641,31 +641,6 @@ function ProductivityStatsSection() {
 /* ───────────────────── 9. Skool community proof ───────────────────── */
 
 function CommunityProofSection() {
-  // TODO: pakeisk šituos pavyzdinius pokalbius tikrais ekrano nuotraukomis iš
-  // Skool community kai turėsi pirmų pokalbių. Vardai realiai egzistuojančių
-  // žmonių. Iki tol — šis "Word on the street" preview demonstruoja kaip
-  // atrodys gyvas community feed'as.
-  const chat = [
-    {
-      from: "marius_a",
-      time: "09:14",
-      text: "bro tas el. pašto agentas tikrai gera. iš 2 val. inbox per rytą iki 10 min",
-      color: "text-primary",
-    },
-    {
-      from: "ainis_s",
-      time: "09:23",
-      text: "tyrimo agentas paruošė santrauką per naktį — kokybiškiau nei būčiau pats per 3 val.",
-      color: "text-blue-400",
-    },
-    {
-      from: "ruta_k",
-      time: "09:31",
-      text: "savaitės ataskaitas dabar pristatau penktadienį 14:00 vietoj sekmadienio nakties 😅",
-      color: "text-orange-400",
-    },
-  ];
-
   return (
     <section className="bg-foreground px-4 py-14 text-background sm:px-6 sm:py-20">
       <div className="mx-auto max-w-2xl">
@@ -683,39 +658,16 @@ function CommunityProofSection() {
           bendruomenės — kur dalinamės pavyzdžiais ir padedam vieni kitiems.
         </p>
 
-        {/* Chat thread mockup — Skool channel preview.
-            TODO: pakeisti į realių Skool screenshot'ų stack'ą kai turėsi pirmų pokalbių. */}
-        <div className="mt-8 overflow-hidden rounded-2xl bg-background/5 ring-1 ring-background/10">
-          {/* Channel header */}
-          <div className="flex items-center gap-2 border-b border-background/10 px-5 py-3 text-xs text-background/70">
-            <span className="size-2 rounded-full bg-emerald-400" aria-hidden />
-            <span className="font-mono">#automation-wins</span>
-            <span className="ml-auto text-[10px] uppercase tracking-wider text-background/40">
-              Šiandien
-            </span>
-          </div>
-
-          <div className="space-y-4 px-5 py-5 text-[14px] leading-relaxed sm:text-[15px]">
-            {chat.map((m) => (
-              <div key={m.from}>
-                <div className="flex items-baseline gap-2">
-                  <span className={cn("text-sm font-bold", m.color)}>
-                    {m.from}
-                  </span>
-                  <span className="text-[10px] text-background/40">
-                    {m.time}
-                  </span>
-                </div>
-                <p className="mt-1 text-background/90">{m.text}</p>
-              </div>
-            ))}
-          </div>
+        {/* Real Skool community screenshot */}
+        <div className="mt-8 overflow-hidden rounded-2xl bg-background/5 p-2 ring-1 ring-background/10 sm:p-3">
+          <Image
+            src="/skool-testimonial.png"
+            alt="AI Studijos Skool bendruomenės pavyzdys — realus pokalbis"
+            width={1208}
+            height={1392}
+            className="w-full rounded-xl"
+          />
         </div>
-
-        <p className="mt-4 text-center text-xs text-background/60 sm:text-sm">
-          Pirkėjų pokalbiai jau veikia. Atsiliepimus įdėsime, kai turėsime pirmų
-          — be aktorių.
-        </p>
 
         {/* Cover banner + Skool join CTA — separate from chat above */}
         <div className="mt-10 overflow-hidden rounded-2xl border border-background/10 bg-background">
