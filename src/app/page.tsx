@@ -728,9 +728,10 @@ function CommunityProofSection() {
           />
         </div>
         <div className="mt-5">
-          {/* TODO: pakeisk href į SKOOL_INVITE_URL env arba tikrą skool linką */}
-          <Link
-            href="#"
+          <a
+            href="https://www.skool.com/ai-studijos-6327"
+            target="_blank"
+            rel="noopener noreferrer"
             className={buttonVariants({
               size: "lg",
               className:
@@ -738,7 +739,7 @@ function CommunityProofSection() {
             })}
           >
             Prisijungti į AI Studijos Skool
-          </Link>
+          </a>
         </div>
       </div>
     </section>
