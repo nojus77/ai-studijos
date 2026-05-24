@@ -74,9 +74,8 @@ export async function POST(request: Request): Promise<Response> {
     const session = await stripe().checkout.sessions.create({
       ui_mode: "embedded_page",
       mode: "payment",
-      // automatic_payment_methods auto-includes every method the user enabled
-      // in Stripe dashboard (card + Revolut Pay + Apple/Google Pay + Link etc.)
-      automatic_payment_methods: { enabled: true },
+      // Omitting payment_method_types makes Stripe auto-include every method
+      // enabled in the dashboard (card + Revolut Pay + Apple/Google Pay + Link etc.)
       line_items: lineItems,
       return_url: `${env.siteUrl}/aciu?session_id={CHECKOUT_SESSION_ID}`,
       locale: "lt",
