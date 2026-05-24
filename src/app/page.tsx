@@ -347,7 +347,7 @@ function AboutSection() {
           </div>
           <div>
             <p className="text-base font-bold leading-tight">
-              Nojus &amp; Simas
+              Simas &amp; Nojus
             </p>
             <p className="mt-0.5 text-xs text-muted-foreground">
               AI Studijos įkūrėjai
@@ -357,19 +357,16 @@ function AboutSection() {
 
         <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-foreground/90 sm:text-base">
           <p>
-            Aš <strong className="font-semibold">Nojus</strong> — AI
-            automatizacijų agentūros įkūrėjas. Kasdien dirbu B2B padėdamas
-            verslams sutaupyti laiką ir kaštus per custom automatizacijas. AI
-            naudoju visur: nuo klientų atsakymų ir marketing&apos;o iki pilnų
-            platformų kūrimo. Pradėjau prieš kelis metus paprastais dalykais —
-            laiškais, dokumentais — paskui pradėjau giliau exploring kiek toliau
-            viskas gali nueiti.
-          </p>
-          <p>
             <strong className="font-semibold">Simas</strong> kuria AI įrankį,
             transformuojantį logistiką Europoje, ir dirba vienoje didžiausių AI
             agentūrų JAV. AI naudoja kasdien — tiek savo verslui, tiek klientų
             projektams.
+          </p>
+          <p>
+            <strong className="font-semibold">Nojus</strong> — AI automatizacijų
+            agentūros įkūrėjas. Kasdien dirba B2B padėdamas verslams sutaupyti
+            laiką ir kaštus per custom automatizacijas. AI naudoja visur — nuo
+            klientų atsakymų iki pilnų platformų kūrimo.
           </p>
           <p>
             AI Studijas pradėjome todėl, kad pastebėjom: dauguma girdėjo apie
