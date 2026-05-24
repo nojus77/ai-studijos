@@ -53,7 +53,6 @@ export default function HomePage() {
         <TimeSavingSection />
         <PricingTeaserSection />
         <AboutSection />
-        <FounderStorySection />
         <MarketStatsSection />
         <ProductivityStatsSection />
         <StatsGridSection />
@@ -316,39 +315,24 @@ function ScarcityBar() {
 
 function AboutSection() {
   const team = [
-    {
-      name: "Nojus",
-      role: "Įkūrėjas · AI praktikas",
-      photo: "/team-nojus.jpg",
-    },
-    {
-      name: "Simas",
-      role: "Įkūrėjas · Praktiniai mokymai",
-      photo: "/team-simas.jpg",
-    },
+    { name: "Nojus", photo: "/team-nojus.jpg" },
+    { name: "Simas", photo: "/team-simas.jpg" },
   ];
 
   return (
-    <section className="px-4 py-10 sm:px-6 sm:py-14">
+    <section className="bg-muted/40 px-4 py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-2xl">
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           Kas mes
         </p>
         <h2
-          className="mt-2 text-balance text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] sm:text-3xl"
+          className="mt-2 text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl md:text-[44px]"
           style={serifStyle}
         >
-          Du lietuviai, kurie{" "}
-          <HighlightedItalic>AI naudoja kasdien</HighlightedItalic>.
+          Trumpai <HighlightedItalic>apie mus</HighlightedItalic>.
         </h2>
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
-          AI Studijos — tai du draugai, kurie patys per pastaruosius metus iš
-          nulio susikūrė AI asistentus savo darbams. Surinkome viską, ką
-          išmokome, į vieną gidą — be teorijos, be sudėtingų terminų. Tik tai,
-          kas veikia.
-        </p>
 
-        <div className="mt-6 inline-flex items-center gap-4 rounded-2xl border border-border bg-card px-5 py-3 shadow-sm">
+        <div className="mt-5 inline-flex items-center gap-4 rounded-2xl border border-border bg-card px-5 py-3 shadow-sm">
           <div className="flex -space-x-3">
             {team.map((m) => (
               <Image
@@ -370,6 +354,63 @@ function AboutSection() {
             </p>
           </div>
         </div>
+
+        <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-foreground/90 sm:text-base">
+          <p>
+            Aš <strong className="font-semibold">Nojus</strong> — AI
+            automatizacijų agentūros įkūrėjas. Kasdien dirbu B2B padėdamas
+            verslams sutaupyti laiką ir kaštus per custom automatizacijas. AI
+            naudoju visur: nuo klientų atsakymų ir marketing&apos;o iki pilnų
+            platformų kūrimo. Pradėjau prieš kelis metus paprastais dalykais —
+            laiškais, dokumentais — paskui pradėjau giliau exploring kiek toliau
+            viskas gali nueiti.
+          </p>
+          <p>
+            <strong className="font-semibold">Simas</strong> kuria AI įrankį,
+            transformuojantį logistiką Europoje, ir dirba vienoje didžiausių AI
+            agentūrų JAV. AI naudoja kasdien — tiek savo verslui, tiek klientų
+            projektams.
+          </p>
+          <p>
+            AI Studijas pradėjome todėl, kad pastebėjom: dauguma girdėjo apie
+            AI, bet nežino kaip rimtai pradėti. Surinkome viską, ką patys per
+            metus išmokome darbe, į vieną gidą — be teorijos, be Python&apos;o,
+            tik tai, kas veikia praktikoje.
+          </p>
+          <p className="text-muted-foreground">
+            Jei turi klausimų — užpildyk{" "}
+            <Link href="/kontaktai" className="underline underline-offset-2">
+              kontaktinę formą
+            </Link>
+            . Atsakome per parą.
+          </p>
+        </div>
+
+        {/* Two-founder byline — full-body cutouts floating on card */}
+        <Card className="relative mt-12 flex h-32 items-center justify-center overflow-visible rounded-2xl border-border/60 px-5 sm:mt-14 sm:h-36 sm:px-6">
+          <Image
+            src="/nojus-full.png"
+            alt="Nojus"
+            width={698}
+            height={2002}
+            className="pointer-events-none absolute bottom-0 left-2 h-[140%] w-auto object-contain object-bottom sm:left-4 sm:h-[150%]"
+          />
+          <div className="text-center">
+            <p className="text-base font-semibold leading-tight">
+              AI Studijos komanda
+            </p>
+            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              Nojus &amp; Simas
+            </p>
+          </div>
+          <Image
+            src="/simas-full.png"
+            alt="Simas"
+            width={503}
+            height={1135}
+            className="pointer-events-none absolute bottom-0 right-2 h-[140%] w-auto object-contain object-bottom sm:right-4 sm:h-[150%]"
+          />
+        </Card>
       </div>
     </section>
   );
@@ -412,83 +453,6 @@ function StatsGridSection() {
 }
 
 /* ───────────────────── 5. Founder story ───────────────────── */
-
-function FounderStorySection() {
-  return (
-    <section className="bg-muted/40 px-4 py-14 sm:px-6 sm:py-20">
-      <div className="mx-auto max-w-2xl">
-        <Badge className="rounded-full bg-foreground px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-background hover:bg-foreground">
-          Kelionės pradžia
-        </Badge>
-        <h2
-          className="mt-4 text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl md:text-[44px]"
-          style={serifStyle}
-        >
-          Trumpai apie <HighlightedItalic>AI Studijas</HighlightedItalic>.
-        </h2>
-
-        <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-foreground/90 sm:text-base">
-          <p>
-            Aš <strong className="font-semibold">Nojus</strong> — AI
-            automatizacijų agentūros įkūrėjas. Kasdien dirbu B2B padėdamas
-            verslams sutaupyti laiką ir kaštus per custom automatizacijas. AI
-            naudoju visur: nuo klientų atsakymų ir marketing&apos;o iki pilnų
-            platformų kūrimo. Pradėjau prieš kelis metus paprastais dalykais —
-            laiškais, dokumentais — paskui pradėjau giliau exploring kiek toliau
-            viskas gali nueiti.
-          </p>
-          <p>
-            <strong className="font-semibold">Simas</strong> kuria AI įrankį,
-            transformuojantį logistiką Europoje, ir dirba vienoje didžiausių AI
-            agentūrų JAV. AI naudoja kasdien — tiek savo verslui, tiek klientų
-            projektams.
-          </p>
-          <p>
-            AI Studijas pradėjome todėl, kad pastebėjom: dauguma girdėjo apie
-            AI, bet nežino kaip rimtai pradėti. Surinkome viską, ką patys per
-            metus išmokome darbe, į vieną gidą — be teorijos, be Python&apos;o,
-            tik tai, kas veikia praktikoje.
-          </p>
-          <p className="text-muted-foreground">
-            Jei turi klausimų — užpildyk{" "}
-            <Link href="/kontaktai" className="underline underline-offset-2">
-              kontaktinę formą
-            </Link>
-            . Atsakome per parą.
-          </p>
-        </div>
-
-        {/* Two-founder byline — full-body cutouts floating on card */}
-        <Card className="relative mt-12 flex h-32 items-center justify-center overflow-visible rounded-2xl border-border/60 px-5 sm:mt-14 sm:h-36 sm:px-6">
-          {/* Nojus floats on the left */}
-          <Image
-            src="/nojus-full.png"
-            alt="Nojus"
-            width={698}
-            height={2002}
-            className="pointer-events-none absolute bottom-0 left-2 h-[140%] w-auto object-contain object-bottom sm:left-4 sm:h-[150%]"
-          />
-          <div className="text-center">
-            <p className="text-base font-semibold leading-tight">
-              AI Studijos komanda
-            </p>
-            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Nojus &amp; Simas
-            </p>
-          </div>
-          {/* Simas floats on the right */}
-          <Image
-            src="/simas-full.png"
-            alt="Simas"
-            width={503}
-            height={1135}
-            className="pointer-events-none absolute bottom-0 right-2 h-[140%] w-auto object-contain object-bottom sm:right-4 sm:h-[150%]"
-          />
-        </Card>
-      </div>
-    </section>
-  );
-}
 
 /* ───────────────────── 7. Dark "Kodėl dabar?" market stats ───────────────────── */
 
