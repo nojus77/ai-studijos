@@ -94,8 +94,17 @@ function HeroSection() {
           atgal kiekvieną dieną — be programavimo.
         </p>
 
+        {/* Autoplay muted video with tap-to-unmute */}
+        <div className="mt-8">
+          <HeroVideo
+          // TODO: pridėk realų src kai turėsi promo video, pvz "/hero-promo.mp4"
+          // src="/hero-promo.mp4"
+          // poster="/hero-promo-poster.jpg"
+          />
+        </div>
+
         {/* Primary CTA */}
-        <div className="mt-7">
+        <div className="mt-8">
           <Link
             href={c.checkoutHref}
             className={buttonVariants({
@@ -133,15 +142,6 @@ function HeroSection() {
             <span className="mx-2 text-muted-foreground">·</span>
             <span className="font-bold text-red-600">liko 22 vietos</span>
           </p>
-        </div>
-
-        {/* Autoplay muted video with tap-to-unmute */}
-        <div className="mt-8">
-          <HeroVideo
-          // TODO: pridėk realų src kai turėsi promo video, pvz "/hero-promo.mp4"
-          // src="/hero-promo.mp4"
-          // poster="/hero-promo-poster.jpg"
-          />
         </div>
       </div>
     </section>
