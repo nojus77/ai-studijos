@@ -30,21 +30,21 @@ export function HighlightedItalic({
       {marker ? (
         <svg
           aria-hidden
-          viewBox="0 0 200 30"
+          viewBox="0 0 200 16"
           preserveAspectRatio="none"
-          className="pointer-events-none absolute bottom-[-0.4em] left-[-0.1em] h-[0.55em] w-[calc(100%+0.2em)] text-red-600"
+          className="pointer-events-none absolute bottom-[-0.28em] left-[-0.08em] h-[0.45em] w-[calc(100%+0.16em)] text-red-600"
         >
-          {/* Top sweep — long single curve */}
+          {/* Two brush passes very close together — slight asymmetry so
+              it reads "drawn twice with marker" rather than parallel lines */}
           <path
-            d="M 4,10 Q 100,3 196,12"
+            d="M 4,5 Q 100,2 196,7"
             fill="none"
             stroke="currentColor"
             strokeWidth="4"
             strokeLinecap="round"
           />
-          {/* Bottom scribble — slight wave offset below */}
           <path
-            d="M 8,22 Q 60,26 120,21 Q 170,18 192,24"
+            d="M 6,11 Q 100,9 193,11"
             fill="none"
             stroke="currentColor"
             strokeWidth="4"
