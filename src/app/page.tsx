@@ -349,42 +349,25 @@ function AboutSection() {
           kas veikia.
         </p>
 
-        <div className="mt-8 space-y-12 sm:space-y-14">
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           {team.map((m) => (
             <div
               key={m.name}
-              className={cn(
-                "relative flex items-center rounded-2xl border border-border bg-card px-5 py-4 sm:px-6",
-                m.align === "right" ? "justify-start" : "justify-end",
-              )}
+              className="flex flex-1 items-center gap-3 rounded-2xl border border-border bg-card p-4"
             >
-              <div
-                className={cn(
-                  "max-w-[55%]",
-                  m.align === "left" && "text-right",
-                )}
-              >
-                <p className="text-lg font-bold leading-tight sm:text-xl">
-                  {m.name}
-                </p>
-                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                  {m.role}
-                </p>
-              </div>
-              {/* Floating full-body cutout — extends above card top */}
               <Image
                 src={m.photo}
                 alt={m.name}
-                width={698}
-                height={2002}
-                className={cn(
-                  "absolute bottom-0 h-[150%] w-auto object-contain object-bottom sm:h-[160%]",
-                  m.align === "right"
-                    ? "right-2 sm:right-4"
-                    : "left-2 sm:left-4",
-                )}
-                priority={false}
+                width={400}
+                height={400}
+                className="size-12 shrink-0 rounded-full object-cover"
               />
+              <div>
+                <p className="text-sm font-bold leading-tight">{m.name}</p>
+                <p className="mt-0.5 text-[11px] text-muted-foreground">
+                  {m.role}
+                </p>
+              </div>
             </div>
           ))}
         </div>
