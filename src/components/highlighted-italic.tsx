@@ -22,7 +22,7 @@ export function HighlightedItalic({
   return (
     <span
       className={cn(
-        "relative inline-block whitespace-nowrap font-bold text-primary",
+        "relative inline-block whitespace-nowrap font-extrabold tracking-[-0.025em] text-primary",
         className,
       )}
     >
