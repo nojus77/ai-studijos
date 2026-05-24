@@ -83,8 +83,9 @@ function HeroSection() {
           className="text-balance text-[40px] font-extrabold leading-[1.05] tracking-[-0.02em] text-foreground sm:text-[56px] md:text-[64px]"
           style={serifStyle}
         >
-          Tavo <HighlightedItalic>AI asistentas</HighlightedItalic> per 30
-          minučių.
+          Tavo{" "}
+          <HighlightedItalic marker={false}>AI asistentas</HighlightedItalic>{" "}
+          per 30 minučių.
         </h1>
 
         {/* Smooth low-attention subtitle */}
