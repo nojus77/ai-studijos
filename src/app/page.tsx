@@ -380,28 +380,28 @@ function AboutSection() {
 
 function StatsGridSection() {
   const stats = [
-    { value: "30", label: "Minučių iki rezultato" },
-    { value: "0", label: "Reikia programavimo" },
-    { value: "∞", label: "Prieiga visam gyvenimui" },
+    { value: "30", label: "Min. iki rezultato" },
+    { value: "0", label: "Programavimo žinių" },
+    { value: "∞", label: "Visam gyvenimui" },
     { value: "24/7", label: "Asistentas dirba" },
   ];
 
   return (
-    <section className="bg-background px-4 py-14 sm:px-6 sm:py-20">
+    <section className="bg-background px-4 py-8 sm:px-6 sm:py-10">
       <div className="mx-auto max-w-2xl">
-        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
           {stats.map((s) => (
             <Card
               key={s.label}
-              className="rounded-2xl border-foreground/10 bg-foreground p-5 text-center text-background sm:p-7"
+              className="rounded-xl border-primary/30 bg-primary px-3 py-3 text-center text-primary-foreground sm:py-4"
             >
               <p
-                className="text-4xl font-medium leading-none sm:text-5xl"
+                className="text-2xl font-medium leading-none sm:text-3xl"
                 style={serifStyle}
               >
                 {s.value}
               </p>
-              <p className="mt-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-background/70">
+              <p className="mt-1.5 whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.14em] text-primary-foreground/85 sm:text-[10px]">
                 {s.label}
               </p>
             </Card>
