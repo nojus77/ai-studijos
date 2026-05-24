@@ -415,13 +415,10 @@ function FounderStorySection() {
             mokant kitus. Trumpai, žmogiškai, 2–3 pastraipos.]
           </p>
           <p className="text-muted-foreground">
-            Jei turi klausimų — rašyk{" "}
-            <a
-              className="underline underline-offset-2"
-              href={`mailto:${c.contactEmail}`}
-            >
-              {c.contactEmail}
-            </a>
+            Jei turi klausimų — užpildyk{" "}
+            <Link href="/kontaktai" className="underline underline-offset-2">
+              kontaktinę formą
+            </Link>
             . Atsakome per parą.
           </p>
         </div>
@@ -1095,13 +1092,10 @@ function FAQSection() {
           <HighlightedItalic marker={false}>klausimai.</HighlightedItalic>
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          Jei neradai atsakymo — rašyk{" "}
-          <a
-            className="underline underline-offset-2"
-            href={`mailto:${c.contactEmail}`}
-          >
-            {c.contactEmail}
-          </a>
+          Jei neradai atsakymo — užpildyk{" "}
+          <Link href="/kontaktai" className="underline underline-offset-2">
+            kontaktinę formą
+          </Link>
           . Atsakome per parą.
         </p>
 

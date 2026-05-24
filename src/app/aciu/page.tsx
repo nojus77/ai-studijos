@@ -398,13 +398,10 @@ function UnknownSteps() {
           Visos detalės — el. pašte.
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          Jei laiško nematai per 5 minutes, parašyk{" "}
-          <a
-            href="mailto:labas@aistudijos.lt"
-            className="underline underline-offset-2"
-          >
-            labas@aistudijos.lt
-          </a>{" "}
+          Jei laiško nematai per 5 minutes, užpildyk{" "}
+          <Link href="/kontaktai" className="underline underline-offset-2">
+            kontaktinę formą
+          </Link>{" "}
           ir padėsime.
         </p>
         <div className="mt-6">

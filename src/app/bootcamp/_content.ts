@@ -26,5 +26,4 @@ export const bootcampContent = {
     name: "Vilius",
     role: "Pagalbos komanda",
   },
-  contactEmail: "labas@aistudijos.lt",
 };

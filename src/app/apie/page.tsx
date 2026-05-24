@@ -10,7 +10,7 @@ import { Card } from "@/components/ui/card";
 export const metadata: Metadata = {
   title: "Kas mes · AI Studijos",
   description:
-    "AI Studijos — trijų žmonių komanda iš Lietuvos, mokanti praktiškai naudoti dirbtinį intelektą darbe ir versle.",
+    "AI Studijos — dviejų žmonių komanda iš Lietuvos, mokanti praktiškai naudoti dirbtinį intelektą darbe ir versle.",
 };
 
 const serifStyle = { fontFamily: "var(--font-serif)" } as const;
@@ -23,19 +23,14 @@ interface TeamMember {
 
 const team: TeamMember[] = [
   {
-    name: "Nojus Šiugždinis",
-    role: "Įkūrėjas · Mokytojas",
-    bio: "Vedu visas sesijas. Per pastaruosius metus iš nulio susikūriau AI asistentą, kuris atlieka 80 % kasdienio darbo. Lygiai tą patį mokau daryti tave.",
+    name: "Nojus",
+    role: "Įkūrėjas · AI automatizacijų agentūra",
+    bio: "AI automatizacijų agentūros įkūrėjas. Kasdien kuriu klientams AI sprendimus — nuo el. pašto auto-atsakymų iki sudėtingų darbo workflow'ų. Tą patį setup'ą, kurį dirbu su verslo klientais, mokau pasidaryti tave.",
   },
   {
-    name: "Vilius",
-    role: "Pagalbos komanda",
-    bio: "Atsakingas už techninį setup ir studentų pagalbą. Pirmoji linija visiems klausimams — atsako per kelias valandas darbo dienomis.",
-  },
-  {
-    name: "Matas",
-    role: "Operacijos · Bendruomenė",
-    bio: "Rūpinasi bendruomene, partnerystėmis ir bendrais operaciniais reikalais. Užtikrina, kad viskas vyktų sklandžiai už kulisų.",
+    name: "Simas",
+    role: "Įkūrėjas · Agentūra JAV",
+    bio: "Marketing agentūros JAV įkūrėjas. AI naudoju kasdien savo versle — turinio kūrimui, klientų valdymui, ataskaitoms. Praktinė patirtis ne iš teorinių kursų, o iš realių kliento projektų.",
   },
 ];
 
@@ -68,7 +63,7 @@ function HeroSection() {
           Kas mes — <HighlightedItalic>AI Studijos</HighlightedItalic>.
         </h1>
         <p className="mt-5 text-[15px] leading-relaxed text-muted-foreground sm:text-base">
-          Trijų žmonių komanda iš Lietuvos. Mokome praktiškai naudoti dirbtinį
+          Dviejų žmonių komanda iš Lietuvos. Mokome praktiškai naudoti dirbtinį
           intelektą — ne kaip madą ar šūkį, o kaip įrankį, kuris realiai atgauna
           laiką tavo gyvenime.
         </p>

@@ -56,13 +56,10 @@ export default function SalygosPage() {
           <Section title="4. 30 dienų pinigų grąžinimo garantija">
             Jei po Bootcamp&apos;o pirmos sesijos nepajauti, kad atgavai bent 15
             valandų per savaitę, per 30 kalendorinių dienų nuo pirkimo gali
-            parašyti{" "}
-            <a
-              className="underline underline-offset-2"
-              href="mailto:labas@aistudijos.lt"
-            >
-              labas@aistudijos.lt
-            </a>{" "}
+            užpildyti{" "}
+            <Link href="/kontaktai" className="underline underline-offset-2">
+              kontaktinę formą
+            </Link>{" "}
             ir grąžinsime 100 % sumos — be klausimų. 47 € video kursui taikoma
             14 dienų pinigų grąžinimo garantija tomis pačiomis sąlygomis.
           </Section>
@@ -106,13 +103,10 @@ export default function SalygosPage() {
           </Section>
 
           <Section title="10. Kontaktai">
-            AI Studijos · el. paštas:{" "}
-            <a
-              className="underline underline-offset-2"
-              href="mailto:labas@aistudijos.lt"
-            >
-              labas@aistudijos.lt
-            </a>
+            AI Studijos · susisiek per{" "}
+            <Link href="/kontaktai" className="underline underline-offset-2">
+              kontaktinę formą
+            </Link>
             . Atsakome per 1 darbo dieną.
           </Section>
 

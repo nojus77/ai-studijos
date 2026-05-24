@@ -231,7 +231,7 @@ function buildWelcomeHtml(summary: PurchaseSummary): string {
   return wrapHtml(`
     <h1 style="font-size:22px;margin:0 0 12px 0;">${headline}</h1>
     ${sections.join("\n")}
-    <p>Jei turi klausimų — atsakyk į šį laišką arba rašyk <a href="mailto:labas@aistudijos.lt">labas@aistudijos.lt</a>.</p>
+    <p>Jei turi klausimų — atsakyk į šį laišką arba užpildyk <a href="https://aistudijos.lt/kontaktai">kontaktinę formą</a>.</p>
     <p>Iki,<br/>Nojus · AI Studijos</p>
   `);
 }
@@ -323,7 +323,7 @@ function buildWelcomeText(summary: PurchaseSummary): string {
   }
 
   lines.push(
-    "Klausimai? labas@aistudijos.lt",
+    "Klausimai? https://aistudijos.lt/kontaktai",
     "",
     "Iki,",
     "Nojus · AI Studijos",

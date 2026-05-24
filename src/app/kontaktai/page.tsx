@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight, Clock, Mail } from "lucide-react";
+import { ArrowRight, Clock, MessageSquare } from "lucide-react";
 
 import { HighlightedItalic } from "@/components/highlighted-italic";
 import { SiteFooter } from "@/components/site-footer";
@@ -13,11 +13,10 @@ import { Textarea } from "@/components/ui/textarea";
 export const metadata: Metadata = {
   title: "Kontaktai · AI Studijos",
   description:
-    "Susisiek su AI Studijos komanda. El. paštas labas@aistudijos.lt — atsakome per 24 val. darbo dienomis.",
+    "Susisiek su AI Studijos komanda per formą — atsakome per 24 val. darbo dienomis.",
 };
 
 const serifStyle = { fontFamily: "var(--font-serif)" } as const;
-const CONTACT_EMAIL = "labas@aistudijos.lt";
 
 export default function ContactPage() {
   return (
@@ -61,18 +60,17 @@ function ContactInfoSection() {
       <div className="mx-auto grid max-w-2xl gap-4 sm:grid-cols-2">
         <Card className="rounded-2xl border-border/60 p-6">
           <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-            <Mail className="size-5" aria-hidden />
+            <MessageSquare className="size-5" aria-hidden />
           </div>
           <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-            El. paštas
+            Kontaktinė forma
           </p>
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
-            className="mt-1 block text-lg font-semibold underline-offset-4 hover:underline"
+          <p
+            className="mt-1 text-lg font-semibold leading-tight"
             style={serifStyle}
           >
-            {CONTACT_EMAIL}
-          </a>
+            Žemiau šiame puslapyje
+          </p>
         </Card>
 
         <Card className="rounded-2xl border-border/60 p-6">

@@ -7,7 +7,6 @@ export const homeContent = {
     discountLabel: "-51%",
   },
   checkoutHref: "/checkout?tier=kursas",
-  contactEmail: "labas@aistudijos.lt",
   community: {
     name: "AI Studijos",
     platform: "Skool",

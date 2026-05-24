@@ -346,13 +346,10 @@ function FounderLetterSection() {
           </p>
           <p className="text-muted-foreground">
             Iki {c.startDateFull.toLowerCase()}. Jei iki tol turėsi klausimų —
-            drąsiai rašyk{" "}
-            <a
-              className="underline underline-offset-2"
-              href={`mailto:${c.contactEmail}`}
-            >
-              {c.contactEmail}
-            </a>
+            užpildyk{" "}
+            <Link href="/kontaktai" className="underline underline-offset-2">
+              kontaktinę formą
+            </Link>
             .
           </p>
         </div>
@@ -1213,13 +1210,10 @@ function FAQSection() {
           <HighlightedItalic>klausimai.</HighlightedItalic>
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          Jei neradai atsakymo čia — rašyk{" "}
-          <a
-            className="underline underline-offset-2"
-            href={`mailto:${c.contactEmail}`}
-          >
-            {c.contactEmail}
-          </a>
+          Jei neradai atsakymo čia — užpildyk{" "}
+          <Link href="/kontaktai" className="underline underline-offset-2">
+            kontaktinę formą
+          </Link>
           .
         </p>
 

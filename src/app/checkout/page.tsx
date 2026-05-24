@@ -270,13 +270,13 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
                 Nepavyko įkelti apmokėjimo
               </p>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {error}. Pabandyk dar kartą arba parašyk{" "}
-                <a
-                  href="mailto:labas@aistudijos.lt"
+                {error}. Pabandyk dar kartą arba{" "}
+                <Link
+                  href="/kontaktai"
                   className="underline underline-offset-2"
                 >
-                  labas@aistudijos.lt
-                </a>
+                  parašyk mums per kontaktinę formą
+                </Link>
                 .
               </p>
               <button

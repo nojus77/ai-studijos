@@ -140,13 +140,10 @@ export default function PrivatumasPage() {
           </Section>
 
           <Section title="8. Kontaktai">
-            Visi su privatumu susiję klausimai — rašyk{" "}
-            <a
-              className="underline underline-offset-2"
-              href="mailto:labas@aistudijos.lt"
-            >
-              labas@aistudijos.lt
-            </a>
+            Visi su privatumu susiję klausimai — pildyk{" "}
+            <Link href="/kontaktai" className="underline underline-offset-2">
+              kontaktinę formą
+            </Link>
             . Atsakome per 5 darbo dienas.
           </Section>
 

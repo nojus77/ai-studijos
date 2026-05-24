@@ -26,7 +26,6 @@ export const metadata: Metadata = {
 };
 
 const serifStyle = { fontFamily: "var(--font-serif)" } as const;
-const CONTACT_EMAIL = "labas@aistudijos.lt";
 
 export default function VerslulPage() {
   return (
@@ -524,14 +523,7 @@ function FAQSection() {
           Dažniausi <HighlightedItalic>klausimai</HighlightedItalic>.
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          Jei neradai atsakymo — rašyk{" "}
-          <a
-            className="underline underline-offset-2"
-            href={`mailto:${CONTACT_EMAIL}`}
-          >
-            {CONTACT_EMAIL}
-          </a>
-          .
+          Jei neradai atsakymo — pildyk formą viršuje. Atsakome per parą.
         </p>
 
         <Accordion className="mt-6 space-y-3">
