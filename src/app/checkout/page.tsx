@@ -148,19 +148,8 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
   return (
     <section className="px-4 py-6 sm:px-6 sm:py-8">
       <div className="mx-auto max-w-2xl">
-        <h1
-          className="text-balance text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl"
-          style={serifStyle}
-        >
-          Užbaik užsakymą
-        </h1>
-        <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
-          Saugus mokėjimas per Stripe. Apmokėjus iškart gausi el. laišką su
-          prieiga.
-        </p>
-
         {/* Social proof — 24h purchases */}
-        <div className="mt-4 flex items-center gap-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/5 px-3.5 py-2">
+        <div className="flex items-center gap-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/5 px-3.5 py-2">
           <span
             aria-hidden
             className="size-1.5 shrink-0 rounded-full bg-emerald-500"
@@ -231,16 +220,22 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
               details={BUMPS.aiSpecialists.details}
             />
 
-            {/* 2. Bootcamp (POPULIARIAUSIAS) + 3. Bootcamp Premium (only on /checkout?tier=kursas) */}
+            {/* 2. Bootcamp Standard — only the cheaper option is visible by
+                default. The Premium tier (Standard + 2 val. konsultacija) is
+                revealed as a nested addon below this card once the user opts
+                into Bootcamp, keeping the initial view focused while still
+                surfacing the higher-margin upsell to motivated buyers. */}
             {showBootcampBump ? (
               <>
                 <BumpCard
-                  selected={bumps.bootcamp === "standard"}
+                  selected={
+                    bumps.bootcamp === "standard" ||
+                    bumps.bootcamp === "premium"
+                  }
                   onToggle={() =>
                     setBumps((prev) => ({
                       ...prev,
-                      bootcamp:
-                        prev.bootcamp === "standard" ? null : "standard",
+                      bootcamp: prev.bootcamp ? null : "standard",
                     }))
                   }
                   priceLabel={`+ ${BUMPS.bootcampStandard.priceEur} €`}
@@ -249,19 +244,22 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
                   details={BUMPS.bootcampStandard.details}
                   popular
                 />
-                <BumpCard
-                  selected={bumps.bootcamp === "premium"}
-                  onToggle={() =>
-                    setBumps((prev) => ({
-                      ...prev,
-                      bootcamp: prev.bootcamp === "premium" ? null : "premium",
-                    }))
-                  }
-                  priceLabel={`+ ${BUMPS.bootcampPremium.priceEur} €`}
-                  title={BUMPS.bootcampPremium.label}
-                  description={BUMPS.bootcampPremium.description}
-                  details={BUMPS.bootcampPremium.details}
-                />
+                {bumps.bootcamp ? (
+                  <BootcampPremiumAddon
+                    selected={bumps.bootcamp === "premium"}
+                    deltaEur={
+                      BUMPS.bootcampPremium.priceEur -
+                      BUMPS.bootcampStandard.priceEur
+                    }
+                    onToggle={() =>
+                      setBumps((prev) => ({
+                        ...prev,
+                        bootcamp:
+                          prev.bootcamp === "premium" ? "standard" : "premium",
+                      }))
+                    }
+                  />
+                ) : null}
               </>
             ) : null}
           </div>
@@ -476,6 +474,62 @@ function BumpCard({
         </ul>
       ) : null}
     </div>
+  );
+}
+
+interface BootcampPremiumAddonProps {
+  selected: boolean;
+  deltaEur: number;
+  onToggle: () => void;
+}
+
+function BootcampPremiumAddon({
+  selected,
+  deltaEur,
+  onToggle,
+}: BootcampPremiumAddonProps) {
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-pressed={selected}
+      className={cn(
+        "ml-4 flex w-[calc(100%-1rem)] items-center gap-3 rounded-xl border-l-4 px-3 py-2.5 text-left transition-all",
+        selected
+          ? "border-l-primary bg-primary/5 ring-1 ring-primary/30"
+          : "border-l-primary/40 bg-card hover:border-l-primary hover:bg-primary/[0.03]",
+      )}
+    >
+      <span
+        aria-hidden
+        className={cn(
+          "inline-flex size-4 shrink-0 items-center justify-center rounded border transition-colors",
+          selected
+            ? "border-primary bg-primary text-primary-foreground"
+            : "border-border bg-background",
+        )}
+      >
+        {selected ? <Check className="size-3" /> : null}
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="text-[13px] font-semibold leading-tight sm:text-sm">
+          {selected
+            ? "Su 2 val. asmenine konsultacija"
+            : "Pridėk 2 val. asmeninę konsultaciją"}
+        </p>
+        <p className="mt-0.5 line-clamp-1 text-[11px] leading-snug text-muted-foreground">
+          + 6 paruošti įgūdžiai (verta 500+ €) + 3 mėn. bendruomenė
+        </p>
+      </div>
+      <span
+        className={cn(
+          "shrink-0 text-sm font-semibold sm:text-base",
+          selected ? "text-primary" : "text-foreground",
+        )}
+      >
+        + {deltaEur} €
+      </span>
+    </button>
   );
 }
 
