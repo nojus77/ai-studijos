@@ -160,26 +160,21 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
         </p>
 
         {/* Social proof — 24h purchases */}
-        <div className="mt-4 flex items-start gap-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/5 px-3.5 py-2.5">
+        <div className="mt-4 flex items-center gap-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/5 px-3.5 py-2">
           <span
             aria-hidden
-            className="mt-1.5 size-1.5 shrink-0 rounded-full bg-emerald-500"
+            className="size-1.5 shrink-0 rounded-full bg-emerald-500"
           />
-          <div className="min-w-0 flex-1">
-            <p className="text-[13px] font-semibold leading-tight text-foreground sm:text-sm">
-              Per pastarąsias 24 val. įsigijo{" "}
-              <span
-                className="text-emerald-600 dark:text-emerald-400"
-                suppressHydrationWarning
-              >
-                {purchases24h}
-              </span>{" "}
-              naujų pirkėjų
-            </p>
-            <p className="mt-1 text-[11px] leading-snug text-muted-foreground sm:text-xs">
-              Bendruomenėje 150+ narių. Prisijungia 4–7 per dieną.
-            </p>
-          </div>
+          <p className="text-[13px] font-semibold leading-tight text-foreground sm:text-sm">
+            Per pastarąsias 24 val. įsigijo{" "}
+            <span
+              className="text-emerald-600 dark:text-emerald-400"
+              suppressHydrationWarning
+            >
+              {purchases24h}
+            </span>{" "}
+            naujų pirkėjų
+          </p>
         </div>
 
         {/* Compact product summary row */}
