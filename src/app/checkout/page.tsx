@@ -148,27 +148,9 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
   return (
     <section className="px-4 py-6 sm:px-6 sm:py-8">
       <div className="mx-auto max-w-2xl">
-        {/* Social proof — 24h purchases */}
-        <div className="flex items-center gap-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/5 px-3.5 py-2">
-          <span
-            aria-hidden
-            className="size-1.5 shrink-0 rounded-full bg-emerald-500"
-          />
-          <p className="text-[13px] font-semibold leading-tight text-foreground sm:text-sm">
-            Per pastarąsias 24 val. įsigijo{" "}
-            <span
-              className="text-emerald-600 dark:text-emerald-400"
-              suppressHydrationWarning
-            >
-              {purchases24h}
-            </span>{" "}
-            naujų pirkėjų
-          </p>
-        </div>
-
-        {/* Compact product summary row */}
-        <div className="mt-6 flex items-center justify-between gap-3 rounded-xl border border-border/60 bg-card px-4 py-3">
-          <div className="flex items-center gap-3">
+        {/* Product summary + inline 24h social proof */}
+        <div className="flex items-center justify-between gap-3 rounded-xl border border-border/60 bg-card px-4 py-3">
+          <div className="flex min-w-0 items-center gap-3">
             {tier === "kursas" ? (
               <div className="size-10 shrink-0 overflow-hidden rounded-lg bg-muted">
                 <Image
@@ -187,9 +169,25 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
                 AI
               </span>
             )}
-            <p className="text-sm font-semibold sm:text-base">
-              {tierInfo.label}
-            </p>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold sm:text-base">
+                {tierInfo.label}
+              </p>
+              <p className="mt-0.5 flex items-center gap-1.5 text-[11px] leading-tight text-muted-foreground sm:text-xs">
+                <span
+                  aria-hidden
+                  className="size-1.5 shrink-0 rounded-full bg-emerald-500"
+                />
+                Per 24 val. įsigijo{" "}
+                <span
+                  className="font-semibold text-emerald-600 dark:text-emerald-400"
+                  suppressHydrationWarning
+                >
+                  {purchases24h}
+                </span>{" "}
+                naujų pirkėjų
+              </p>
+            </div>
           </div>
           <span
             className="shrink-0 text-xl font-medium leading-none text-foreground sm:text-2xl"
