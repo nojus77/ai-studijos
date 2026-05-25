@@ -74,18 +74,8 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
     aiSpecialists: false,
   });
 
-  const total = useMemo(() => {
-    let sum = tierInfo.priceEur;
-    if (showBootcampBump && bumps.bootcamp === "standard") {
-      sum += BUMPS.bootcampStandard.priceEur;
-    } else if (showBootcampBump && bumps.bootcamp === "premium") {
-      sum += BUMPS.bootcampPremium.priceEur;
-    }
-    if (bumps.aiSpecialists) {
-      sum += BUMPS.aiSpecialists.priceEur;
-    }
-    return sum;
-  }, [tierInfo.priceEur, showBootcampBump, bumps]);
+  // Running total is rendered inside the Stripe embedded panel, so we don't
+  // compute it here anymore.
 
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -178,14 +168,10 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
                   aria-hidden
                   className="size-1.5 shrink-0 rounded-full bg-emerald-500"
                 />
-                Per 24 val. įsigijo{" "}
-                <span
-                  className="font-semibold text-emerald-600 dark:text-emerald-400"
-                  suppressHydrationWarning
-                >
-                  {purchases24h}
+                <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+                  150+
                 </span>{" "}
-                naujų pirkėjų
+                žmonių jau naudoja savo AI asistentą
               </p>
             </div>
           </div>
@@ -260,24 +246,22 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
           </div>
         </div>
 
-        {/* Total — compact single row */}
-        <div className="mt-5 flex items-baseline justify-between border-t border-border/60 pt-4">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-            Iš viso
-          </p>
-          <p className="text-lg font-semibold leading-none sm:text-xl">
-            {total} €
-          </p>
-        </div>
-
-        {/* Stripe Embedded Checkout */}
-        <div className="mt-5">
+        {/* Stripe Embedded Checkout. Stripe shows the running total inside
+            its own panel, so we don't repeat an "Iš viso" row above it. */}
+        <div className="mt-6">
           <p className="mb-3 flex items-center justify-center gap-2 text-center text-[12px] text-muted-foreground sm:text-[13px]">
             <span
               aria-hidden
               className="size-1.5 rounded-full bg-emerald-500"
             />
-            150+ žmonių jau naudoja savo AI asistentą
+            Per pastarąsias 24 val. įsigijo{" "}
+            <span
+              className="font-semibold text-emerald-600 dark:text-emerald-400"
+              suppressHydrationWarning
+            >
+              {purchases24h}
+            </span>{" "}
+            naujų pirkėjų
           </p>
           {error ? (
             <Card className="rounded-2xl border-destructive/40 bg-destructive/5 p-6 text-center">
