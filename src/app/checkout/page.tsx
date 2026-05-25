@@ -189,10 +189,7 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
               </p>
             </div>
           </div>
-          <span
-            className="shrink-0 text-xl font-medium leading-none text-foreground sm:text-2xl"
-            style={serifStyle}
-          >
+          <span className="shrink-0 text-base font-semibold leading-none text-foreground sm:text-lg">
             {tierInfo.priceEur} €
           </span>
         </div>
@@ -268,10 +265,7 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
           <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
             Iš viso
           </p>
-          <p
-            className="text-2xl font-medium italic leading-none sm:text-3xl"
-            style={serifStyle}
-          >
+          <p className="text-lg font-semibold leading-none sm:text-xl">
             {total} €
           </p>
         </div>
