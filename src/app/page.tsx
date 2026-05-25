@@ -358,23 +358,37 @@ function AboutSection() {
         <div className="mt-8 space-y-4 text-[15px] leading-relaxed text-foreground/90 sm:text-base">
           <p>
             <strong className="font-semibold">Simas</strong> kuria AI įrankį,
-            transformuojantį logistiką Europoje, ir dirba vienoje didžiausių AI
+            transformuojantį logistiką Europoje. Dirba vienoje didžiausių AI
             agentūrų JAV. AI naudoja kasdien — tiek savo verslui, tiek klientų
             projektams.
           </p>
           <p>
             <strong className="font-semibold">Nojus</strong> — AI automatizacijų
             agentūros įkūrėjas. Kasdien dirba B2B padėdamas verslams sutaupyti
-            laiką ir kaštus per custom automatizacijas. AI naudoja visur — nuo
-            klientų atsakymų iki pilnų platformų kūrimo.
+            laiką ir kaštus per individualias automatizacijas. AI naudoja visur
+            — nuo klientų atsakymų iki pilnų platformų kūrimo.
           </p>
-          <p>
+        </div>
+
+        {/* Personal note from the founders — sticky-note styled aside */}
+        <aside className="relative mt-10 -rotate-[0.75deg] rounded-md bg-primary/15 p-5 shadow-[0_8px_20px_-8px_rgba(0,0,0,0.18)] ring-1 ring-foreground/10 sm:p-6">
+          <span
+            aria-hidden
+            className="absolute -top-3 left-8 h-5 w-24 -rotate-3 rounded-sm bg-foreground/10 shadow-sm"
+          />
+          <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground/60">
+            ✎ Pastaba nuo mūsų
+          </p>
+          <p
+            className="mt-3 text-[15px] italic leading-relaxed text-foreground/90 sm:text-base"
+            style={serifStyle}
+          >
             AI Studijas pradėjome todėl, kad pastebėjom: dauguma girdėjo apie
             AI, bet nežino kaip rimtai pradėti. Surinkome viską, ką patys per
             metus išmokome darbe, į vieną gidą — be teorijos, be Python&apos;o,
             tik tai, kas veikia praktikoje.
           </p>
-        </div>
+        </aside>
       </div>
     </section>
   );
