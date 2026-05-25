@@ -216,8 +216,8 @@ function LaunchDateSection() {
           <HighlightedItalic>{c.startDateHuman}</HighlightedItalic>
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          2 sekmadienio vakarai. Online. Kartu su Nojum susikursi savo AI
-          asistentą, kuris dirbs didžiąją dalį tavo darbų.
+          2 sekmadienio vakarai. Online. Kartu su Nojum ir Simu susikursi savo
+          AI asistentą, kuris dirbs didžiąją dalį tavo darbų.
         </p>
         <div className="mt-6">
           <CTABand

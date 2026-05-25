@@ -64,12 +64,12 @@ export const BUMPS: Record<BumpId, BumpInfo> = {
   bootcampStandard: {
     id: "bootcampStandard",
     label: "AI Studijos Bootcamp",
-    description: "2 sesijos online + paruošti workflow'ai + 1 mėn. bendruomenė",
+    description: "2 online webinarai + paruošti agentai + uždara bendruomenė",
     details: [
-      "2 gyvos online sesijos su Nojum (2 sekmadienio vakarai, 19:00)",
-      "Visi sesijų įrašai — žiūrėk kada nori",
-      "Paruošti AI darbo workflow'ai tavo verslui",
-      "Asmeninė pagalba Skool bendruomenėje 1 mėn.",
+      "2 gyvos online sesijos su Nojum ir Simu",
+      "Visi sesijų įrašai — žiūrėk kada nori ir gali",
+      "Paruošti AI agentai pritaikyti tavo situacijai",
+      "Asmeninė pagalba uždaroje Skool bendruomenėje",
       "Praktinis namų darbas tarp sesijų",
     ],
     priceEur: 97,
@@ -94,13 +94,14 @@ export const BUMPS: Record<BumpId, BumpInfo> = {
   aiSpecialists: {
     id: "aiSpecialists",
     label: "5 AI Specialistai",
-    description: "5 paruošti Claude įgūdžiai — copy-paste ir veikia",
+    description:
+      "5 paruošti Claude įgūdžiai — copy-paste ir gali pradėti naudotis savo darbe iškart",
     details: [
-      "✉️ El. paštai — atsakymai tavo stiliumi per sekundes",
+      "✉️ El. paštas — atsakymai tavo stiliumi per sekundes",
       "📊 Ataskaitos — automatiškai iš Excel/Google Sheets",
-      "🔍 Tyrimai — perskaitytas šimtai šaltinių, santrauka su nuorodom",
       "💬 Klientų atsakymai — paruošti pasiūlymai pagal tavo verslą",
       "📅 Planavimas — savaitės planas iš tavo balso įrašo",
+      "🔍 Tyrimai — autopilotu skaito šimtus šaltinių",
     ],
     priceEur: 27,
     getPriceId: () => env.stripePriceAiSpecialists(),
