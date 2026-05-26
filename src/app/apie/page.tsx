@@ -28,15 +28,15 @@ interface TeamMember {
 const team: TeamMember[] = [
   {
     name: "Nojus",
-    role: "Įkūrėjas · AI automatizacijų agentūra",
-    bio: "AI automatizacijų agentūros įkūrėjas. Kasdien kuriu klientams AI sprendimus — nuo el. pašto auto-atsakymų iki sudėtingų darbo workflow'ų. Tą patį setup'ą, kurį dirbu su verslo klientais, mokau pasidaryti tave.",
+    role: "AI Automatizacijų Agentūros Įkūrėjas",
+    bio: "Kasdien su komanda kuriame AI sprendimus klientams — nuo klientų aptarnavimo asistento iki sudėtingiausių procesų automatizacijos. Apie tokį patį pasirengimą, kurį darome verslo klientams, išmokysiu ir tave.",
     photo: "/nojus-full.png",
     align: "right",
   },
   {
     name: "Simas",
-    role: "Įkūrėjas · Agentūra JAV",
-    bio: "Marketing agentūros JAV įkūrėjas. AI naudoju kasdien savo versle — turinio kūrimui, klientų valdymui, ataskaitoms. Praktinė patirtis ne iš teorinių kursų, o iš realių kliento projektų.",
+    role: "Marketingo Agentūros JAV Įkūrėjas",
+    bio: "AI naudoju kasdien savo versle — turinio kūrimui, klientų valdymui, ataskaitoms. Praktinė patirtis ne iš teorinių kursų, o iš realių klientų projektų.",
     photo: "/simas-full.png",
     align: "left",
   },
@@ -48,6 +48,7 @@ export default function AboutPage() {
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
+        <SkoolCoverSection />
         <StorySection />
         <TeamSection />
         <CTASection />
@@ -75,6 +76,25 @@ function HeroSection() {
           intelektą — ne kaip madą ar šūkį, o kaip įrankį, kuris realiai atgauna
           laiką tavo gyvenime.
         </p>
+      </div>
+    </section>
+  );
+}
+
+function SkoolCoverSection() {
+  return (
+    <section className="px-4 pb-4 sm:px-6">
+      <div className="mx-auto max-w-2xl">
+        <div className="overflow-hidden rounded-2xl border border-border/60 bg-card shadow-sm">
+          <Image
+            src="/cover.png"
+            alt="AI Studijos uždara Skool bendruomenė"
+            width={2064}
+            height={512}
+            className="h-auto w-full"
+            priority
+          />
+        </div>
       </div>
     </section>
   );

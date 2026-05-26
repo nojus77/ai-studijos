@@ -27,19 +27,19 @@ export function SiteFooter() {
               href="/"
               className="block text-background/80 hover:text-background"
             >
-              47 € kursas
+              Pilnas AI Asistento Gidas
             </Link>
             <Link
               href="/bootcamp"
               className="block text-background/80 hover:text-background"
             >
-              Mėnesinis bootcamp
+              Savaitinės AI Dirbtuvės
             </Link>
             <Link
               href="/verslui"
               className="block text-background/80 hover:text-background"
             >
-              Mokymai komandai
+              Mokymai Komandai
             </Link>
           </div>
           <div className="space-y-2">
