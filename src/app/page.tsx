@@ -96,11 +96,9 @@ function HeroSection() {
           .
         </p>
 
-        {/* Autoplay muted video with tap-to-unmute.
-            TODO: vsl-1.mov is the raw 68MB QuickTime export — transcode to
-            ~5-10MB H.264 .mp4 + .webm before scaling traffic. */}
+        {/* Autoplay muted video with tap-to-unmute. */}
         <div className="mt-8">
-          <HeroVideo src="/vsl-1.mov" />
+          <HeroVideo src="/vsl-1.mp4" />
         </div>
 
         {/* Primary CTA */}
