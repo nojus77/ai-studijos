@@ -379,15 +379,30 @@ function AboutSection() {
           <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground/60">
             ✎ Pastaba nuo mūsų
           </p>
-          <p
-            className="mt-3 text-[15px] italic leading-relaxed text-foreground/90 sm:text-base"
+          <div
+            className="mt-3 space-y-3 text-[15px] italic leading-relaxed text-foreground/90 sm:text-base"
             style={serifStyle}
           >
-            AI Studijas pradėjome todėl, kad pastebėjom: dauguma girdėjo apie
-            AI, bet nežino kaip rimtai pradėti. Surinkome viską, ką patys per
-            metus išmokome darbe, į vieną gidą — be teorijos, be Python&apos;o,
-            tik tai, kas veikia praktikoje.
-          </p>
+            <p>
+              AI Studijos prasidėjo nuo paprasto klausimo: kodėl visi kalba apie
+              AI, bet nedaug kas iš tikrųjų jį naudoja kasdieniam darbui?
+              Atsakymas paprastas — žmonėms reikia ne paskaitos apie
+              technologijas, o konkretaus pavyzdžio, kaip pradėti.
+            </p>
+            <p>
+              Todėl ir sugalvojome paleisti Lietuvoje pirmuosius tokius mokymus,
+              po kurių labai aiškiai išmoksite praktiškai naudoti AI darbe — be
+              techninių terminų, be reikalavimo pirma mokytis Python ar API
+              kvietimų. Tiesiai prie kompiuterio, su realiais darbais,
+              lietuviškai.
+            </p>
+            <p>
+              Tikime, kad AI nėra apie tai, kas pakeis tave. AI yra apie tai,
+              kas perima rutininius darbus ir atgauna tau laiką veikloms, kurios
+              yra svarbesnės — šeimai, draugams, pomėgiams arba tiesiog
+              tylesniam vakarui be ekrano.
+            </p>
+          </div>
         </aside>
       </div>
     </section>
