@@ -105,21 +105,21 @@ function StorySection() {
     <section className="px-4 py-12 sm:px-6 sm:py-16">
       <div className="mx-auto max-w-2xl space-y-6 text-[15px] leading-relaxed text-foreground/90 sm:text-base">
         <p>
-          AI Studijos pradėjo nuo paprasto klausimo: kodėl visi kalba apie AI,
+          AI Studijos prasidėjo nuo paprasto klausimo: kodėl visi kalba apie AI,
           bet nedaug kas iš tikrųjų jį naudoja kasdieniam darbui? Atsakymas
           paprastas — žmonėms reikia ne paskaitos apie technologijas, o
           konkretaus pavyzdžio, kaip pradėti.
         </p>
-        {/* TODO: pridėk savo komandos misiją su tikru tikslu ir tikru laikotarpiu */}
         <p>
-          Mokom praktiškai naudoti AI darbe — be techninių terminų, be
-          reikalavimo pirma mokytis Python ar API kvietimų. Tiesiai prie
-          kompiuterio, su realiais darbais, lietuviškai.
+          Todėl ir sugalvojome paleisti Lietuvoje pirmuosius tokius mokymus, po
+          kurių labai aiškiai išmoksite praktiškai naudoti AI darbe — be
+          techninių terminų, be reikalavimo pirma mokytis Python ar API
+          kvietimų. Tiesiai prie kompiuterio, su realiais darbais, lietuviškai.
         </p>
         <p>
           Tikime, kad AI nėra apie tai, kas pakeis tave. AI yra apie tai, kas{" "}
-          <HighlightedItalic>perima rutinos darbus</HighlightedItalic> ir
-          atgauna tau laiką dalykams, kurie tikrai svarbūs — šeimai, draugams,
+          <HighlightedItalic>perima rutininius darbus</HighlightedItalic> ir
+          atgauna tau laiką veikloms, kurios yra svarbesnės — šeimai, draugams,
           pomėgiams arba tiesiog tylesniam vakarui be ekrano.
         </p>
       </div>
@@ -141,47 +141,51 @@ function TeamSection() {
           Maža komanda. Aiškus pasidalijimas. Atsakomybė konkrečiam veidui.
         </p>
 
-        <div className="mt-12 space-y-16 sm:space-y-20">
+        <div className="mt-12 space-y-12 sm:space-y-16">
           {team.map((member) => (
             <Card
               key={member.name}
-              className={cn(
-                "relative flex items-center overflow-visible rounded-2xl border-border/60 px-5 py-6 sm:px-6 sm:py-7",
-                member.align === "right" ? "justify-start" : "justify-end",
-              )}
+              className="overflow-visible rounded-2xl border-border/60 px-4 py-5 sm:px-6 sm:py-7"
             >
               <div
                 className={cn(
-                  "max-w-[58%]",
-                  member.align === "left" && "text-right",
+                  "flex items-end gap-3 sm:gap-5",
+                  member.align === "left" && "flex-row-reverse",
                 )}
               >
-                <p
-                  className="text-xl font-medium leading-tight"
-                  style={serifStyle}
+                {/* Full-body cutout — kept in flex flow (no overlap) but
+                    pulled above the card edge via negative top margin so it
+                    still reads as "floating". Fixed width keeps the text
+                    column predictable regardless of viewport. */}
+                <div className="-mt-16 w-[110px] shrink-0 sm:-mt-20 sm:w-[150px]">
+                  <Image
+                    src={member.photo}
+                    alt={member.name}
+                    width={698}
+                    height={2002}
+                    className="h-auto w-full object-contain object-bottom"
+                  />
+                </div>
+                <div
+                  className={cn(
+                    "min-w-0 flex-1 pb-1 sm:pb-2",
+                    member.align === "left" && "text-right",
+                  )}
                 >
-                  {member.name}
-                </p>
-                <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
-                  {member.role}
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                  {member.bio}
-                </p>
+                  <p
+                    className="text-xl font-medium leading-tight"
+                    style={serifStyle}
+                  >
+                    {member.name}
+                  </p>
+                  <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
+                    {member.role}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                    {member.bio}
+                  </p>
+                </div>
               </div>
-              {/* Floating full-body cutout — extends above card */}
-              <Image
-                src={member.photo}
-                alt={member.name}
-                width={698}
-                height={2002}
-                className={cn(
-                  "pointer-events-none absolute bottom-0 h-[125%] w-auto object-contain object-bottom sm:h-[135%]",
-                  member.align === "right"
-                    ? "right-2 sm:right-4"
-                    : "left-2 sm:left-4",
-                )}
-              />
             </Card>
           ))}
         </div>
