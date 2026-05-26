@@ -496,7 +496,7 @@ function BootcampPremiumAddon({
             {selected
               ? "Su 2 val. asmenine konsultacija"
               : "Pridėk 2 val. asmeninę konsultaciją"}{" "}
-            <span className="font-normal text-muted-foreground">
+            <span className="whitespace-nowrap font-normal text-muted-foreground">
               (verta 400+ €)
             </span>
           </p>
