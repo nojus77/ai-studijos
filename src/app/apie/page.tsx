@@ -147,17 +147,27 @@ function TeamSection() {
               key={member.name}
               className="overflow-visible rounded-2xl border-border/60 px-4 py-5 sm:px-6 sm:py-7"
             >
+              {/* Explicit grid columns so the photo and text never share
+                  pixels. minmax(0, ...) on the text column lets long words
+                  shrink wrap instead of stretching the column wider than
+                  intended. Larger gap keeps a comfortable margin between
+                  the photo silhouette and the bio. */}
               <div
                 className={cn(
-                  "flex items-end gap-3 sm:gap-5",
-                  member.align === "left" && "flex-row-reverse",
+                  "grid items-end gap-6 sm:gap-8",
+                  member.align === "right"
+                    ? "grid-cols-[110px_minmax(0,1fr)] sm:grid-cols-[150px_minmax(0,1fr)]"
+                    : "grid-cols-[minmax(0,1fr)_110px] sm:grid-cols-[minmax(0,1fr)_150px]",
                 )}
               >
-                {/* Full-body cutout — kept in flex flow (no overlap) but
-                    pulled above the card edge via negative top margin so it
-                    still reads as "floating". Fixed width keeps the text
-                    column predictable regardless of viewport. */}
-                <div className="-mt-16 w-[110px] shrink-0 sm:-mt-20 sm:w-[150px]">
+                {/* Photo — fixed-width column with negative top margin so it
+                    still reads as floating above the card edge. */}
+                <div
+                  className={cn(
+                    "-mt-16 sm:-mt-20",
+                    member.align === "left" && "order-2",
+                  )}
+                >
                   <Image
                     src={member.photo}
                     alt={member.name}
@@ -166,9 +176,11 @@ function TeamSection() {
                     className="h-auto w-full object-contain object-bottom"
                   />
                 </div>
+                {/* Text column — bottom-aligned, wraps within its own
+                    minmax(0, 1fr) cell. */}
                 <div
                   className={cn(
-                    "min-w-0 flex-1 pb-1 sm:pb-2",
+                    "min-w-0 pb-1 sm:pb-2",
                     member.align === "left" && "text-right",
                   )}
                 >

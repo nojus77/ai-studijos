@@ -473,7 +473,7 @@ function BootcampPremiumAddon({
       onClick={onToggle}
       aria-pressed={selected}
       className={cn(
-        "ml-4 flex w-[calc(100%-1rem)] items-center gap-3 rounded-xl border-l-4 px-3 py-2.5 text-left transition-all",
+        "ml-4 flex w-[calc(100%-1rem)] items-start gap-3 rounded-xl border-l-4 px-3 py-3 text-left transition-all",
         selected
           ? "border-l-primary bg-primary/5 ring-1 ring-primary/30"
           : "border-l-primary/40 bg-card hover:border-l-primary hover:bg-primary/[0.03]",
@@ -482,7 +482,7 @@ function BootcampPremiumAddon({
       <span
         aria-hidden
         className={cn(
-          "inline-flex size-4 shrink-0 items-center justify-center rounded border transition-colors",
+          "mt-0.5 inline-flex size-4 shrink-0 items-center justify-center rounded border transition-colors",
           selected
             ? "border-primary bg-primary text-primary-foreground"
             : "border-border bg-background",
@@ -491,23 +491,48 @@ function BootcampPremiumAddon({
         {selected ? <Check className="size-3" /> : null}
       </span>
       <div className="min-w-0 flex-1">
-        <p className="text-[13px] font-semibold leading-tight sm:text-sm">
-          {selected
-            ? "Su 2 val. asmenine konsultacija"
-            : "Pridėk 2 val. asmeninę konsultaciją"}
-        </p>
-        <p className="mt-0.5 line-clamp-1 text-[11px] leading-snug text-muted-foreground">
-          + 6 paruošti įgūdžiai (verta 500+ €) + 3 mėn. bendruomenė
-        </p>
+        <div className="flex items-start justify-between gap-3">
+          <p className="text-[13px] font-semibold leading-tight sm:text-sm">
+            {selected
+              ? "Su 2 val. asmenine konsultacija"
+              : "Pridėk 2 val. asmeninę konsultaciją"}
+          </p>
+          <span
+            className={cn(
+              "shrink-0 text-sm font-semibold sm:text-base",
+              selected ? "text-primary" : "text-foreground",
+            )}
+          >
+            + {deltaEur} €
+          </span>
+        </div>
+        <ul className="mt-1.5 space-y-1 text-[11px] leading-snug text-muted-foreground sm:text-xs">
+          <li className="flex gap-1.5">
+            <span aria-hidden className="text-muted-foreground/60">
+              •
+            </span>
+            <span>
+              <span className="font-semibold text-foreground/80">
+                (verta 400+ €)
+              </span>{" "}
+              +6 paruošti įgūdžiai
+            </span>
+          </li>
+          <li className="flex gap-1.5">
+            <span aria-hidden className="text-muted-foreground/60">
+              •
+            </span>
+            <span>
+              <span className="font-semibold text-foreground/80">
+                1:1 Setup su Nojum ir Simu
+              </span>{" "}
+              — 2 val. asmeninė Zoom sesija. Sukonfigūruosime tavo AI asistentą
+              ir visus specialistus pagal tavo verslą. Po sesijos viskas veikia
+              taip, kaip tu nori.
+            </span>
+          </li>
+        </ul>
       </div>
-      <span
-        className={cn(
-          "shrink-0 text-sm font-semibold sm:text-base",
-          selected ? "text-primary" : "text-foreground",
-        )}
-      >
-        + {deltaEur} €
-      </span>
     </button>
   );
 }

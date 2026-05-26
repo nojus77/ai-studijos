@@ -72,7 +72,7 @@ export const BUMPS: Record<BumpId, BumpInfo> = {
   bootcampStandard: {
     id: "bootcampStandard",
     label: "AI Studijos Bootcamp",
-    description: "2 online webinarai + paruošti agentai + uždara bendruomenė",
+    description: "2 online webinarai + uždara bendruomenė",
     details: [
       "2 gyvos online sesijos su Nojum ir Simu",
       "Visi sesijų įrašai — žiūrėk kada nori ir gali",
