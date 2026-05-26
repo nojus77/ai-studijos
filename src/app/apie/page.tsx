@@ -177,13 +177,10 @@ function TeamSection() {
                   />
                 </div>
                 {/* Text column — bottom-aligned, wraps within its own
-                    minmax(0, 1fr) cell. */}
-                <div
-                  className={cn(
-                    "min-w-0 pb-1 sm:pb-2",
-                    member.align === "left" && "text-right",
-                  )}
-                >
+                    minmax(0, 1fr) cell. Always left-aligned: right-aligning
+                    on the mirrored card produced a jagged left edge where
+                    every line started in a different position. */}
+                <div className="min-w-0 pb-1 sm:pb-2">
                   <p
                     className="text-xl font-medium leading-tight"
                     style={serifStyle}
