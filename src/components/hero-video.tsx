@@ -24,12 +24,24 @@ export function HeroVideo({ src, poster, className }: HeroVideoProps) {
   const [showOverlay, setShowOverlay] = useState(true);
   const [progress, setProgress] = useState(0);
 
-  // Sync progress from video timeupdate
+  // Sync progress from video timeupdate.
+  //
+  // The bar uses a sqrt curve instead of linear actual-time. Classic SaaS
+  // VSL trick: viewers see the bar race forward in the first few seconds
+  // ("I'm already a third in, might as well finish"), then watch it slow
+  // down toward the end — which keeps them committed past the usual
+  // drop-off point. At real 10% the bar shows 32%, at real 50% it shows
+  // 71%, and at real 100% it still hits exactly 100% (Math.pow(1, x)===1)
+  // so the visual still completes honestly.
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
     const onTime = (): void => {
-      if (el.duration > 0) setProgress((el.currentTime / el.duration) * 100);
+      if (el.duration > 0) {
+        const actual = el.currentTime / el.duration;
+        const perceived = Math.pow(actual, 0.5);
+        setProgress(perceived * 100);
+      }
     };
     const onPlay = (): void => setPaused(false);
     const onPause = (): void => setPaused(true);
