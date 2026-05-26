@@ -96,11 +96,11 @@ function HeroSection() {
           .
         </p>
 
-        {/* Autoplay muted video with tap-to-unmute */}
-        {/* TODO: dabartinis hero-video.mp4 yra 68MB test file (iPhone MOV
-            renamed) — produkcijai transkoduok į ~5-10MB H.264 + WebM */}
+        {/* Autoplay muted video with tap-to-unmute.
+            TODO: vsl-1.mov is the raw 68MB QuickTime export — transcode to
+            ~5-10MB H.264 .mp4 + .webm before scaling traffic. */}
         <div className="mt-8">
-          <HeroVideo src="/hero-video.mp4" />
+          <HeroVideo src="/vsl-1.mov" />
         </div>
 
         {/* Primary CTA */}
