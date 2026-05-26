@@ -495,7 +495,10 @@ function BootcampPremiumAddon({
           <p className="text-[13px] font-semibold leading-tight sm:text-sm">
             {selected
               ? "Su 2 val. asmenine konsultacija"
-              : "Pridėk 2 val. asmeninę konsultaciją"}
+              : "Pridėk 2 val. asmeninę konsultaciją"}{" "}
+            <span className="font-normal text-muted-foreground">
+              (verta 400+ €)
+            </span>
           </p>
           <span
             className={cn(
@@ -513,22 +516,19 @@ function BootcampPremiumAddon({
             </span>
             <span>
               <span className="font-semibold text-foreground/80">
-                (verta 400+ €)
+                1:1 Setup su Nojum ir Simu
               </span>{" "}
-              +6 paruošti įgūdžiai
+              — 2 val. asmeninė Zoom sesija. Sukonfigūruosime tavo AI asistentą
+              ir visus specialistus pagal tavo verslą. Po sesijos viskas veikia
+              taip, kaip tu nori.
             </span>
           </li>
           <li className="flex gap-1.5">
             <span aria-hidden className="text-muted-foreground/60">
               •
             </span>
-            <span>
-              <span className="font-semibold text-foreground/80">
-                1:1 Setup su Nojum ir Simu
-              </span>{" "}
-              — 2 val. asmeninė Zoom sesija. Sukonfigūruosime tavo AI asistentą
-              ir visus specialistus pagal tavo verslą. Po sesijos viskas veikia
-              taip, kaip tu nori.
+            <span className="font-semibold text-foreground/80">
+              + 5 paruošti AI Specialistai
             </span>
           </li>
         </ul>
