@@ -5,6 +5,8 @@ export type TierSlug = "kursas" | "standard" | "premium";
 export interface TierInfo {
   slug: TierSlug;
   label: string;
+  /** Short one-liner shown under the title on the checkout product card. */
+  tagline: string;
   priceEur: number;
   shortName: string;
 }
@@ -13,18 +15,24 @@ const TIERS: Record<TierSlug, TierInfo> = {
   kursas: {
     slug: "kursas",
     label: "AI Asistento gidas",
+    tagline:
+      "Praktinis kursas, kuris išmokys tave naudotis AI asistentu kasdieniame darbe.",
     priceEur: 47,
     shortName: "Kursas",
   },
   standard: {
     slug: "standard",
     label: "Bootcamp 01 — Standard",
+    tagline:
+      "2 online webinarai + paruošti AI agentai + uždara Skool bendruomenė.",
     priceEur: 97,
     shortName: "Bootcamp Standard",
   },
   premium: {
     slug: "premium",
     label: "Bootcamp 01 — Premium",
+    tagline:
+      "Viskas iš Standard + 2 val. asmeninė konsultacija + 6 paruošti AI įgūdžiai.",
     priceEur: 347,
     shortName: "Bootcamp Premium",
   },

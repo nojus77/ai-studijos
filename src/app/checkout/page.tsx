@@ -138,7 +138,7 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
   return (
     <section className="px-4 py-6 sm:px-6 sm:py-8">
       <div className="mx-auto max-w-2xl">
-        {/* Product summary + inline 24h social proof */}
+        {/* Product summary */}
         <div className="flex items-center justify-between gap-3 rounded-xl border border-border/60 bg-card px-4 py-3">
           <div className="flex min-w-0 items-center gap-3">
             {tier === "kursas" ? (
@@ -163,15 +163,8 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
               <p className="truncate text-sm font-semibold sm:text-base">
                 {tierInfo.label}
               </p>
-              <p className="mt-0.5 flex items-center gap-1.5 text-[11px] leading-tight text-muted-foreground sm:text-xs">
-                <span
-                  aria-hidden
-                  className="size-1.5 shrink-0 rounded-full bg-emerald-500"
-                />
-                <span className="font-semibold text-emerald-600 dark:text-emerald-400">
-                  150+
-                </span>{" "}
-                žmonių jau naudoja savo AI asistentą
+              <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground sm:text-xs">
+                {tierInfo.tagline}
               </p>
             </div>
           </div>
@@ -179,6 +172,16 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
             {tierInfo.priceEur} €
           </span>
         </div>
+
+        {/* Stand-alone "150+ used" social proof — sits between product card
+            and upsells so it reads as an independent stat, not a subtitle. */}
+        <p className="mt-2.5 flex items-center justify-center gap-1.5 text-[12px] text-muted-foreground sm:text-[13px]">
+          <span aria-hidden className="size-1.5 rounded-full bg-emerald-500" />
+          <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+            150+
+          </span>{" "}
+          žmonių jau naudoja savo AI asistentą
+        </p>
 
         {/* Order bumps — compact */}
         <div className="mt-5">
