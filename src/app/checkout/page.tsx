@@ -173,12 +173,14 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
           </span>
         </div>
 
-        {/* Stand-alone "150+ used" social proof — sits between product card
-            and upsells so it reads as an independent stat, not a subtitle. */}
+        {/* Stand-alone "80+ used" social proof — sits between product card
+            and upsells so it reads as an independent stat, not a subtitle.
+            Kept aligned with the landing hero ("78 jau naudoja") so the
+            social-proof number tells a consistent story across the funnel. */}
         <p className="mt-2.5 flex items-center justify-center gap-1.5 text-[12px] text-muted-foreground sm:text-[13px]">
           <span aria-hidden className="size-1.5 rounded-full bg-emerald-500" />
           <span className="font-semibold text-emerald-600 dark:text-emerald-400">
-            150+
+            80+
           </span>{" "}
           žmonių jau naudoja savo AI asistentą
         </p>
