@@ -71,11 +71,17 @@ export function HeroVideo({ src, poster, className }: HeroVideoProps) {
   const handleFirstTap = (): void => {
     const el = videoRef.current;
     if (el) {
+      // Rewind to the start: the muted autoplay has been running since the
+      // page loaded, so by the time the user taps for sound they've already
+      // missed the opening hook. Restart from 0 so they hear it from the
+      // first word.
+      el.currentTime = 0;
       el.muted = false;
       void el.play().catch(() => {});
     }
     setMuted(false);
     setShowOverlay(false);
+    setProgress(0);
   };
 
   const togglePlay = (e: React.MouseEvent): void => {
