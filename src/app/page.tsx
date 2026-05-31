@@ -53,8 +53,8 @@ export default function HomePage() {
         <HeroSection />
         <TimeSavingSection />
         <PricingTeaserSection />
-        <AboutSection />
         <MarketStatsSection />
+        <AboutSection />
         <ProductivityStatsSection />
         <StatsGridSection />
         <CommunityProofSection />
