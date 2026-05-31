@@ -1,6 +1,7 @@
 "use client";
 
-import { createElement, useEffect, useRef } from "react";
+import { createElement, useEffect, useRef, useState } from "react";
+import { Gauge } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -8,7 +9,11 @@ import { cn } from "@/lib/utils";
 interface WistiaPlayerElement extends HTMLElement {
   muted: boolean;
   volume: number;
+  playbackRate: number;
 }
+
+// Playback speeds the corner toggle cycles through.
+const SPEEDS = [1, 1.25, 1.5];
 
 interface HeroWistiaProps {
   /** Wistia media hashed id, e.g. "wu5uhpxc6u". */
@@ -29,6 +34,22 @@ const PLAYER_COLOR = "#fedf6f";
  */
 export function HeroWistia({ mediaId, className }: HeroWistiaProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [speed, setSpeed] = useState(1);
+
+  // Cycle the playback speed (1× → 1.5× → 2× → 1×) and push it to the player.
+  const cycleSpeed = (): void => {
+    const next = SPEEDS[(SPEEDS.indexOf(speed) + 1) % SPEEDS.length];
+    setSpeed(next);
+    const player =
+      containerRef.current?.querySelector<WistiaPlayerElement>("wistia-player");
+    if (player) {
+      try {
+        player.playbackRate = next;
+      } catch {
+        // player not upgraded yet; state still updates and applies on retry
+      }
+    }
+  };
 
   useEffect(() => {
     const ensureScript = (src: string, isModule: boolean): void => {
@@ -100,6 +121,18 @@ export function HeroWistia({ mediaId, className }: HeroWistiaProps) {
         "silent-autoplay": "allow",
         className: "block w-full",
       })}
+
+      {/* Visible speed toggle so viewers can speed up the video in one tap,
+          instead of digging through Wistia's settings menu. */}
+      <button
+        type="button"
+        onClick={cycleSpeed}
+        aria-label={`Vaizdo greitis: ${speed}×. Paspausk, kad pakeistum.`}
+        className="absolute right-3 top-3 z-10 flex h-8 items-center gap-1 rounded-full bg-background/85 px-3 text-xs font-semibold tabular-nums text-foreground shadow-md backdrop-blur-sm transition hover:bg-background"
+      >
+        <Gauge className="size-3.5" aria-hidden />
+        {speed}×
+      </button>
     </div>
   );
 }
