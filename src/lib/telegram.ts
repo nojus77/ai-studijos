@@ -8,19 +8,27 @@ export interface TelegramAdminAlertArgs {
   sessionId: string;
 }
 
+// Lead-notification bot + destination. Defaults are baked in so production
+// works without depending on Vercel env vars (the deploy account isn't
+// reachable from our tooling). Env vars still override if ever set — e.g. to
+// rotate the token: regenerate in @BotFather and set TELEGRAM_BOT_TOKEN in
+// Vercel, no code change needed. Bot: @aistudijos_bot · Group: "aistudijos leads".
+const DEFAULT_BOT_TOKEN = "8907073581:AAGJiShTl6IF6mj1pyJacASW06QL1Q18B7I";
+const DEFAULT_CHAT_ID = "-5213881524";
+
 /**
- * Notify the admin chat on every successful purchase. Fails silently when
- * env vars are missing — the webhook should never fail a real payment just
+ * Notify the leads chat on every successful purchase. Fails silently if the
+ * alert can't be sent — the webhook should never fail a real payment just
  * because the alert pipe is down. Logs the reason so it's debuggable.
  */
 export async function sendTelegramAdminAlert(
   args: TelegramAdminAlertArgs,
 ): Promise<void> {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_ADMIN_CHAT_ID;
+  const token = process.env.TELEGRAM_BOT_TOKEN || DEFAULT_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_ADMIN_CHAT_ID || DEFAULT_CHAT_ID;
   if (!token || !chatId) {
     console.warn(
-      "[telegram] TELEGRAM_BOT_TOKEN or TELEGRAM_ADMIN_CHAT_ID not set — skipping admin alert",
+      "[telegram] no bot token or chat id — skipping admin alert",
     );
     return;
   }
