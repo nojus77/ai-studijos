@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check, Mail } from "lucide-react";
 
+import { PixelLead } from "@/components/pixel-lead";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { buttonVariants } from "@/components/ui/button";
@@ -44,6 +45,8 @@ interface SessionData {
   tier: TierSlug | null;
   bumps: BumpId[];
   items: PurchasedItem[];
+  /** True only when Stripe confirms the checkout was actually paid. */
+  paid: boolean;
 }
 
 export default async function AciuPage({ searchParams }: AciuPageProps) {
@@ -56,6 +59,12 @@ export default async function AciuPage({ searchParams }: AciuPageProps) {
 
   return (
     <>
+      {/* Lead conversion — fires only on a confirmed, paid checkout. */}
+      {data.paid ? (
+        <PixelLead
+          value={data.amountTotal != null ? data.amountTotal / 100 : undefined}
+        />
+      ) : null}
       <SiteHeader />
       <main className="flex-1">
         <SuccessSection data={data} />
@@ -76,6 +85,7 @@ async function loadSession(
       tier: null,
       bumps: [],
       items: [],
+      paid: false,
     };
   }
   try {
@@ -127,6 +137,7 @@ async function loadSession(
       tier,
       bumps,
       items,
+      paid: session.payment_status === "paid",
     };
   } catch (error) {
     console.error("[aciu] failed to retrieve session", error);
@@ -136,6 +147,7 @@ async function loadSession(
       tier: null,
       bumps: [],
       items: [],
+      paid: false,
     };
   }
 }

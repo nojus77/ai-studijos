@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 import { CTABand } from "@/components/cta-band";
-import { HeroVideo } from "@/components/hero-video";
+import { HeroWistia } from "@/components/hero-wistia";
 import { HighlightedItalic } from "@/components/highlighted-italic";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -98,9 +98,9 @@ function HeroSection() {
           .
         </p>
 
-        {/* Autoplay muted video with tap-to-unmute. */}
+        {/* Wistia VSL — themed in brand yellow. */}
         <div className="mt-8">
-          <HeroVideo src="/vsl-2.mp4" />
+          <HeroWistia mediaId="wu5uhpxc6u" />
         </div>
 
         {/* Primary CTA */}
