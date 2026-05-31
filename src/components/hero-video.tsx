@@ -11,10 +11,13 @@ interface HeroVideoProps {
   className?: string;
 }
 
+const SPEED_OPTIONS = [1, 1.25, 1.5] as const;
+type Speed = (typeof SPEED_OPTIONS)[number];
+
 /**
  * Hero promo video — autoplays muted on load, tap-to-unmute reveals audio
- * + persistent controls (pause, mute, fullscreen) + progress bar at bottom.
- * If src is missing, renders a tasteful placeholder (no broken state).
+ * + persistent controls (pause, mute, speed, fullscreen) + progress bar at
+ * bottom. If src is missing, renders a tasteful placeholder (no broken state).
  */
 export function HeroVideo({ src, poster, className }: HeroVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -23,6 +26,16 @@ export function HeroVideo({ src, poster, className }: HeroVideoProps) {
   const [paused, setPaused] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [speed, setSpeed] = useState<Speed>(1);
+
+  // Keep the <video> element's playbackRate in sync with the speed state.
+  // Setting it imperatively (not as a JSX attribute) because React doesn't
+  // expose playbackRate as a prop, and a state change here must always win
+  // over the browser's default of 1×.
+  useEffect(() => {
+    const el = videoRef.current;
+    if (el) el.playbackRate = speed;
+  }, [speed]);
 
   // Sync progress from video timeupdate.
   //
@@ -89,6 +102,16 @@ export function HeroVideo({ src, poster, className }: HeroVideoProps) {
     if (document.fullscreenElement) void document.exitFullscreen();
     else void el.requestFullscreen().catch(() => {});
   };
+
+  const cycleSpeed = (e: React.MouseEvent): void => {
+    e.stopPropagation();
+    const idx = SPEED_OPTIONS.indexOf(speed);
+    const next = SPEED_OPTIONS[(idx + 1) % SPEED_OPTIONS.length];
+    setSpeed(next);
+  };
+
+  // Display "1×" / "1.25×" / "1.5×" — no trailing zeros on whole speeds.
+  const speedLabel = `${speed}×`;
 
   return (
     <div
@@ -166,6 +189,14 @@ export function HeroVideo({ src, poster, className }: HeroVideoProps) {
               ) : (
                 <Volume2 className="size-4" aria-hidden />
               )}
+            </button>
+            <button
+              type="button"
+              onClick={cycleSpeed}
+              aria-label={`Greitis ${speedLabel}, paspausk pakeisti`}
+              className="flex h-10 min-w-10 items-center justify-center rounded-lg bg-primary px-2.5 text-xs font-semibold tabular-nums text-primary-foreground shadow-md transition hover:bg-primary/90"
+            >
+              {speedLabel}
             </button>
           </div>
 

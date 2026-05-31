@@ -98,7 +98,7 @@ function HeroSection() {
 
         {/* Autoplay muted video with tap-to-unmute. */}
         <div className="mt-8">
-          <HeroVideo src="/vsl-1.mp4" />
+          <HeroVideo src="/vsl-2.mp4" />
         </div>
 
         {/* Primary CTA */}
