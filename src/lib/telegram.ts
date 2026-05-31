@@ -1,4 +1,4 @@
-import { getTier, type BumpId, type TierSlug } from "@/lib/tiers";
+import { type BumpId, type TierSlug } from "@/lib/tiers";
 
 export interface TelegramAdminAlertArgs {
   email: string;
@@ -60,8 +60,6 @@ export async function sendTelegramAdminAlert(
 }
 
 function buildAlertText(args: TelegramAdminAlertArgs): string {
-  const tierInfo = getTier(args.tier);
-
   const total = args.items.reduce((sum, i) => sum + i.amount_cents, 0);
   const itemsList = args.items
     .map(
@@ -70,45 +68,15 @@ function buildAlertText(args: TelegramAdminAlertArgs): string {
     )
     .join("\n");
 
-  // Compute which Skool classrooms this purchase grants — matches the
-  // catalog rules in the webhook.
-  const classrooms: string[] = [];
-  if (args.tier === "kursas") {
-    classrooms.push("AI Asistentas: Pilnas Gidas");
-  }
-  if (
-    args.tier === "standard" ||
-    args.tier === "premium" ||
-    args.bumps.includes("bootcampStandard") ||
-    args.bumps.includes("bootcampPremium")
-  ) {
-    classrooms.push("AI Studijos Bootcamp");
-  }
-  if (args.bumps.includes("aiSpecialists")) {
-    classrooms.push("5 AI Specialistai");
-  }
-  const classroomsList = classrooms.length
-    ? classrooms.map((c) => `  • ${escapeHtml(c)}`).join("\n")
-    : "  (nėra)";
-
-  const skoolInviteUrl =
-    "https://www.skool.com/ai-studijos-6327/-/about?p=invite";
-  const stripeUrl = `https://dashboard.stripe.com/payments?query=${encodeURIComponent(args.sessionId)}`;
-
   return [
-    `🎉 <b>Naujas pirkimas — ${escapeHtml(tierInfo.shortName)}</b>`,
+    `🎉 <b>Naujas pirkimas</b>`,
     "",
-    `📧 <b>${escapeHtml(args.email)}</b>`,
-    `💰 ${(total / 100).toFixed(0)} €`,
+    `📧 ${escapeHtml(args.email)}`,
     "",
-    `🛒 <b>Pirkti pasiūlymai</b>`,
+    `🛒 <b>Ką pirko</b>`,
     itemsList,
     "",
-    `🎓 <b>Skool — grant access</b>`,
-    classroomsList,
-    "",
-    `👉 <a href="${skoolInviteUrl}">Pridėti į Skool</a>`,
-    `👉 <a href="${stripeUrl}">Peržiūrėti Stripe sesiją</a>`,
+    `💰 <b>Iš viso: ${(total / 100).toFixed(0)} €</b>`,
   ].join("\n");
 }
 
