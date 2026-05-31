@@ -320,7 +320,7 @@ function AboutSection() {
   ];
 
   return (
-    <section className="bg-muted/40 px-4 py-14 sm:px-6 sm:py-20">
+    <section id="apie-mus" className="bg-muted/40 px-4 py-14 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-2xl">
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           Kas mes
