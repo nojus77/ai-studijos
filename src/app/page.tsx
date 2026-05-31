@@ -23,6 +23,7 @@ import { HeroVideo } from "@/components/hero-video";
 import { HighlightedItalic } from "@/components/highlighted-italic";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SkoolJoinPopup } from "@/components/skool-join-popup";
 import {
   Accordion,
   AccordionContent,
@@ -66,6 +67,7 @@ export default function HomePage() {
         <FinalCTASection />
       </main>
       <SiteFooter />
+      <SkoolJoinPopup />
     </>
   );
 }
