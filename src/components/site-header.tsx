@@ -26,8 +26,8 @@ export function SiteHeader() {
 
         {/* Center nav (desktop only) */}
         <nav className="hidden items-center gap-6 text-[13px] font-semibold text-foreground sm:flex">
-          <Link href="/bootcamp" className="hover:opacity-70">
-            Bootcamp
+          <Link href="/dirbtuves" className="hover:opacity-70">
+            Dirbtuvės
           </Link>
           <Link href="/verslui" className="hover:opacity-70">
             Verslui

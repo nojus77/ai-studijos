@@ -12,7 +12,7 @@ interface CTABandProps {
 }
 
 export function CTABand({
-  href = "/bootcamp#kaina",
+  href = "/dirbtuves#kaina",
   label = "Užimti vietą bootcamp 01",
   subtitle = "30 dienų pinigų grąžinimo garantija · 147 €",
   className,

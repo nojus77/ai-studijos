@@ -306,7 +306,7 @@ function NextStepsSection({
         {hasBootcamp ? (
           <div className="mt-8 text-center">
             <Link
-              href="/bootcamp"
+              href="/dirbtuves"
               className={buttonVariants({
                 size: "lg",
                 variant: "outline",
@@ -314,7 +314,7 @@ function NextStepsSection({
                   "h-12 rounded-full px-6 text-sm font-semibold uppercase tracking-wider",
               })}
             >
-              Pamatyti bootcamp programą
+              Pamatyti dirbtuvių programą
             </Link>
           </div>
         ) : null}

@@ -30,7 +30,7 @@ export function SiteFooter() {
               Pilnas AI Asistento Gidas
             </Link>
             <Link
-              href="/bootcamp"
+              href="/dirbtuves"
               className="block text-background/80 hover:text-background"
             >
               Savaitinės AI Dirbtuvės

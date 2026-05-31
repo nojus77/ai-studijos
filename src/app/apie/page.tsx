@@ -218,7 +218,7 @@ function CTASection() {
           jokio programavimo.
         </p>
         <Link
-          href="/bootcamp"
+          href="/dirbtuves"
           className={buttonVariants({
             size: "lg",
             className:

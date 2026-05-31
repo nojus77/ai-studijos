@@ -580,7 +580,7 @@ function InvalidTierState() {
             Į pradžią
           </Link>
           <Link
-            href="/bootcamp"
+            href="/dirbtuves"
             className={buttonVariants({
               size: "lg",
               variant: "outline",
@@ -588,7 +588,7 @@ function InvalidTierState() {
                 "h-12 w-full rounded-full text-sm font-semibold uppercase tracking-wider sm:w-auto sm:px-6",
             })}
           >
-            Pamatyti bootcamp
+            Pamatyti dirbtuves
           </Link>
         </div>
       </Card>
