@@ -28,29 +28,30 @@ export function SkoolJoinPopup(): React.ReactNode {
     // Respect a recent dismissal: skip mounting any triggers at all.
     if (isOnCooldown()) return;
 
-    const target = document.getElementById(TRIGGER_SECTION_ID);
-    if (!target) return;
-
     let fired = false;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (fired) return;
-        // Fire once the user has scrolled enough that 60%+ of the section
-        // has crossed above the viewport — i.e. they've read past the
-        // mid-/bottom of the "Apie mus" block.
-        const ratio = readPastRatio(entry);
-        if (ratio >= TRIGGER_THRESHOLD) {
-          fired = true;
-          setOpen(true);
-          observer.disconnect();
-        }
-      },
-      // Sample at many thresholds so we don't miss the band between 0 and 1.
-      { threshold: Array.from({ length: 21 }, (_, i) => i / 20) },
-    );
-    observer.observe(target);
 
-    return () => observer.disconnect();
+    const check = (): void => {
+      if (fired) return;
+      const target = document.getElementById(TRIGGER_SECTION_ID);
+      if (!target) return;
+      const rect = target.getBoundingClientRect();
+      // Trigger once the bottom edge of the About section is at or above
+      // 60 % of the viewport height — i.e. the user has scrolled far
+      // enough that they've read past the mid-to-bottom of the section.
+      // Simple scroll math beats IntersectionObserver thresholds here
+      // because it's monotonic and easy to reason about on every device.
+      if (rect.bottom <= window.innerHeight * (1 - TRIGGER_THRESHOLD)) {
+        fired = true;
+        setOpen(true);
+        window.removeEventListener("scroll", check);
+      }
+    };
+
+    window.addEventListener("scroll", check, { passive: true });
+    // Initial check in case the user lands deep-linked past the section.
+    check();
+
+    return () => window.removeEventListener("scroll", check);
   }, []);
 
   // Lock body scroll while modal is open so the dialog doesn't move under
@@ -179,20 +180,6 @@ export function SkoolJoinPopup(): React.ReactNode {
       </div>
     </div>
   );
-}
-
-/** How far PAST the viewport top the target's bottom edge has scrolled,
- *  expressed as a fraction of the target's own height. 0 = bottom of the
- *  section sits at the top of the viewport (we've scrolled all the way to
- *  the end of the section). 1 = the whole section is below the viewport
- *  top. Negative values mean the section is still partly below the
- *  viewport top. */
-function readPastRatio(entry: IntersectionObserverEntry): number {
-  const rect = entry.boundingClientRect;
-  if (rect.height <= 0) return 0;
-  // How much of the section has scrolled ABOVE the viewport top.
-  const scrolledAbove = Math.max(0, -rect.top);
-  return Math.min(1, scrolledAbove / rect.height);
 }
 
 function isOnCooldown(): boolean {
