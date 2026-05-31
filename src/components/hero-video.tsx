@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Maximize2, Pause, Play, Volume2, VolumeX } from "lucide-react";
+import { Pause, Play, VolumeX } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -15,14 +15,14 @@ const SPEED_OPTIONS = [1, 1.25, 1.5] as const;
 type Speed = (typeof SPEED_OPTIONS)[number];
 
 /**
- * Hero promo video — autoplays muted on load, tap-to-unmute reveals audio
- * + persistent controls (pause, mute, speed, fullscreen) + progress bar at
- * bottom. If src is missing, renders a tasteful placeholder (no broken state).
+ * Hero promo video — autoplays muted on load, tap-to-unmute rewinds and
+ * starts from 0 with sound. After unmute the only controls are pause
+ * (bottom-left) and a small speed toggle (bottom-right). No mute or
+ * fullscreen — the visitor's choice is "keep watching or pause", not a
+ * full media player. If src is missing, renders a tasteful placeholder.
  */
 export function HeroVideo({ src, poster, className }: HeroVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [muted, setMuted] = useState(true);
   const [paused, setPaused] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -79,7 +79,6 @@ export function HeroVideo({ src, poster, className }: HeroVideoProps) {
       el.muted = false;
       void el.play().catch(() => {});
     }
-    setMuted(false);
     setShowOverlay(false);
     setProgress(0);
   };
@@ -90,23 +89,6 @@ export function HeroVideo({ src, poster, className }: HeroVideoProps) {
     if (!el) return;
     if (el.paused) void el.play().catch(() => {});
     else el.pause();
-  };
-
-  const toggleMute = (e: React.MouseEvent): void => {
-    e.stopPropagation();
-    const el = videoRef.current;
-    if (!el) return;
-    const next = !muted;
-    el.muted = next;
-    setMuted(next);
-  };
-
-  const toggleFullscreen = (e: React.MouseEvent): void => {
-    e.stopPropagation();
-    const el = containerRef.current;
-    if (!el) return;
-    if (document.fullscreenElement) void document.exitFullscreen();
-    else void el.requestFullscreen().catch(() => {});
   };
 
   const cycleSpeed = (e: React.MouseEvent): void => {
@@ -121,7 +103,6 @@ export function HeroVideo({ src, poster, className }: HeroVideoProps) {
 
   return (
     <div
-      ref={containerRef}
       className={cn(
         "group relative w-full overflow-hidden rounded-2xl border border-foreground/10 bg-foreground",
         className,
@@ -170,50 +151,29 @@ export function HeroVideo({ src, poster, className }: HeroVideoProps) {
       {/* Persistent controls after first interaction */}
       {!showOverlay && src ? (
         <>
-          {/* Bottom-left: pause + mute */}
-          <div className="absolute bottom-3 left-3 flex items-center gap-2">
-            <button
-              type="button"
-              onClick={togglePlay}
-              aria-label={paused ? "Paleisti" : "Pauzė"}
-              className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-md transition hover:bg-primary/90"
-            >
-              {paused ? (
-                <Play className="ml-0.5 size-4 fill-current" aria-hidden />
-              ) : (
-                <Pause className="size-4 fill-current" aria-hidden />
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={toggleMute}
-              aria-label={muted ? "Įjungti garsą" : "Išjungti garsą"}
-              className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-md transition hover:bg-primary/90"
-            >
-              {muted ? (
-                <VolumeX className="size-4" aria-hidden />
-              ) : (
-                <Volume2 className="size-4" aria-hidden />
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={cycleSpeed}
-              aria-label={`Greitis ${speedLabel}, paspausk pakeisti`}
-              className="flex h-10 min-w-10 items-center justify-center rounded-lg bg-primary px-2.5 text-xs font-semibold tabular-nums text-primary-foreground shadow-md transition hover:bg-primary/90"
-            >
-              {speedLabel}
-            </button>
-          </div>
-
-          {/* Bottom-right: fullscreen */}
+          {/* Bottom-left: pause only */}
           <button
             type="button"
-            onClick={toggleFullscreen}
-            aria-label="Visas ekranas"
-            className="absolute bottom-3 right-3 flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-md transition hover:bg-primary/90"
+            onClick={togglePlay}
+            aria-label={paused ? "Paleisti" : "Pauzė"}
+            className="absolute bottom-3 left-3 flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-md transition hover:bg-primary/90"
           >
-            <Maximize2 className="size-4" aria-hidden />
+            {paused ? (
+              <Play className="ml-0.5 size-4 fill-current" aria-hidden />
+            ) : (
+              <Pause className="size-4 fill-current" aria-hidden />
+            )}
+          </button>
+
+          {/* Bottom-right: small speed toggle — kept compact so it doesn't
+              compete with the video for attention. */}
+          <button
+            type="button"
+            onClick={cycleSpeed}
+            aria-label={`Greitis ${speedLabel}, paspausk pakeisti`}
+            className="absolute bottom-3 right-3 flex h-7 min-w-9 items-center justify-center rounded-md bg-background/80 px-2 text-[11px] font-semibold tabular-nums text-foreground shadow-sm backdrop-blur-sm transition hover:bg-background"
+          >
+            {speedLabel}
           </button>
 
           {/* Progress bar at the very bottom edge */}
