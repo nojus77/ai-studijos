@@ -430,7 +430,7 @@ function CurriculumGridSection() {
           className="text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-[40px]"
           style={serifStyle}
         >
-          4 savaitės, <HighlightedItalic>4 pamokos.</HighlightedItalic>
+          2 savaitės, <HighlightedItalic>2 pamokos.</HighlightedItalic>
         </h2>
         <p className="mt-3 text-sm text-muted-foreground sm:text-base">
           Kiekvieną savaitę pridedam naują pamoką ant praeitos pagrindo. Prieš
@@ -444,7 +444,6 @@ function CurriculumGridSection() {
               key={w.week}
               className={cn(
                 "rounded-2xl border-border/60 p-5",
-                w.featured && "border-primary bg-primary/5",
               )}
             >
               <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
