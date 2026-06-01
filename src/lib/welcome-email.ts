@@ -57,8 +57,8 @@ export async function sendWelcomeEmail({
   const itemCount = summary.items.length;
   const subject =
     itemCount > 1
-      ? `Ačiū už pirkimą — ${tierInfo.shortName} + ${itemCount - 1} priedas`
-      : `Ačiū už pirkimą — ${tierInfo.shortName}`;
+      ? `Džiaugiamės, kad nusipirkai — ${tierInfo.shortName} + ${itemCount - 1} priedas`
+      : `Džiaugiamės, kad nusipirkai — ${tierInfo.shortName}`;
 
   await resend().emails.send({
     from: `AI Studijos <${fromEmail}>`,
@@ -71,10 +71,13 @@ export async function sendWelcomeEmail({
 
 export function buildWelcomeHtml(summary: PurchaseSummary): string {
   if (!summary.tier) return "";
-  const headline = `Ačiū! Tavo užsakymas patvirtintas.`;
+  const headline = `Džiaugiamės, kad nusipirkai!`;
   const sections: string[] = [];
 
   sections.push(buildOrderListHtml(summary));
+  sections.push(
+    `<p style="font-size:15px;line-height:1.6;">Per valandą laiko gausi prieigą prie visų mokymų bei uždaros mūsų bendruomenės.</p>`,
+  );
 
   if (summary.tier === "kursas") {
     sections.push(buildKursasSectionHtml());
@@ -112,12 +115,14 @@ export function buildWelcomeText(summary: PurchaseSummary): string {
   if (!summary.tier) return "";
 
   const lines: string[] = [
-    "Ačiū! Tavo užsakymas patvirtintas.",
+    "Džiaugiamės, kad nusipirkai!",
     "",
     "Tavo užsakymas:",
     ...summary.items.map(
       (item) => `· ${item.label} — ${(item.amount_cents / 100).toFixed(0)} €`,
     ),
+    "",
+    "Per valandą laiko gausi prieigą prie visų mokymų bei uždaros mūsų bendruomenės.",
     "",
   ];
 
