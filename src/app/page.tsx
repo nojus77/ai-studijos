@@ -52,15 +52,15 @@ export default function HomePage() {
       <main className="flex-1">
         <HeroSection />
         <TimeSavingSection />
-        <PricingTeaserSection />
         <MarketStatsSection />
+        <CommunityProofSection />
+        <PricingTeaserSection />
         <AboutSection />
         <ProductivityStatsSection />
-        <StatsGridSection />
-        <CommunityProofSection />
-        <FeaturePillarsSection />
         <UrgencyIntroSection />
         <PrimaryPricingSection />
+        <StatsGridSection />
+        <FeaturePillarsSection />
         <PersonaSection />
         <GuaranteeSection />
         <FAQSection />
