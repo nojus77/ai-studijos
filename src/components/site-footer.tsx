@@ -35,12 +35,14 @@ export function SiteFooter() {
             >
               Savaitinės AI Dirbtuvės
             </Link>
+            {/* Verslui / Mokymai Komandai hidden for now
             <Link
               href="/verslui"
               className="block text-background/80 hover:text-background"
             >
               Mokymai Komandai
             </Link>
+            */}
           </div>
           <div className="space-y-2">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-background/40">
