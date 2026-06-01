@@ -29,9 +29,11 @@ export function SiteHeader() {
           <Link href="/dirbtuves" className="hover:opacity-70">
             Dirbtuvės
           </Link>
+          {/* Verslui tab hidden for now
           <Link href="/verslui" className="hover:opacity-70">
             Verslui
           </Link>
+          */}
         </nav>
 
         {/* Right: CTA */}
