@@ -104,9 +104,11 @@ export function buildWelcomeHtml(summary: PurchaseSummary): string {
   }
 
   return wrapHtml(`
+    <div style="text-align:center;margin:0 0 20px 0;">
+      <img src="https://aistudijos.lt/email-logo.png" alt="AI Studijos" width="64" height="64" style="display:inline-block;width:64px;height:64px;" />
+    </div>
     <h1 style="font-size:22px;margin:0 0 12px 0;">${headline}</h1>
     ${sections.join("\n")}
-    <p>Jei turi klausimų — atsakyk į šį laišką arba užpildyk <a href="https://aistudijos.lt/kontaktai">kontaktinę formą</a>.</p>
     <p>Iki,<br/>Nojus · AI Studijos</p>
   `);
 }
@@ -164,8 +166,6 @@ export function buildWelcomeText(summary: PurchaseSummary): string {
   }
 
   lines.push(
-    "Klausimai? https://aistudijos.lt/kontaktai",
-    "",
     "Iki,",
     "Nojus · AI Studijos",
   );

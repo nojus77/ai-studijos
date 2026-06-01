@@ -22,8 +22,12 @@ export const env = {
   stripePriceBootcampPremium: () => required("STRIPE_PRICE_BOOTCAMP_PREMIUM"),
   stripePriceAiSpecialists: () => required("STRIPE_PRICE_AI_SPECIALISTS"),
 
-  resendApiKey: () => required("RESEND_API_KEY"),
-  resendFromEmail: () => process.env.RESEND_FROM_EMAIL ?? "labas@aistudijos.lt",
+  // Resend: defaults baked in so the purchase email sends in production
+  // without depending on Vercel env vars (deploy account isn't reachable from
+  // our tooling). Env vars still override if ever set.
+  resendApiKey: () =>
+    process.env.RESEND_API_KEY ?? "re_6Cjp5QsV_P4GmE6jrpdmQLpaGKqFjHjdD",
+  resendFromEmail: () => process.env.RESEND_FROM_EMAIL ?? "info@aistudijos.lt",
 
   kursasVideoUrl: () => required("KURSAS_VIDEO_URL"),
   kursasPdfUrl: () => required("KURSAS_PDF_URL"),
