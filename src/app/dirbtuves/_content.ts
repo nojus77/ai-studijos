@@ -1,10 +1,10 @@
 export const bootcampContent = {
   cohortLabel: "01 laida",
-  startDate: "2026-06-14T19:00:00+03:00",
-  startDateHuman: "birželio 14 d.",
-  startDateFull: "Sekmadienį, birželio 14 d., 19:00",
-  durationLabel: "4 sav.",
-  hoursLabel: "8 val.",
+  startDate: "2026-06-21T19:00:00+03:00",
+  startDateHuman: "birželio 21 d.",
+  startDateFull: "Sekmadienį, birželio 21 d., 19:00",
+  durationLabel: "2 sav.",
+  hoursLabel: "4 val.",
   pricing: {
     standard: {
       label: "Standard",

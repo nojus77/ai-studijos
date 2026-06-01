@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Check, Crown, Mail, Sparkles, X } from "lucide-react";
+import { ArrowRight, Check, Crown, Mail, X } from "lucide-react";
 
 import { Countdown } from "@/components/countdown";
 import { CTABand } from "@/components/cta-band";
@@ -13,7 +13,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -34,16 +33,13 @@ export default function BootcampPage() {
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
-        <DemoVideoSection />
         <LaunchDateSection />
         <AudienceFitSection />
-        <FounderLetterSection />
         <ProblemsSection />
         <LifestyleBenefitsSection />
         <CurriculumGridSection />
         <CurriculumDetailSection />
         <ToolComparisonSection />
-        <PoweredByTeachersSection />
         <PricingSection />
         <GuaranteeSection />
         <TestimonialsSection />
@@ -150,55 +146,6 @@ function StatCard({
         {bottom}
       </p>
     </div>
-  );
-}
-
-/* ───────────────────── 2. Demo Video ───────────────────── */
-
-function DemoVideoSection() {
-  return (
-    <section className="px-4 py-12 sm:px-6 sm:py-16">
-      <div className="mx-auto max-w-2xl">
-        <Badge className="rounded-full bg-primary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary hover:bg-primary/10">
-          Demo
-        </Badge>
-        <h2
-          className="mt-4 text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-4xl"
-          style={serifStyle}
-        >
-          Pažiūrėk kaip atrodo darbas su{" "}
-          <HighlightedItalic>AI asistentu</HighlightedItalic>.
-        </h2>
-        <p className="mt-3 text-sm text-muted-foreground sm:text-base">
-          Trumpas demo iš mano ekrano. Tas pats setup&apos;as, kurį per 4
-          sekmadienius susikursi sau.
-        </p>
-        <div className="mt-6 overflow-hidden rounded-2xl border border-border/60">
-          <div className="relative aspect-video bg-foreground">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <button
-                type="button"
-                aria-label="Paleisti demo"
-                className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:scale-105"
-              >
-                <PlayIcon />
-              </button>
-            </div>
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-background/90 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-foreground">
-              Paleisk su garsu
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function PlayIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="ml-1 size-7">
-      <path d="M8 5v14l11-7z" />
-    </svg>
   );
 }
 
@@ -320,53 +267,6 @@ function FitColumn({
         ))}
       </div>
     </div>
-  );
-}
-
-/* ───────────────────── 5. Founder Letter ───────────────────── */
-
-function FounderLetterSection() {
-  return (
-    <section className="bg-muted/40 px-4 py-14 sm:px-6 sm:py-20">
-      <div className="mx-auto max-w-2xl">
-        <h2
-          className="text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-[40px]"
-          style={serifStyle}
-        >
-          Labas 👋
-        </h2>
-        <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-foreground/90 sm:text-base">
-          {/* TODO: parašyk savo autentišką laišką — kas tu, kodėl statai šitą bootcamp'ą,
-              ką pats sukūrei naudodamas AI, ką gauna studentas po 2 sesijų. Pavyzdinė
-              struktūra: 1) prisistatymas, 2) kodėl pradedi, 3) ką pats jau padarei su AI,
-              4) ko studentas išmoks, 5) kvietimas prisijungti, 6) kontaktinis paragrafas. */}
-          <p className="text-muted-foreground italic">
-            [Placeholder — pakeisk su autentišku laišku savo balsu. Žiūrėk TODO
-            komentarą šaltinio kode dėl rekomenduojamos struktūros.]
-          </p>
-          <p className="text-muted-foreground">
-            Iki {c.startDateFull.toLowerCase()}. Jei iki tol turėsi klausimų —
-            užpildyk{" "}
-            <Link href="/kontaktai" className="underline underline-offset-2">
-              kontaktinę formą
-            </Link>
-            .
-          </p>
-        </div>
-
-        <Card className="mt-8 flex flex-row items-center gap-4 rounded-2xl border-border/60 p-4 sm:p-5">
-          <div className="size-14 shrink-0 rounded-full bg-muted" aria-hidden />
-          <div>
-            <p className="text-base font-semibold leading-tight">
-              {c.founder.name}
-            </p>
-            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              {c.founder.role}
-            </p>
-          </div>
-        </Card>
-      </div>
-    </section>
   );
 }
 
@@ -511,28 +411,15 @@ function CurriculumGridSection() {
   const weeks = [
     {
       week: "Savaitė 1",
-      date: "Bir. 14 d.",
+      date: "Bir. 21 d.",
       title: "Pradžia ir paruošimas.",
       body: "AI asistento įdiegimas tavo kompiuteryje, pagrindiniai prisijungimai ir pirmasis testas.",
     },
     {
       week: "Savaitė 2",
-      date: "Bir. 21 d.",
+      date: "Bir. 28 d.",
       title: "Įgūdžiai.",
       body: "Kas tai yra įgūdis, kaip mokyti asistentą ir kokios paprastos taisyklės.",
-    },
-    {
-      week: "Savaitė 3",
-      date: "Bir. 28 d.",
-      title: "Praktika mažose grupėse.",
-      body: "Automatizuoji savo realų darbą — komanda dirba kartu su tavimi.",
-      featured: true,
-    },
-    {
-      week: "Savaitė 4",
-      date: "Liep. 5 d.",
-      title: "Apžvalga ir tavo klausimai.",
-      body: "Sustipriname įgūdžius, kasdienės gudrybės, ir Nojus atsako į visus tavo klausimus.",
     },
   ];
 
@@ -587,7 +474,7 @@ function CurriculumDetailSection() {
     {
       n: "01",
       title: "Pradžia ir paruošimas",
-      meta: "Bir. 14 d. · Sekmad. · 19:00–20:00",
+      meta: "Bir. 21 d. · Sekmad. · 19:00–20:00",
       tagline: "Pirma „pasakau ir padaro“ akimirka tavo kompiuteryje.",
       result:
         "Tavo asistentas paleistas, prijungtas prie pagrindinių programų ir atsako lietuviškai.",
@@ -605,7 +492,7 @@ function CurriculumDetailSection() {
     {
       n: "02",
       title: "Įgūdžiai",
-      meta: "Bir. 21 d. · Sekmad. · 19:00–20:00",
+      meta: "Bir. 28 d. · Sekmad. · 19:00–20:00",
       tagline: "Tavo asistentas pradeda turėti tikrą profesiją.",
       result:
         "Asistentas turi 2–3 paruoštus įgūdžius, kuriuos naudoji kasdien.",
@@ -618,41 +505,6 @@ function CurriculumDetailSection() {
         "2–3 paruošti įgūdžiai, kurie dirba",
         "Šablonas, kaip kurti naujus įgūdžius savarankiškai",
         "Praktinis homework iki kitos sesijos",
-      ],
-    },
-    {
-      n: "03",
-      title: "Praktika mažose grupėse",
-      meta: "Bir. 28 d. · Sekmad. · 19:00–20:00",
-      tagline: "Mažos breakout grupės — Nojus ir Vilius dirba šalia.",
-      result:
-        "Automatizuotas vienas tavo realus pasikartojantis darbas nuo A iki Z.",
-      will: [
-        "Pasiskirstome į 4–6 žmonių grupes pagal sritis",
-        "Kartu automatizuojame vieną tavo realų darbą",
-        "Sutvarkome edge case&apos;us, kuriuos sutinki",
-      ],
-      take: [
-        "Vienas pilnai automatizuotas darbas",
-        "Patikrinta veikianti sistema",
-        "Pavyzdys, kaip elgtis su kitais panašiais darbais",
-      ],
-    },
-    {
-      n: "04",
-      title: "Apžvalga ir tavo klausimai",
-      meta: "Liep. 5 d. · Sekmad. · 19:00–20:00",
-      tagline: "Užbaigiam viską ir paliekam tave su sistema rankose.",
-      result: "Žinai, ką daryti rytoj, ir turi planą kitiems 3 mėnesiams.",
-      will: [
-        "Pereiname per visus tavo klausimus",
-        "Pasidalinam kasdienėmis gudrybėmis ir nauja įrangos",
-        "Sudėliojam 90 dienų planą, kaip plėsti asistentą",
-      ],
-      take: [
-        "Klausimų listas su atsakymais",
-        "Nauji įgūdžiai ir patarimai",
-        "Konkretus 90 dienų planas",
       ],
     },
   ];
@@ -822,81 +674,6 @@ function ComparisonCard({
       >
         {sublabel}
       </p>
-    </Card>
-  );
-}
-
-/* ───────────────────── 11. Powered By + Teachers ───────────────────── */
-
-function PoweredByTeachersSection() {
-  return (
-    <section className="bg-foreground px-4 py-14 text-background sm:px-6 sm:py-20">
-      <div className="mx-auto max-w-2xl">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-background/70">
-          Veikiam kartu su
-        </p>
-        <p className="mt-2 flex items-center gap-2 text-lg font-semibold">
-          <Sparkles className="size-5 text-primary" aria-hidden />
-          Claude — pažangiausiu AI pasaulyje.
-        </p>
-
-        <div className="my-8 h-px w-full bg-primary/60" />
-
-        <h2
-          className="text-balance text-3xl font-medium leading-[1.1] tracking-tight sm:text-[40px]"
-          style={serifStyle}
-        >
-          Ne vienas mokytojas, o{" "}
-          <HighlightedItalic>dviejų žmonių</HighlightedItalic> komanda.
-        </h2>
-        <p className="mt-3 text-sm leading-relaxed text-background/80 sm:text-base">
-          Kursą vedu aš. Bet visas keturias savaites turi prieigą prie dviejų
-          žmonių, kiekvienas atsakingas už skirtingą dalyką.
-        </p>
-
-        <div className="mt-8 space-y-4">
-          <TeacherBlock
-            role="Mokytojas"
-            name={c.founder.name}
-            body="Veda visas 2 online sesijas ir yra atsakingas už turinį, praktinius pavyzdžius bei kartu kuriamą sistemą. Per pastaruosius metus iš nulio pastatė savo asistentą bei savo verslo procesus aplink jį — be programavimo žinių. Lygiai taip pat mokys ir tave."
-          />
-          <TeacherBlock
-            role="Pagalbos komandoje"
-            name={c.helper.name}
-            body="Pirmoji pagalbos linija grupėje. Atsako į techninius klausimus per 2–6 val. darbo dienomis, o prieš pirmąją sesiją padeda įsitikinti, kad tavo kompiuteryje viskas veikia ir tu nepradėsi kurso pavėluotai."
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TeacherBlock({
-  role,
-  name,
-  body,
-}: {
-  role: string;
-  name: string;
-  body: string;
-}) {
-  return (
-    <Card className="flex flex-col gap-4 rounded-2xl border-background/15 bg-background/10 p-5 text-background sm:flex-row sm:p-6">
-      <div
-        className="size-16 shrink-0 rounded-full bg-background/15"
-        aria-hidden
-      />
-      <div>
-        <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-background/70">
-          {role}
-        </p>
-        <p className="mt-1 text-xl font-medium" style={serifStyle}>
-          {name}
-        </p>
-        <p className="mt-2 text-sm leading-relaxed text-background/85">
-          {body}
-        </p>
-      </div>
     </Card>
   );
 }
