@@ -69,13 +69,10 @@ function buildAlertText(args: TelegramAdminAlertArgs): string {
     .join("\n");
 
   return [
-    `🎉 <b>Naujas pirkimas</b>`,
-    "",
     `📧 ${escapeHtml(args.email)}`,
     "",
     `🛒 <b>Ką pirko</b>`,
     itemsList,
-    "",
     `💰 <b>Iš viso: ${(total / 100).toFixed(0)} €</b>`,
   ].join("\n");
 }
