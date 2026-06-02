@@ -17,7 +17,7 @@ const TIERS: Record<TierSlug, TierInfo> = {
     label: "AI Asistento gidas",
     tagline:
       "Praktinis kursas, kuris išmokys tave naudotis AI asistentu kasdieniame darbe + prieiga į uždarą bendruomenę.",
-    priceEur: 39,
+    priceEur: 47,
     shortName: "Kursas",
   },
   standard: {

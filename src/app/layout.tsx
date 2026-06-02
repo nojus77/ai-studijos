@@ -52,7 +52,7 @@ export const metadata: Metadata = {
         url: "/product.png",
         width: 1536,
         height: 1024,
-        alt: "AI Asistento gidas — 39 €",
+        alt: "AI Asistento gidas — 47 €",
       },
     ],
   },

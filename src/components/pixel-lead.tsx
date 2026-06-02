@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 interface PixelLeadProps {
-  /** Order total in major currency units (EUR), e.g. 39. */
+  /** Order total in major currency units (EUR), e.g. 47. */
   value?: number;
   currency?: string;
 }
@@ -19,7 +19,8 @@ export function PixelLead({ value, currency = "EUR" }: PixelLeadProps) {
   useEffect(() => {
     if (fired.current) return;
     fired.current = true;
-    const params = typeof value === "number" ? { value, currency } : undefined;
+    const params =
+      typeof value === "number" ? { value, currency } : undefined;
     window.fbq?.("track", "Lead", params);
   }, [value, currency]);
 
