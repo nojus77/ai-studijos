@@ -16,6 +16,18 @@ export function SiteFooter() {
             Praktiniai dirbtinio intelekto mokymai lietuviams. Video kursas,
             bootcamp ir mokymai komandai.
           </p>
+          <p className="max-w-xs text-[11px] leading-relaxed text-background/50">
+            Inerci, MB · j. a. k. 307605364
+            <br />
+            Taikos pr. 32A-110, LT-91235 Klaipėda
+            <br />
+            <a
+              href="mailto:nojus@inerci.lt"
+              className="underline underline-offset-2 hover:text-background/80"
+            >
+              nojus@inerci.lt
+            </a>
+          </p>
         </div>
 
         <nav className="grid grid-cols-2 gap-x-10 gap-y-2 text-xs sm:grid-cols-3">

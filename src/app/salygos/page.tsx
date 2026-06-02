@@ -35,6 +35,26 @@ export default function SalygosPage() {
             </p>
           </header>
 
+          <div className="rounded-2xl border border-border bg-muted/40 p-5 leading-relaxed sm:p-6">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+              Pardavėjas
+            </p>
+            <p className="mt-2 font-semibold text-foreground">Inerci, MB</p>
+            <p className="mt-1 text-muted-foreground">
+              Juridinio asmens kodas: 307605364
+              <br />
+              Buveinė: Taikos pr. 32A-110, LT-91235 Klaipėda
+              <br />
+              El. paštas:{" "}
+              <a
+                href="mailto:nojus@inerci.lt"
+                className="underline underline-offset-2"
+              >
+                nojus@inerci.lt
+              </a>
+            </p>
+          </div>
+
           <Section title="1. Paslaugos">
             AI Studijos teikia praktinius dirbtinio intelekto mokymus: video
             kursą („AI Asistento gidas“, 47 €), mėnesinį bootcamp&apos;ą (97 € /
