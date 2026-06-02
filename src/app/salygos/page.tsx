@@ -37,7 +37,7 @@ export default function SalygosPage() {
 
           <Section title="1. Paslaugos">
             AI Studijos teikia praktinius dirbtinio intelekto mokymus: video
-            kursą („AI Asistento gidas“, 47 €), mėnesinį bootcamp&apos;ą (97 € /
+            kursą („AI Asistento gidas“, 39 €), mėnesinį bootcamp&apos;ą (97 € /
             347 €) ir mokymus įmonėms (individuali kaina). Visi mokymai vyksta
             lietuvių kalba.
           </Section>
@@ -62,7 +62,7 @@ export default function SalygosPage() {
             <Link href="/kontaktai" className="underline underline-offset-2">
               kontaktinę formą
             </Link>{" "}
-            ir grąžinsime 100 % sumos — be klausimų. 47 € video kursui taikoma
+            ir grąžinsime 100 % sumos — be klausimų. 39 € video kursui taikoma
             14 dienų pinigų grąžinimo garantija tomis pačiomis sąlygomis.
           </Section>
 

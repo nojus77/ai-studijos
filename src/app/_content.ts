@@ -2,9 +2,9 @@ export const homeContent = {
   product: {
     name: "AI Asistento gidas",
     slug: "kursas",
-    price: 47,
+    price: 39,
     originalPrice: 97,
-    discountLabel: "-51%",
+    discountLabel: "-60%",
   },
   checkoutHref: "/checkout?tier=kursas",
   community: {

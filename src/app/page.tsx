@@ -40,7 +40,7 @@ import { homeContent as c } from "./_content";
 export const metadata: Metadata = {
   title: "AI Studijos · AI Asistento gidas",
   description:
-    "Per 30 minučių išmoksi, kaip AI sutaupo 2 val. kiekvieną dieną. Vienkartinė 47 € investicija — asistentas visam gyvenimui.",
+    "Per 30 minučių išmoksi, kaip AI sutaupo 2 val. kiekvieną dieną. Vienkartinė 39 € investicija — asistentas visam gyvenimui.",
 };
 
 const serifStyle = { fontFamily: "var(--font-serif)" } as const;
@@ -239,7 +239,7 @@ function PricingTeaserSection() {
               <span className="hidden text-[10px] font-bold uppercase leading-tight tracking-wider sm:inline">
                 Sutaupai
                 <br />
-                50 €
+                58 €
               </span>
             </div>
           </div>
@@ -1042,7 +1042,7 @@ function GuaranteeSection() {
 function FAQSection() {
   const faqs = [
     {
-      q: "Ką tiksliai gausiu už 47 €?",
+      q: "Ką tiksliai gausiu už 39 €?",
       a: "Video pamoką (~30 min.) su realiais pavyzdžiais, PDF setup'o gidą (žingsnis po žingsnio), 5 paruoštus AI darbo workflow'us (klientų el. paštai, savaitės ataskaitos, idėjos į planą, klientų pasiūlymai, pasikartojančių darbų automatizavimas), nemokamą prieigą prie AI Studijos Skool bendruomenės ir atnaujinimus amžinai. Vienkartinė kaina.",
     },
     {
