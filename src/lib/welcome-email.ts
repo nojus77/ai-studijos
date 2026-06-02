@@ -60,13 +60,23 @@ export async function sendWelcomeEmail({
       ? `Džiaugiamės, kad nusipirkai — ${tierInfo.shortName} + ${itemCount - 1} priedas`
       : `Džiaugiamės, kad nusipirkai — ${tierInfo.shortName}`;
 
-  await resend().emails.send({
+  // Resend's SDK returns { data, error } and DOES NOT throw on API errors.
+  // We have to surface the error ourselves — otherwise a 403 (unverified
+  // domain, expired key, rate limit, …) just silently swallows the welcome
+  // email, the webhook returns 200, and the buyer thinks the system is
+  // broken. Throw so the webhook's try/catch logs the real reason.
+  const { error } = await resend().emails.send({
     from: `AI Studijos <${fromEmail}>`,
     to: email,
     subject,
     html: buildWelcomeHtml(summary),
     text: buildWelcomeText(summary),
   });
+  if (error) {
+    throw new Error(
+      `Resend send failed: ${error.name} (${error.message ?? "no message"})`,
+    );
+  }
 }
 
 export function buildWelcomeHtml(summary: PurchaseSummary): string {
