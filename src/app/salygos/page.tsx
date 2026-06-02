@@ -41,7 +41,7 @@ export default function SalygosPage() {
             </p>
             <p className="mt-2 font-semibold text-foreground">Inerci, MB</p>
             <p className="mt-1 text-muted-foreground">
-              Juridinio asmens kodas: 307605364
+              Įmonės kodas: 307605364
               <br />
               Buveinė: Taikos pr. 32A-110, LT-91235 Klaipėda
               <br />

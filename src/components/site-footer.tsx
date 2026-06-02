@@ -17,7 +17,7 @@ export function SiteFooter() {
             bootcamp ir mokymai komandai.
           </p>
           <p className="max-w-xs text-[11px] leading-relaxed text-background/50">
-            Inerci, MB · j. a. k. 307605364
+            Inerci, MB · Įmonės kodas 307605364
             <br />
             Taikos pr. 32A-110, LT-91235 Klaipėda
             <br />
