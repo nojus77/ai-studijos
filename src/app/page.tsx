@@ -8,18 +8,20 @@ import {
   Check,
   Clock,
   Lock,
+  Mail,
   MessageSquare,
+  Send,
   Settings2,
   Shield,
   ShieldCheck,
   Sparkles,
   TrendingUp,
   Users,
+  Wand2,
   Zap,
 } from "lucide-react";
 
 import { CTABand } from "@/components/cta-band";
-import { HeroWistia } from "@/components/hero-wistia";
 import { HighlightedItalic } from "@/components/highlighted-italic";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -78,29 +80,115 @@ function HeroSection() {
   return (
     <section className="px-4 pb-12 pt-10 sm:px-6 sm:pt-14">
       <div className="mx-auto max-w-2xl text-center">
-        {/* Strong short headline */}
+        {/* Reworded headline — distinct framing now that the VSL is gone */}
         <h1
           className="text-balance text-[40px] font-extrabold leading-[1.05] tracking-[-0.02em] text-foreground sm:text-[56px] md:text-[64px]"
           style={serifStyle}
         >
-          Tavo{" "}
-          <HighlightedItalic marker={false}>AI asistentas</HighlightedItalic>{" "}
-          per 30 minučių.
+          Leisk <HighlightedItalic>dirbtiniam intelektui</HighlightedItalic>{" "}
+          atlikti nuobodų darbą.
         </h1>
 
-        {/* Smooth low-attention subtitle */}
+        {/* Reworded subtitle */}
         <p className="mx-auto mt-5 max-w-lg text-[15px] leading-[1.6] text-muted-foreground sm:text-base">
-          Rašo el. paštus, daro ataskaitas iš Excel, atlieka tyrimus, planuoja
-          savaitę — ir tai tik pradžia. Grąžina{" "}
+          El. laiškai, ataskaitos iš Excel, tyrimai, savaitės planas — viskas
+          paruošta per kelias sekundes, o ne valandas. Susigrąžink{" "}
           <strong className="font-semibold text-foreground">
-            15+ valandų per savaitę
-          </strong>
-          .
+            15+ valandų kiekvieną savaitę
+          </strong>{" "}
+          ir skirk jas tam, kas iš tiesų svarbu.
         </p>
 
-        {/* Wistia VSL — themed in brand yellow. */}
-        <div className="mt-8">
-          <HeroWistia mediaId="wu5uhpxc6u" />
+        {/* Original "AI asistentas dirba" mock — replaces the removed VSL.
+            Pure JSX, no video/embed: shows the product doing real work. */}
+        <div className="relative mt-8 text-left">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-4 -z-10 rounded-[28px] bg-primary/15 blur-2xl"
+          />
+          <Card className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-xl shadow-black/5">
+            {/* Window header */}
+            <div className="flex items-center gap-2 border-b border-border/60 bg-muted/40 px-4 py-3">
+              <span
+                className="size-3 rounded-full bg-foreground/15"
+                aria-hidden
+              />
+              <span
+                className="size-3 rounded-full bg-foreground/15"
+                aria-hidden
+              />
+              <span
+                className="size-3 rounded-full bg-foreground/15"
+                aria-hidden
+              />
+              <div className="ml-2 flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                <Mail className="size-3.5" aria-hidden />
+                <span>Atsakymas klientui</span>
+              </div>
+              <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-primary/15 px-2 py-0.5 text-[11px] font-semibold text-primary-foreground">
+                <Sparkles className="size-3" aria-hidden />
+                AI
+              </span>
+            </div>
+
+            {/* Prompt input bar */}
+            <div className="px-4 pt-4">
+              <div className="flex items-center gap-2 rounded-xl border border-border bg-background px-3 py-2.5">
+                <Wand2
+                  className="size-4 shrink-0 text-primary-foreground/70"
+                  aria-hidden
+                />
+                <span className="flex-1 truncate text-[13px] text-foreground sm:text-sm">
+                  Parašyk mandagų atsakymą klientui, kuris klausia apie
+                  pristatymo terminą…
+                </span>
+                <span className="inline-flex size-7 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                  <Send className="size-3.5" aria-hidden />
+                </span>
+              </div>
+
+              {/* Context chips */}
+              <div className="mt-3 flex flex-wrap items-center gap-1.5">
+                <span className="inline-flex items-center gap-1 rounded-full border border-border bg-muted/50 px-2.5 py-1 text-[11px] font-medium text-muted-foreground">
+                  <MessageSquare className="size-3" aria-hidden /> Tonas:
+                  profesionalus
+                </span>
+                <span className="inline-flex items-center gap-1 rounded-full border border-border bg-muted/50 px-2.5 py-1 text-[11px] font-medium text-muted-foreground">
+                  Kalba: lietuvių
+                </span>
+                <span className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/15 px-2.5 py-1 text-[11px] font-semibold text-primary-foreground">
+                  <Clock className="size-3" aria-hidden /> ~30 sek.
+                </span>
+              </div>
+            </div>
+
+            {/* Generated reply */}
+            <div className="px-4 pb-4 pt-3">
+              <div className="rounded-xl border-l-2 border-primary bg-muted/30 px-4 py-3">
+                <div className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  <Sparkles
+                    className="size-3 text-primary-foreground/80"
+                    aria-hidden
+                  />
+                  AI paruošė atsakymą
+                </div>
+                <p className="text-[13px] leading-relaxed text-foreground sm:text-sm">
+                  Laba diena, dėkojame, kad kreipėtės. Jūsų užsakymą išsiųsime
+                  per 2–3 darbo dienas ir el. paštu atsiųsime sekimo numerį, kai
+                  siunta bus perduota kurjeriui. Jei turėtumėte papildomų
+                  klausimų — mielai padėsime.
+                </p>
+                <div className="mt-3 flex items-center justify-between border-t border-border/60 pt-2.5">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-medium text-primary-foreground">
+                    <Check className="size-3.5" aria-hidden /> Paruošta išsiųsti
+                  </span>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
+                    <Clock className="size-3" aria-hidden /> Sutaupyta ~12 min.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Card>
         </div>
 
         {/* Primary CTA */}
