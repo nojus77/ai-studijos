@@ -27,9 +27,7 @@ export async function sendTelegramAdminAlert(
   const token = process.env.TELEGRAM_BOT_TOKEN || DEFAULT_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_ADMIN_CHAT_ID || DEFAULT_CHAT_ID;
   if (!token || !chatId) {
-    console.warn(
-      "[telegram] no bot token or chat id — skipping admin alert",
-    );
+    console.warn("[telegram] no bot token or chat id — skipping admin alert");
     return;
   }
 
@@ -56,6 +54,54 @@ export async function sendTelegramAdminAlert(
       response.status,
       body.slice(0, 300),
     );
+  }
+}
+
+/**
+ * Low-level Telegram sender used by scheduled reports (daily analytics digest).
+ * Defaults to the same @aistudijos_bot + leads chat as purchase alerts; pass a
+ * chatId (or set TELEGRAM_REPORT_CHAT_ID) to route reports to a separate group.
+ * Returns false on failure instead of throwing — a missed report must never
+ * crash a cron.
+ */
+export async function sendTelegramMessage(
+  text: string,
+  chatId?: string,
+): Promise<boolean> {
+  const token = process.env.TELEGRAM_BOT_TOKEN || DEFAULT_BOT_TOKEN;
+  const dest = chatId || process.env.TELEGRAM_ADMIN_CHAT_ID || DEFAULT_CHAT_ID;
+  if (!token || !dest) {
+    console.warn("[telegram] no bot token or chat id — skipping message");
+    return false;
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.telegram.org/bot${token}/sendMessage`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: dest,
+          text,
+          parse_mode: "HTML",
+          disable_web_page_preview: true,
+        }),
+      },
+    );
+    if (!response.ok) {
+      const body = await response.text().catch(() => "");
+      console.error(
+        "[telegram] sendMessage failed",
+        response.status,
+        body.slice(0, 300),
+      );
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error("[telegram] sendMessage threw", error);
+    return false;
   }
 }
 
