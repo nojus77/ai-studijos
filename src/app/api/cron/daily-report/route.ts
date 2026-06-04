@@ -20,8 +20,13 @@ export async function GET(request: Request): Promise<Response> {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  // ?dry=1 renders the report and returns it without sending to Telegram —
+  // for previewing/debugging (still behind CRON_SECRET when set).
+  const dry = new URL(request.url).searchParams.get("dry") === "1";
+
   try {
     const text = await buildDailyReport();
+    if (dry) return NextResponse.json({ report: text });
     const ok = await sendTelegramMessage(
       text,
       process.env.TELEGRAM_REPORT_CHAT_ID || undefined,
