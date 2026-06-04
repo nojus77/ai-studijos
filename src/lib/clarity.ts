@@ -216,3 +216,33 @@ export function topReferrers(metrics: ClarityMetric[]): SourceCount[] {
     .map(([source, sessions]) => ({ source, sessions }))
     .sort((a, b) => b.sessions - a.sessions);
 }
+
+export interface FrustrationSummary {
+  deadClicksPct: number;
+  rageClicksPct: number;
+  quickBacksPct: number;
+  jsErrorsPct: number;
+  excessiveScrollPct: number;
+}
+
+/**
+ * Frustration signals — the "what's broken" metrics. Each metric row carries
+ * `sessionsWithMetricPercentage` (% of sessions that hit it). These surface
+ * where a funnel leaks: dead clicks on a non-button, rage clicks, quick-backs
+ * (instant bounce), JS errors.
+ */
+export function summarizeFrustration(
+  metrics: ClarityMetric[],
+): FrustrationSummary {
+  const pctOf = (name: string): number => {
+    const row = findMetric(metrics, name)?.information?.[0];
+    return row ? pick(row, ["sessionsWithMetricPercentage"]) : 0;
+  };
+  return {
+    deadClicksPct: pctOf("deadclick"),
+    rageClicksPct: pctOf("rageclick"),
+    quickBacksPct: pctOf("quickback"),
+    jsErrorsPct: Math.max(pctOf("scripterror"), pctOf("errorclick")),
+    excessiveScrollPct: pctOf("excessivescroll"),
+  };
+}

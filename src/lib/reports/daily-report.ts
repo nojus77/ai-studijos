@@ -3,6 +3,7 @@ import {
   pathVisits,
   popularPages,
   summarizeEngagement,
+  summarizeFrustration,
   summarizeTraffic,
   topReferrers,
 } from "@/lib/clarity";
@@ -96,6 +97,7 @@ export async function buildDailyReport(
   const eng = clarity ? summarizeEngagement(clarity) : null;
   const pages = clarity ? popularPages(clarity) : [];
   const sources = clarity ? topReferrers(clarity).slice(0, 4) : [];
+  const frustration = clarity ? summarizeFrustration(clarity) : null;
   const humanSessions = traffic
     ? Math.max(0, traffic.sessions - traffic.botSessions)
     : 0;
@@ -160,6 +162,18 @@ export async function buildDailyReport(
       lines.push(
         `• Top šaltiniai: ${sources.map((s) => `${esc(s.source)} (${s.sessions})`).join(" · ")}`,
       );
+    const frus: string[] = [];
+    if (frustration) {
+      if (frustration.deadClicksPct > 0)
+        frus.push(`dead clicks ${frustration.deadClicksPct.toFixed(1)}%`);
+      if (frustration.rageClicksPct > 0)
+        frus.push(`rage ${frustration.rageClicksPct.toFixed(1)}%`);
+      if (frustration.quickBacksPct > 0)
+        frus.push(`quick-backs ${frustration.quickBacksPct.toFixed(1)}%`);
+      if (frustration.jsErrorsPct > 0)
+        frus.push(`JS klaidos ${frustration.jsErrorsPct.toFixed(1)}%`);
+    }
+    if (frus.length) lines.push(`• ⚠️ Frustracija: ${frus.join(" · ")}`);
     lines.push("");
   } else {
     lines.push(
@@ -182,6 +196,8 @@ export async function buildDailyReport(
     landing: clarityOn ? landing : 0,
     checkoutReached: clarityOn ? checkoutReached : 0,
     topSource: sources[0],
+    frustration,
+    scrollDepthPct: eng?.scrollDepthPct,
   });
   if (insights.length) {
     lines.push(`📈 <b>Įžvalgos</b>`);
@@ -197,9 +213,17 @@ function buildInsights(args: {
   landing: number;
   checkoutReached: number;
   topSource?: { source: string; sessions: number };
+  frustration?: {
+    deadClicksPct: number;
+    rageClicksPct: number;
+    quickBacksPct: number;
+    jsErrorsPct: number;
+  } | null;
+  scrollDepthPct?: number;
 }): string[] {
   const out: string[] = [];
 
+  // Funnel
   if (args.checkoutReached >= 3 && args.purchases === 0)
     out.push(
       `🔴 ${args.checkoutReached} pasiekė checkout, bet 0 pirkimų — checkout puslapyje kažkas stabdo (kaina? mokėjimas?).`,
@@ -209,6 +233,37 @@ function buildInsights(args: {
       `🟡 ${args.landing} landing sesijų, bet tik ${args.checkoutReached} pasiekė checkout — landinge silpnas CTA / pasiūlymas.`,
     );
 
+  // Frustration — the "what's broken" signals
+  const f = args.frustration;
+  if (f) {
+    if (f.jsErrorsPct >= 5)
+      out.push(
+        `🔴 JS klaidos ${f.jsErrorsPct.toFixed(1)}% sesijų — kažkas lūžta naršyklėje, gali stabdyti pirkimą.`,
+      );
+    if (f.deadClicksPct >= 10)
+      out.push(
+        `🟡 Dead clicks ${f.deadClicksPct.toFixed(1)}% — spaudžia tai, kas neveikia kaip mygtukas (Recordings parodys ką).`,
+      );
+    if (f.rageClicksPct >= 5)
+      out.push(
+        `🟡 Rage clicks ${f.rageClicksPct.toFixed(1)}% — nervingas spaudymas, kažkas neaišku ar lėta.`,
+      );
+    if (f.quickBacksPct >= 30)
+      out.push(
+        `🟡 Quick-backs ${f.quickBacksPct.toFixed(1)}% — daug iškart grįžta, landing ≠ reklamos pažadui.`,
+      );
+  }
+
+  if (
+    args.scrollDepthPct != null &&
+    args.scrollDepthPct < 35 &&
+    args.landing >= 20
+  )
+    out.push(
+      `🟡 Scroll tik ${args.scrollDepthPct.toFixed(0)}% — pagrindinė vertė / CTA per žemai, pakelk aukščiau.`,
+    );
+
+  // Trend
   if (args.purchases > args.prevPurchases)
     out.push(
       `🟢 Konversijos kyla — ${args.prevPurchases} → ${args.purchases} pirkimai.`,
