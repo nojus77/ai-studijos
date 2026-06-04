@@ -91,6 +91,7 @@ export async function buildDailyReport(
   };
 
   // ── Traffic / behaviour / funnel (Clarity, 24h, single call) ──
+  const clarityConfigured = Boolean(process.env.CLARITY_API_TOKEN);
   const clarity = await fetchClarityInsights(1);
   const clarityOn = clarity != null;
   const traffic = clarity ? summarizeTraffic(clarity) : null;
@@ -174,6 +175,11 @@ export async function buildDailyReport(
         frus.push(`JS klaidos ${frustration.jsErrorsPct.toFixed(1)}%`);
     }
     if (frus.length) lines.push(`• ⚠️ Frustracija: ${frus.join(" · ")}`);
+    lines.push("");
+  } else if (clarityConfigured) {
+    lines.push(
+      `⏱ <b>Clarity:</b> laikinai nepasiekiamas (dienos API limitas 10 užklausų ar klaida). Įprastai cron'as naudoja 1/dieną — rytojaus ataskaita rodys srautą.`,
+    );
     lines.push("");
   } else {
     lines.push(
