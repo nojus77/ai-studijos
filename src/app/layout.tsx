@@ -5,6 +5,7 @@ import {
   Plus_Jakarta_Sans,
 } from "next/font/google";
 
+import { Clarity } from "@/components/clarity";
 import { MetaPixel } from "@/components/meta-pixel";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -83,6 +84,7 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-background text-foreground flex flex-col">
         <MetaPixel />
+        <Clarity />
         {children}
         <Toaster richColors position="top-center" />
       </body>
