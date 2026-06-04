@@ -2,10 +2,17 @@
 // Docs: https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-data-export-api
 //
 // GET project-live-insights returns aggregated dashboard metrics for the last
-// `numOfDays` (1-3), optionally broken down by up to 3 dimensions. Auth is a
-// JWT token generated in Clarity → Settings → Data Export → Generate new API
-// token. Hard limits: 10 requests / project / day, max 3 days of data, 1000
-// rows, no pagination. The API returns values in UTC.
+// `numOfDays` (1-3). A single call (no dimensions) already returns every metric
+// we need — Traffic, ScrollDepth, EngagementTime, PopularPages, ReferrerUrl —
+// so the daily report makes just one request (well within the 10/day limit).
+// Auth is a JWT token from Clarity → Settings → Data Export. Values are UTC.
+//
+// Verified response shapes (2026-06):
+//   Traffic        → [{ totalSessionCount, totalBotSessionCount, distinctUserCount, pagesPerSessionPercentage }]
+//   ScrollDepth    → [{ averageScrollDepth }]
+//   EngagementTime → [{ totalTime, activeTime }]            (seconds)
+//   PopularPages   → [{ url, visitsCount }, ...]
+//   ReferrerUrl    → [{ name, sessionsCount }, ...]         (name null = direct)
 
 const CLARITY_ENDPOINT =
   "https://www.clarity.ms/export-data/api/v1/project-live-insights";
@@ -23,15 +30,13 @@ export type ClarityDimension =
 
 export interface ClarityMetric {
   metricName: string;
-  information: Array<Record<string, string | number>>;
+  information: Array<Record<string, string | number | null>>;
 }
 
 /**
  * Raw fetch of Clarity insights. Returns null when no token is configured or
  * on any error — the daily report degrades gracefully (Stripe conversions
- * still send). Field names in the response are inconsistent across metrics
- * (e.g. "distantUserCount", "PagesPerSessionPercentage"), so all extraction
- * below is defensive.
+ * still send).
  */
 export async function fetchClarityInsights(
   numOfDays: 1 | 2 | 3,
@@ -64,7 +69,7 @@ export async function fetchClarityInsights(
   }
 }
 
-// ───────────────────── defensive extractors ─────────────────────
+// ───────────────────── extractors ─────────────────────
 
 const toNum = (v: unknown): number => {
   const n = typeof v === "number" ? v : parseFloat(String(v ?? ""));
@@ -72,7 +77,10 @@ const toNum = (v: unknown): number => {
 };
 
 /** First field whose (case-insensitive) name matches one of `keys`. */
-const pick = (row: Record<string, unknown>, keys: string[]): number => {
+const pick = (
+  row: Record<string, string | number | null>,
+  keys: string[],
+): number => {
   const wanted = keys.map((k) => k.toLowerCase());
   for (const k of Object.keys(row)) {
     if (wanted.includes(k.toLowerCase())) return toNum(row[k]);
@@ -80,7 +88,7 @@ const pick = (row: Record<string, unknown>, keys: string[]): number => {
   return 0;
 };
 
-export function findMetric(
+function findMetric(
   metrics: ClarityMetric[],
   nameSubstr: string,
 ): ClarityMetric | undefined {
@@ -97,57 +105,13 @@ export interface TrafficSummary {
 }
 
 export function summarizeTraffic(metrics: ClarityMetric[]): TrafficSummary {
-  const rows = findMetric(metrics, "traffic")?.information ?? [];
-  let sessions = 0;
-  let botSessions = 0;
-  let users = 0;
-  for (const row of rows) {
-    sessions += pick(row, ["totalSessionCount", "sessionCount"]);
-    botSessions += pick(row, ["totalBotSessionCount", "botSessionCount"]);
-    users += pick(row, ["distinctUserCount", "distantUserCount", "userCount"]);
-  }
-  return { sessions, botSessions, users };
-}
-
-export interface DimCount {
-  name: string;
-  sessions: number;
-}
-
-/** Sessions per value of a dimension (e.g. Source) — sorted desc. */
-export function summarizeByDimension(
-  metrics: ClarityMetric[],
-  dimKey: string,
-): DimCount[] {
-  const rows = findMetric(metrics, "traffic")?.information ?? [];
-  return rows
-    .map((row) => {
-      const nameKey = Object.keys(row).find(
-        (k) => k.toLowerCase() === dimKey.toLowerCase(),
-      );
-      const name = nameKey ? String(row[nameKey]) : "—";
-      return { name: name || "—", sessions: pick(row, ["totalSessionCount"]) };
-    })
-    .sort((a, b) => b.sessions - a.sessions);
-}
-
-/** Top pages by visit count, from the Popular Pages / Page Title metric. */
-export function summarizePopularPages(metrics: ClarityMetric[]): DimCount[] {
-  const rows =
-    (findMetric(metrics, "popular") ?? findMetric(metrics, "pagetitle"))
-      ?.information ?? [];
-  return rows
-    .map((row) => {
-      let name = "—";
-      let visits = 0;
-      for (const [k, v] of Object.entries(row)) {
-        if (typeof v === "string" && !/^\d+(\.\d+)?$/.test(v)) name = v;
-        else visits = Math.max(visits, toNum(v));
-        void k;
-      }
-      return { name, sessions: visits };
-    })
-    .sort((a, b) => b.sessions - a.sessions);
+  const row = findMetric(metrics, "traffic")?.information?.[0];
+  if (!row) return { sessions: 0, botSessions: 0, users: 0 };
+  return {
+    sessions: pick(row, ["totalSessionCount", "sessionCount"]),
+    botSessions: pick(row, ["totalBotSessionCount", "botSessionCount"]),
+    users: pick(row, ["distinctUserCount", "distantUserCount", "userCount"]),
+  };
 }
 
 export interface EngagementSummary {
@@ -163,50 +127,92 @@ export function summarizeEngagement(
 ): EngagementSummary {
   const out: EngagementSummary = {};
 
-  const engRow = (
-    findMetric(metrics, "engagement") ?? findMetric(metrics, "time")
-  )?.information?.[0];
+  const engRow = findMetric(metrics, "engagementtime")?.information?.[0];
   if (engRow) {
-    const active = pick(engRow, [
-      "activeTime",
-      "averageActiveTime",
-      "averageEngagementTime",
-      "engagementTime",
-    ]);
+    const active = pick(engRow, ["activeTime", "averageActiveTime"]);
     const total = pick(engRow, ["totalTime", "averageTotalTime"]);
     if (active > 0) out.activeTimeSec = msToSec(active);
     if (total > 0) out.totalTimeSec = msToSec(total);
-    // Fallback: if no named field matched, take the largest numeric field.
-    if (!out.activeTimeSec && !out.totalTimeSec) {
-      const v = Math.max(0, ...Object.values(engRow).map(toNum));
-      if (v > 0) out.activeTimeSec = msToSec(v);
-    }
   }
 
-  const scrollRow = findMetric(metrics, "scroll")?.information?.[0];
+  const scrollRow = findMetric(metrics, "scrolldepth")?.information?.[0];
   if (scrollRow) {
-    const v =
-      pick(scrollRow, ["averageScrollDepth", "scrollDepth"]) ||
-      Math.max(0, ...Object.values(scrollRow).map(toNum));
+    const v = pick(scrollRow, ["averageScrollDepth", "scrollDepth"]);
     if (v > 0) out.scrollDepthPct = v <= 1 ? v * 100 : v;
   }
 
   return out;
 }
 
-/** Sessions for URLs whose path passes `pathTest`, summed across rows. Pass a
- *  URL-dimension breakdown (summarizeByDimension(metrics, "URL")). */
-export function sessionsForPath(
-  urlCounts: DimCount[],
+export interface PageVisits {
+  url: string;
+  visits: number;
+}
+
+/** Per-page visit counts from the PopularPages metric ({ url, visitsCount }). */
+export function popularPages(metrics: ClarityMetric[]): PageVisits[] {
+  const rows = findMetric(metrics, "popularpages")?.information ?? [];
+  return rows
+    .map((row) => ({
+      url: String(row.url ?? row.name ?? "—"),
+      visits: pick(row, ["visitsCount", "sessionsCount", "totalSessionCount"]),
+    }))
+    .sort((a, b) => b.visits - a.visits);
+}
+
+/** Total page visits whose URL path passes `pathTest`. */
+export function pathVisits(
+  pages: PageVisits[],
   pathTest: (path: string) => boolean,
 ): number {
-  return urlCounts.reduce((sum, c) => {
-    let path = c.name;
+  return pages.reduce((sum, p) => {
+    let path = p.url;
     try {
-      path = new URL(c.name).pathname;
+      path = new URL(p.url).pathname;
     } catch {
-      // already a path (or a page title) — test as-is
+      // already a path
     }
-    return pathTest(path) ? sum + c.sessions : sum;
+    return pathTest(path) ? sum + p.visits : sum;
   }, 0);
+}
+
+export interface SourceCount {
+  source: string;
+  sessions: number;
+}
+
+/** Collapse a raw referrer into a clean source label. null/own domain → direct. */
+function normalizeReferrer(name: unknown): string {
+  if (!name) return "tiesioginis";
+  let host = String(name);
+  try {
+    host = new URL(String(name)).hostname;
+  } catch {
+    // not a URL — use as-is
+  }
+  host = host
+    .replace(/^www\./, "")
+    .replace(/^m\./, "")
+    .toLowerCase();
+  if (host.includes("facebook") || host.includes("fb.")) return "facebook";
+  if (host.includes("instagram")) return "instagram";
+  if (host.includes("google")) return "google";
+  if (host.includes("bing")) return "bing";
+  if (host.includes("tiktok")) return "tiktok";
+  if (host.includes("youtube") || host.includes("youtu.be")) return "youtube";
+  if (host.includes("aistudijos.lt")) return "tiesioginis";
+  return host || "tiesioginis";
+}
+
+/** Sessions per normalized referrer source, from the ReferrerUrl metric. */
+export function topReferrers(metrics: ClarityMetric[]): SourceCount[] {
+  const rows = findMetric(metrics, "referrer")?.information ?? [];
+  const map = new Map<string, number>();
+  for (const row of rows) {
+    const src = normalizeReferrer(row.name);
+    map.set(src, (map.get(src) ?? 0) + pick(row, ["sessionsCount"]));
+  }
+  return [...map.entries()]
+    .map(([source, sessions]) => ({ source, sessions }))
+    .sort((a, b) => b.sessions - a.sessions);
 }

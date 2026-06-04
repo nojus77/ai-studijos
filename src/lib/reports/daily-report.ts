@@ -1,9 +1,10 @@
 import {
   fetchClarityInsights,
-  sessionsForPath,
-  summarizeByDimension,
+  pathVisits,
+  popularPages,
   summarizeEngagement,
   summarizeTraffic,
+  topReferrers,
 } from "@/lib/clarity";
 import { stripe } from "@/lib/stripe";
 import { getTier, isTierSlug } from "@/lib/tiers";
@@ -57,10 +58,11 @@ async function listPaidSales(sinceUnix: number): Promise<Sale[]> {
 
 /**
  * Daily Telegram report led by the checkout funnel (landing → checkout →
- * purchase, with drop-offs), then behaviour (active time, scroll), traffic
- * sources, and a rolling 7-day conversions summary. Conversions come from
- * Stripe (always available); traffic/behaviour from Clarity (when
- * CLARITY_API_TOKEN is set — otherwise that section degrades to Stripe-only).
+ * purchase, with drop-offs), then behaviour (active/total time, scroll),
+ * traffic sources, and a rolling 7-day conversions summary. Conversions come
+ * from Stripe (always available); traffic/behaviour from Clarity via a single
+ * Data Export call (when CLARITY_API_TOKEN is set — otherwise that section
+ * degrades to Stripe-only).
  */
 export async function buildDailyReport(
   now: Date = new Date(),
@@ -87,27 +89,20 @@ export async function buildDailyReport(
       .join(" · ");
   };
 
-  // ── Traffic / behaviour / funnel (Clarity, 24h) ──
-  const overall = await fetchClarityInsights(1);
-  const bySource = await fetchClarityInsights(1, ["Source"]);
-  const byUrl = await fetchClarityInsights(1, ["URL"]);
-  const clarityOn = overall != null;
-
-  const traffic = overall ? summarizeTraffic(overall) : null;
-  const eng = overall ? summarizeEngagement(overall) : null;
-  const sources = bySource
-    ? summarizeByDimension(bySource, "Source").slice(0, 4)
-    : [];
-  const urlCounts = byUrl ? summarizeByDimension(byUrl, "URL") : [];
+  // ── Traffic / behaviour / funnel (Clarity, 24h, single call) ──
+  const clarity = await fetchClarityInsights(1);
+  const clarityOn = clarity != null;
+  const traffic = clarity ? summarizeTraffic(clarity) : null;
+  const eng = clarity ? summarizeEngagement(clarity) : null;
+  const pages = clarity ? popularPages(clarity) : [];
+  const sources = clarity ? topReferrers(clarity).slice(0, 4) : [];
   const humanSessions = traffic
     ? Math.max(0, traffic.sessions - traffic.botSessions)
     : 0;
 
   const landing =
-    sessionsForPath(urlCounts, (p) => p === "/" || p === "") || humanSessions;
-  const checkoutReached = sessionsForPath(urlCounts, (p) =>
-    p.includes("/checkout"),
-  );
+    pathVisits(pages, (p) => p === "/" || p === "") || humanSessions;
+  const checkoutReached = pathVisits(pages, (p) => p.includes("/checkout"));
 
   // ── Compose ──
   const dateStr = now.toLocaleDateString("lt-LT", {
@@ -163,7 +158,7 @@ export async function buildDailyReport(
     );
     if (sources.length)
       lines.push(
-        `• Top šaltiniai: ${sources.map((s) => `${esc(s.name)} (${s.sessions})`).join(" · ")}`,
+        `• Top šaltiniai: ${sources.map((s) => `${esc(s.source)} (${s.sessions})`).join(" · ")}`,
       );
     lines.push("");
   } else {
@@ -201,16 +196,14 @@ function buildInsights(args: {
   prevPurchases: number;
   landing: number;
   checkoutReached: number;
-  topSource?: { name: string; sessions: number };
+  topSource?: { source: string; sessions: number };
 }): string[] {
   const out: string[] = [];
 
-  // Funnel leak — reached checkout but nobody bought.
   if (args.checkoutReached >= 3 && args.purchases === 0)
     out.push(
       `🔴 ${args.checkoutReached} pasiekė checkout, bet 0 pirkimų — checkout puslapyje kažkas stabdo (kaina? mokėjimas?).`,
     );
-  // Traffic but almost nobody reaches checkout.
   else if (args.landing >= 20 && args.checkoutReached <= 1)
     out.push(
       `🟡 ${args.landing} landing sesijų, bet tik ${args.checkoutReached} pasiekė checkout — landinge silpnas CTA / pasiūlymas.`,
@@ -227,7 +220,7 @@ function buildInsights(args: {
 
   if (args.topSource && args.topSource.sessions > 0)
     out.push(
-      `Daugiausiai srauto: ${esc(args.topSource.name)} (${args.topSource.sessions} sesijos).`,
+      `Daugiausiai srauto: ${esc(args.topSource.source)} (${args.topSource.sessions} sesijos).`,
     );
 
   return out;
