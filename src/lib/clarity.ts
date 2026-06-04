@@ -151,9 +151,12 @@ export function summarizePopularPages(metrics: ClarityMetric[]): DimCount[] {
 }
 
 export interface EngagementSummary {
-  avgTimeSec?: number;
+  activeTimeSec?: number;
+  totalTimeSec?: number;
   scrollDepthPct?: number;
 }
+
+const msToSec = (v: number): number => (v > 6000 ? v / 1000 : v);
 
 export function summarizeEngagement(
   metrics: ClarityMetric[],
@@ -164,16 +167,20 @@ export function summarizeEngagement(
     findMetric(metrics, "engagement") ?? findMetric(metrics, "time")
   )?.information?.[0];
   if (engRow) {
-    const v =
-      pick(engRow, [
-        "activeTime",
-        "totalTime",
-        "averageEngagementTime",
-        "engagementTime",
-      ]) || Math.max(0, ...Object.values(engRow).map(toNum));
-    // Field units aren't documented; assume seconds, fall back to ms→s if the
-    // value is implausibly large for a per-session average.
-    if (v > 0) out.avgTimeSec = v > 6000 ? v / 1000 : v;
+    const active = pick(engRow, [
+      "activeTime",
+      "averageActiveTime",
+      "averageEngagementTime",
+      "engagementTime",
+    ]);
+    const total = pick(engRow, ["totalTime", "averageTotalTime"]);
+    if (active > 0) out.activeTimeSec = msToSec(active);
+    if (total > 0) out.totalTimeSec = msToSec(total);
+    // Fallback: if no named field matched, take the largest numeric field.
+    if (!out.activeTimeSec && !out.totalTimeSec) {
+      const v = Math.max(0, ...Object.values(engRow).map(toNum));
+      if (v > 0) out.activeTimeSec = msToSec(v);
+    }
   }
 
   const scrollRow = findMetric(metrics, "scroll")?.information?.[0];
@@ -185,4 +192,21 @@ export function summarizeEngagement(
   }
 
   return out;
+}
+
+/** Sessions for URLs whose path passes `pathTest`, summed across rows. Pass a
+ *  URL-dimension breakdown (summarizeByDimension(metrics, "URL")). */
+export function sessionsForPath(
+  urlCounts: DimCount[],
+  pathTest: (path: string) => boolean,
+): number {
+  return urlCounts.reduce((sum, c) => {
+    let path = c.name;
+    try {
+      path = new URL(c.name).pathname;
+    } catch {
+      // already a path (or a page title) — test as-is
+    }
+    return pathTest(path) ? sum + c.sessions : sum;
+  }, 0);
 }
