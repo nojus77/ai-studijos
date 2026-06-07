@@ -9,7 +9,7 @@ import {
   EmbeddedCheckout,
   EmbeddedCheckoutProvider,
 } from "@stripe/react-stripe-js";
-import { Check, ChevronDown } from "lucide-react";
+import { Check, ChevronDown, Lock, ShieldCheck, X } from "lucide-react";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -79,6 +79,8 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
   const allowDiscount = tier === "kursas";
   const [discountUnlocked, setDiscountUnlocked] = useState(false);
   const [discountEmail, setDiscountEmail] = useState("");
+  const [discountModalOpen, setDiscountModalOpen] = useState(true);
+  const [productExpanded, setProductExpanded] = useState(false);
 
   // Running total is rendered inside the Stripe embedded panel, so we don't
   // compute it here anymore.
@@ -145,6 +147,18 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
 
   return (
     <section className="px-4 py-6 sm:px-6 sm:py-8">
+      {allowDiscount && discountModalOpen && !discountUnlocked ? (
+        <DiscountModal
+          originalPrice={tierInfo.priceEur}
+          finalPrice={tierInfo.priceEur - 21}
+          onUnlock={(submittedEmail) => {
+            setDiscountEmail(submittedEmail);
+            setDiscountUnlocked(true);
+            setDiscountModalOpen(false);
+          }}
+          onDismiss={() => setDiscountModalOpen(false)}
+        />
+      ) : null}
       <div className="mx-auto max-w-2xl">
         {allowDiscount ? (
           <DiscountBox
@@ -159,47 +173,80 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
         ) : null}
 
         {/* Product summary */}
-        <div className="flex items-center justify-between gap-3 rounded-xl border border-border/60 bg-card px-4 py-3">
-          <div className="flex min-w-0 items-center gap-3">
-            {tier === "kursas" ? (
-              <div className="size-10 shrink-0 overflow-hidden rounded-lg bg-muted">
-                <Image
-                  src="/product.png"
-                  alt=""
-                  width={1536}
-                  height={1024}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            ) : (
-              <span
-                aria-hidden
-                className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary text-[11px] font-bold text-primary-foreground"
-              >
-                AI
-              </span>
-            )}
-            <div className="min-w-0">
-              <p className="truncate text-sm font-semibold sm:text-base">
-                {tierInfo.label}
-              </p>
-              <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground sm:text-xs">
-                {tierInfo.tagline}
-              </p>
-            </div>
-          </div>
-          <span className="shrink-0 text-base font-semibold leading-none text-foreground sm:text-lg">
-            {discountUnlocked ? (
-              <>
-                <span className="mr-1.5 align-middle text-sm font-normal text-muted-foreground line-through">
-                  {tierInfo.priceEur} €
+        <div className="overflow-hidden rounded-xl border border-border/60 bg-card">
+          <div className="flex items-center justify-between gap-3 px-4 py-3">
+            <div className="flex min-w-0 items-center gap-3">
+              {tier === "kursas" ? (
+                <div className="size-10 shrink-0 overflow-hidden rounded-lg bg-muted">
+                  <Image
+                    src="/product.png"
+                    alt=""
+                    width={1536}
+                    height={1024}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              ) : (
+                <span
+                  aria-hidden
+                  className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary text-[11px] font-bold text-primary-foreground"
+                >
+                  AI
                 </span>
-                {tierInfo.priceEur - 21} €
-              </>
-            ) : (
-              <>{tierInfo.priceEur} €</>
-            )}
-          </span>
+              )}
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold sm:text-base">
+                  {tierInfo.label}
+                </p>
+                <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground sm:text-xs">
+                  {tierInfo.tagline}
+                </p>
+              </div>
+            </div>
+            <span className="shrink-0 text-base font-semibold leading-none text-foreground sm:text-lg">
+              {discountUnlocked ? (
+                <>
+                  <span className="mr-1.5 align-middle text-sm font-normal text-muted-foreground line-through">
+                    {tierInfo.priceEur} €
+                  </span>
+                  {tierInfo.priceEur - 21} €
+                </>
+              ) : (
+                <>{tierInfo.priceEur} €</>
+              )}
+            </span>
+          </div>
+          {tier === "kursas" ? (
+            <>
+              <button
+                type="button"
+                onClick={() => setProductExpanded((v) => !v)}
+                aria-expanded={productExpanded}
+                className="flex w-full items-center justify-center gap-1 border-t border-border/40 bg-muted/30 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+              >
+                {productExpanded ? "Sutraukti" : "Kas įeina?"}
+                <ChevronDown
+                  className={cn(
+                    "size-3 transition-transform",
+                    productExpanded && "rotate-180",
+                  )}
+                />
+              </button>
+              {productExpanded ? (
+                <ul className="space-y-1.5 border-t border-border/40 bg-muted/20 px-4 py-3 text-[12px] leading-snug text-foreground/80">
+                  {KURSAS_DETAILS.map((item) => (
+                    <li key={item} className="flex gap-2">
+                      <span
+                        aria-hidden
+                        className="mt-1.5 size-1 shrink-0 rounded-full bg-primary"
+                      />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </>
+          ) : null}
         </div>
 
         {/* Stand-alone "80+ used" social proof — sits between product card
@@ -283,6 +330,16 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
         {/* Stripe Embedded Checkout. Stripe shows the running total inside
             its own panel, so we don't repeat an "Iš viso" row above it. */}
         <div className="mt-6">
+          <div className="mb-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-[12px] text-muted-foreground sm:text-[13px]">
+            <span className="inline-flex items-center gap-1.5">
+              <ShieldCheck className="size-4 text-emerald-600 dark:text-emerald-400" />
+              14 dienų pinigų grąžinimo garantija
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Lock className="size-3.5" />
+              Saugus mokėjimas
+            </span>
+          </div>
           <p className="mb-3 flex items-center justify-center gap-2 text-center text-[12px] text-muted-foreground sm:text-[13px]">
             <span
               aria-hidden
@@ -368,6 +425,114 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
         </p>
       </div>
     </section>
+  );
+}
+
+// What the base guide includes — shown in the product card "Kas įeina?"
+// expander (people were dead-clicking the card expecting it to expand).
+const KURSAS_DETAILS = [
+  "Video pamoka (~30 min.) su realiais pavyzdžiais",
+  "5 paruošti AI darbo workflow'ai (pilni scenarijai, ne tik promptai)",
+  "PDF setup'o gidas — žingsnis po žingsnio",
+  "Nemokama prieiga prie AI Studijos Skool bendruomenės",
+  "Atnaujinimai amžinai — be papildomų mokesčių",
+];
+
+interface DiscountModalProps {
+  originalPrice: number;
+  finalPrice: number;
+  onUnlock: (email: string) => void;
+  onDismiss: () => void;
+}
+
+function DiscountModal({
+  originalPrice,
+  finalPrice,
+  onUnlock,
+  onDismiss,
+}: DiscountModalProps) {
+  const [email, setEmail] = useState("");
+  const [touched, setTouched] = useState(false);
+  const valid = EMAIL_RE.test(email.trim());
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/60 p-4 backdrop-blur-sm">
+      <div className="relative w-full max-w-md rounded-3xl border border-border bg-card p-6 shadow-2xl sm:p-7">
+        <button
+          type="button"
+          onClick={onDismiss}
+          aria-label="Uždaryti"
+          className="absolute right-3 top-3 flex size-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        >
+          <X className="size-4" />
+        </button>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+          Tik dabar
+        </p>
+        <h2
+          className="mt-2 text-balance text-2xl font-medium leading-tight sm:text-3xl"
+          style={serifStyle}
+        >
+          🎉 Tau pasisekė — papildoma{" "}
+          <span className="text-primary">−45 %</span> nuolaida!
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          Įvesk el. paštą ir gauk momentinį kodą — sumokėsi tik{" "}
+          <strong className="text-foreground">{finalPrice} €</strong> vietoj{" "}
+          <span className="line-through">{originalPrice} €</span>.
+        </p>
+        <form
+          className="mt-4"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setTouched(true);
+            if (valid) onUnlock(email.trim());
+          }}
+        >
+          <input
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="tavo@gmail.com"
+            aria-label="El. paštas nuolaidai"
+            className="h-12 w-full rounded-xl border border-border bg-background px-3.5 text-sm outline-none transition-colors focus:border-primary"
+          />
+          {touched && !valid ? (
+            <p className="mt-1.5 text-xs text-destructive">
+              Įvesk teisingą el. paštą.
+            </p>
+          ) : null}
+          <button
+            type="submit"
+            className={cn(
+              buttonVariants({
+                size: "lg",
+                className:
+                  "mt-3 h-12 w-full rounded-xl text-sm font-semibold uppercase tracking-wider",
+              }),
+            )}
+          >
+            Gauti nuolaidą · {finalPrice} €
+          </button>
+        </form>
+        <button
+          type="button"
+          onClick={onDismiss}
+          className="mt-3 w-full text-center text-[13px] text-muted-foreground underline underline-offset-2 transition-colors hover:text-foreground"
+        >
+          Ne, pirksiu už {originalPrice} €
+        </button>
+      </div>
+    </div>
   );
 }
 
