@@ -74,6 +74,12 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
     aiSpecialists: false,
   });
 
+  // Email-gated discount: enter email → −21 € coupon (47 € → 26 €). Only on the
+  // base guide. The email is captured as a warm lead by the session route.
+  const allowDiscount = tier === "kursas";
+  const [discountUnlocked, setDiscountUnlocked] = useState(false);
+  const [discountEmail, setDiscountEmail] = useState("");
+
   // Running total is rendered inside the Stripe embedded panel, so we don't
   // compute it here anymore.
 
@@ -95,6 +101,8 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
             bootcamp: showBootcampBump ? bumps.bootcamp : null,
             aiSpecialists: bumps.aiSpecialists,
           },
+          discount: discountUnlocked,
+          email: discountUnlocked && discountEmail ? discountEmail : undefined,
         }),
       });
       const data = (await res.json().catch(() => ({}))) as {
@@ -112,7 +120,7 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
     } finally {
       setLoading(false);
     }
-  }, [tier, showBootcampBump, bumps]);
+  }, [tier, showBootcampBump, bumps, discountUnlocked, discountEmail]);
 
   useEffect(() => {
     void fetchSession();
@@ -138,6 +146,18 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
   return (
     <section className="px-4 py-6 sm:px-6 sm:py-8">
       <div className="mx-auto max-w-2xl">
+        {allowDiscount ? (
+          <DiscountBox
+            unlocked={discountUnlocked}
+            originalPrice={tierInfo.priceEur}
+            finalPrice={tierInfo.priceEur - 21}
+            onUnlock={(submittedEmail) => {
+              setDiscountEmail(submittedEmail);
+              setDiscountUnlocked(true);
+            }}
+          />
+        ) : null}
+
         {/* Product summary */}
         <div className="flex items-center justify-between gap-3 rounded-xl border border-border/60 bg-card px-4 py-3">
           <div className="flex min-w-0 items-center gap-3">
@@ -169,7 +189,16 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
             </div>
           </div>
           <span className="shrink-0 text-base font-semibold leading-none text-foreground sm:text-lg">
-            {tierInfo.priceEur} €
+            {discountUnlocked ? (
+              <>
+                <span className="mr-1.5 align-middle text-sm font-normal text-muted-foreground line-through">
+                  {tierInfo.priceEur} €
+                </span>
+                {tierInfo.priceEur - 21} €
+              </>
+            ) : (
+              <>{tierInfo.priceEur} €</>
+            )}
           </span>
         </div>
 
@@ -339,6 +368,91 @@ function CheckoutFlow({ tier }: CheckoutFlowProps) {
         </p>
       </div>
     </section>
+  );
+}
+
+interface DiscountBoxProps {
+  unlocked: boolean;
+  originalPrice: number;
+  finalPrice: number;
+  onUnlock: (email: string) => void;
+}
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function DiscountBox({
+  unlocked,
+  originalPrice,
+  finalPrice,
+  onUnlock,
+}: DiscountBoxProps) {
+  const [email, setEmail] = useState("");
+  const [touched, setTouched] = useState(false);
+  const valid = EMAIL_RE.test(email.trim());
+
+  if (unlocked) {
+    return (
+      <div className="mb-4 flex items-center gap-2.5 rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-4 py-3 text-sm">
+        <Check className="size-5 shrink-0 text-emerald-600 dark:text-emerald-400" />
+        <span>
+          <strong>Nuolaida pritaikyta!</strong> Tavo kaina{" "}
+          <strong>{finalPrice} €</strong>{" "}
+          <span className="text-muted-foreground line-through">
+            {originalPrice} €
+          </span>
+          {" — "}matysi ją apačioje apmokant.
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mb-4 rounded-2xl border-2 border-primary/50 bg-primary/10 p-4 shadow-sm sm:p-5">
+      <p className="text-sm font-bold sm:text-base">
+        🎉 Tau pasisekė — papildoma <span className="text-primary">−45 %</span>{" "}
+        nuolaida!
+      </p>
+      <p className="mt-1 text-[13px] leading-snug text-muted-foreground sm:text-sm">
+        Įvesk el. paštą ir gauk momentinę nuolaidą — galutinė kaina tik{" "}
+        <strong className="text-foreground">{finalPrice} €</strong> (vietoj{" "}
+        {originalPrice} €).
+      </p>
+      <form
+        className="mt-3 flex flex-col gap-2 sm:flex-row"
+        onSubmit={(e) => {
+          e.preventDefault();
+          setTouched(true);
+          if (valid) onUnlock(email.trim());
+        }}
+      >
+        <input
+          type="email"
+          inputMode="email"
+          autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="tavo@gmail.com"
+          aria-label="El. paštas nuolaidai"
+          className="h-11 flex-1 rounded-xl border border-border bg-background px-3.5 text-sm outline-none transition-colors focus:border-primary"
+        />
+        <button
+          type="submit"
+          className={cn(
+            buttonVariants({
+              className:
+                "h-11 shrink-0 rounded-xl px-5 text-sm font-semibold uppercase tracking-wider",
+            }),
+          )}
+        >
+          Gauti nuolaidą
+        </button>
+      </form>
+      {touched && !valid ? (
+        <p className="mt-1.5 text-xs text-destructive">
+          Įvesk teisingą el. paštą.
+        </p>
+      ) : null}
+    </div>
   );
 }
 
