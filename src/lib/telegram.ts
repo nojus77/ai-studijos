@@ -16,6 +16,12 @@ export interface TelegramAdminAlertArgs {
 const DEFAULT_BOT_TOKEN = "8907073581:AAGJiShTl6IF6mj1pyJacASW06QL1Q18B7I";
 const DEFAULT_CHAT_ID = "-5213881524";
 
+// Master kill switch — set to false to silence ALL Telegram output (reports,
+// leads, purchase alerts). Off for now while traffic goes to Skool instead of
+// the funnel. Flip back to true (or set TELEGRAM_ENABLED=true in Vercel) to
+// re-enable.
+const TELEGRAM_ENABLED = process.env.TELEGRAM_ENABLED === "true" ? true : false;
+
 /**
  * Notify the leads chat on every successful purchase. Fails silently if the
  * alert can't be sent — the webhook should never fail a real payment just
@@ -24,6 +30,7 @@ const DEFAULT_CHAT_ID = "-5213881524";
 export async function sendTelegramAdminAlert(
   args: TelegramAdminAlertArgs,
 ): Promise<void> {
+  if (!TELEGRAM_ENABLED) return;
   const token = process.env.TELEGRAM_BOT_TOKEN || DEFAULT_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_ADMIN_CHAT_ID || DEFAULT_CHAT_ID;
   if (!token || !chatId) {
@@ -68,6 +75,7 @@ export async function sendTelegramMessage(
   text: string,
   chatId?: string,
 ): Promise<boolean> {
+  if (!TELEGRAM_ENABLED) return false;
   const token = process.env.TELEGRAM_BOT_TOKEN || DEFAULT_BOT_TOKEN;
   const dest = chatId || process.env.TELEGRAM_ADMIN_CHAT_ID || DEFAULT_CHAT_ID;
   if (!token || !dest) {
